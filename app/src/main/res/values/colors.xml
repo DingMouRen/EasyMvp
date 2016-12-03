@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#F25D8E</color>
+    <color name="colorPrimaryDark">#F25D8E</color>
+    <color name="colorAccent">#F25D8E</color>
+
+    <!--主色-->
+    <color name="main_color">#F25D8E</color>
+
+    <!--倒计时控件背景半透明颜色-->
+    <color name="timer_background_color">#20F25D8E</color>
+    <color name="green">#80D63F</color>
+    <color name="blue">#39E0FF</color>
+</resources>
