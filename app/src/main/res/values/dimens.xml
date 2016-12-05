@@ -2,8 +2,11 @@
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
+    <!--常用dp值-->
     <dimen name="dp_5">5dp</dimen>
     <dimen name="dp_3">3dp</dimen>
+
+
     <dimen name="img_girl_height_200dp">200dp</dimen>
     <dimen name="fab_margin_bottom_60dp">60dp</dimen>
     <!--nav_header图片宽高-->
@@ -12,4 +15,7 @@
     <!--splash页面倒计时的宽高-->
     <dimen name="timer_width">40dp</dimen>
     <dimen name="timer_height">40dp</dimen>
+    <!--相册上下的margin-->
+    <dimen name="gallery_margin">20dp</dimen>
+
 </resources>

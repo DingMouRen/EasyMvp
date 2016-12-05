@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">EasyMvp</string>
+    <string name="gallery">相册</string>
 </resources>

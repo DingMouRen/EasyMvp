@@ -12,6 +12,9 @@ android {
         versionCode 1
         versionName "1.0.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        //启用renderscript 在模糊这块用到了
+        renderscriptTargetApi = 18
+        renderscriptSupportModeEnabled = true
     }
     buildTypes {
         release {

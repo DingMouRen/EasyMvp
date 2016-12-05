@@ -39,7 +39,7 @@ public class SplashActivity extends BaseActivity  {
         setContentView(R.layout.activity_splash);
         ButterKnife.bind(this);
         //初始化倒计时
-        initTimer(30);
+        initTimer(1);
         //播放视频
         playVideo();
 

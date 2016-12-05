@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -16,6 +17,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
+import android.view.MenuItem;
 
 import com.dingmouren.easymvp.R;
 import com.dingmouren.easymvp.base.BaseActivity;
@@ -85,23 +87,27 @@ public class HomeActivity extends BaseActivity implements HomeContract.View{
         mController.addTabItemClickListener(mTabItemListener);
     }
     private void initView() {
+        //列表相关
         mGridLayoutManager = new GridLayoutManager(this,2);
         mHomeAdapter = new HomeAdapter(this);
         mRecycler.setHasFixedSize(true);
         mRecycler.setLayoutManager(mGridLayoutManager);
         mRecycler.setAdapter(mHomeAdapter);
 
+        //侧滑栏相关
+        mNavView.setNavigationItemSelectedListener(mNavgationViewItemSelectedListener);
+
     }
 
     private void initData(){
-        mHomePresenter = createPresenter(this);
+        mHomePresenter = createPresenter();
         setDataRefresh(true);
         mHomePresenter.requestData();
         mHomePresenter.addScrollListener();
     }
 
 
-    public HomePresenter createPresenter(Context context){
+    public HomePresenter createPresenter(){
         return new HomePresenter((HomeContract.View) this);
     }
 
@@ -169,6 +175,23 @@ public class HomeActivity extends BaseActivity implements HomeContract.View{
                 default:
                     break;
             }
+        }
+    };
+
+    //侧滑栏选项的监听
+    NavigationView.OnNavigationItemSelectedListener mNavgationViewItemSelectedListener = new NavigationView.OnNavigationItemSelectedListener() {
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            switch (item.getItemId()){
+                case R.id.item1:
+                    startActivity(new Intent(HomeActivity.this,GalleryActivity.class));
+                    finish();
+                    break;
+
+            }
+            item.setChecked(true);
+            mDrawer.closeDrawers();
+            return true;
         }
     };
 }

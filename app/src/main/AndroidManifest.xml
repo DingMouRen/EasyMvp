@@ -33,7 +33,9 @@
             />
 
         <!--相册-->
-        <activity android:name=".ui.gallery.GalleryActivity"/>
+        <activity android:name=".ui.gallery.GalleryActivity"
+            android:theme="@style/SplashTheme"
+            />
     </application>
 
 </manifest>
