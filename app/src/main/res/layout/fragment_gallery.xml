@@ -15,5 +15,10 @@
         android:layout_marginBottom="@dimen/gallery_margin"
         android:layout_marginTop="?attr/actionBarSize"
         />
-
+    <com.dingmouren.easymvp.view.OWLoadingView
+        android:id="@+id/loading"
+        android:layout_width="@dimen/loading_size"
+        android:layout_height="@dimen/loading_size"
+        android:layout_centerInParent="true"
+        />
 </RelativeLayout>

@@ -22,4 +22,5 @@
         android:background="@color/main_color"
         android:elevation="@dimen/px_1"
         />
+
 </RelativeLayout>

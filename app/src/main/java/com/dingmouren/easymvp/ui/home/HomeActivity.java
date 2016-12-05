@@ -185,7 +185,6 @@ public class HomeActivity extends BaseActivity implements HomeContract.View{
             switch (item.getItemId()){
                 case R.id.item1:
                     startActivity(new Intent(HomeActivity.this,GalleryActivity.class));
-                    finish();
                     break;
 
             }

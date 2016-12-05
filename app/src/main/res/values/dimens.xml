@@ -18,5 +18,7 @@
     <dimen name="timer_height">40dp</dimen>
     <!--相册上下的margin-->
     <dimen name="gallery_margin">20dp</dimen>
+    <!--loaidngview的宽高-->
+    <dimen name="loading_size">100dp</dimen>
 
 </resources>

@@ -70,7 +70,7 @@ public class GalleryPresenter extends GalleryContract.Presenter<GalleryContract.
         ApiManager.getApiInstance().mApiService.getGirlPics(page)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(girlResult -> displayData(girlResult.getResults()),this :: loadError);
+            .subscribe(girlResult ->  displayData(girlResult.getResults()),this :: loadError);
     }
 
     /**
@@ -87,6 +87,7 @@ public class GalleryPresenter extends GalleryContract.Presenter<GalleryContract.
      * @param list
      */
     private void displayData(List<GirlPic> list){
+        mGalleryView.setDataRefresh(true);
         if (list == null){
             return;
         }else {

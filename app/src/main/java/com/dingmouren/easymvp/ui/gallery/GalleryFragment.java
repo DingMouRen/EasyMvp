@@ -1,7 +1,6 @@
 package com.dingmouren.easymvp.ui.gallery;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
@@ -10,15 +9,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.dingmouren.easymvp.R;
 import com.dingmouren.easymvp.base.BaseFragment;
 import com.dingmouren.easymvp.helper.CardScaleHelper;
+import com.dingmouren.easymvp.view.OWLoadingView;
 import com.dingmouren.easymvp.view.SpeedRecyclerView;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * Created by dingmouren on 2016/12/3.
@@ -29,6 +26,7 @@ public class GalleryFragment extends BaseFragment implements GalleryContract.Vie
     Toolbar mToolbar;
     SpeedRecyclerView mRecycler;
     ImageView mBlurImg;
+    OWLoadingView mLoading;
     public LinearLayoutManager mLinearLayoutManager;
     public GalleryAdapter mGalleryAdapter;
     public GalleryPresenter mPresenter;
@@ -39,6 +37,7 @@ public class GalleryFragment extends BaseFragment implements GalleryContract.Vie
         mToolbar = (Toolbar) rootView.findViewById(R.id.toolbar);
         mRecycler = (SpeedRecyclerView) rootView.findViewById(R.id.speed_recycler);
         mBlurImg = (ImageView) rootView.findViewById(R.id.img_blur);
+        mLoading = (OWLoadingView) rootView.findViewById(R.id.loading);
         return rootView;
     }
 
@@ -67,6 +66,7 @@ public class GalleryFragment extends BaseFragment implements GalleryContract.Vie
 
     private void initData() {
         mPresenter = createPresenter();
+        mLoading.startAnim();
         mPresenter.requestData();
         mPresenter.addScrollistener();
     }
@@ -81,7 +81,11 @@ public class GalleryFragment extends BaseFragment implements GalleryContract.Vie
 
     @Override
     public void setDataRefresh(boolean refresh) {
-
+        if (refresh){
+            mLoading.startAnim();
+        }else {
+            mLoading.stopAnim();
+        }
     }
 
     @Override
