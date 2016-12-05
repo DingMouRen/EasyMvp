@@ -34,7 +34,7 @@
 
         <!--相册-->
         <activity android:name=".ui.gallery.GalleryActivity"
-            android:theme="@style/SplashTheme"
+            android:theme="@style/GalleryTheme"
             />
     </application>
 

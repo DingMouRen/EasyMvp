@@ -5,6 +5,7 @@
     <!--常用dp值-->
     <dimen name="dp_5">5dp</dimen>
     <dimen name="dp_3">3dp</dimen>
+    <dimen name="px_1">1px</dimen>
 
 
     <dimen name="img_girl_height_200dp">200dp</dimen>

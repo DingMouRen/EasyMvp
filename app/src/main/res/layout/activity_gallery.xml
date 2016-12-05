@@ -2,17 +2,24 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
-    >
+    android:background="@android:color/white">
     <FrameLayout
         android:id="@+id/frame_gallery"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         />
+
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize">
+        android:layout_height="?attr/actionBarSize"
+        >
     </android.support.v7.widget.Toolbar>
-
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/px_1"
+        android:layout_below="@+id/toolbar"
+        android:background="@color/main_color"
+        android:elevation="@dimen/px_1"
+        />
 </RelativeLayout>

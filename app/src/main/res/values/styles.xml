@@ -14,5 +14,9 @@
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>
     </style>
-
+    <!--相册界面theme-->
+    <style name="GalleryTheme" parent="AppTheme" >
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
 </resources>
