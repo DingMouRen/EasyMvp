@@ -11,7 +11,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.dingmouren.easymvp.R;
 import com.dingmouren.easymvp.bean.GirlPic;
-import com.dingmouren.easymvp.util.SnackbarUtils;
+import com.dingmouren.easymvp.ui.picture.PictureActivity;
 
 import java.util.List;
 
@@ -46,7 +46,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder
     @Override
     public void onBindViewHolder(HomeViewHolder holder, int position) {
         Glide.with(mContext).load(mList.get(position).getUrl()).centerCrop().diskCacheStrategy(DiskCacheStrategy.ALL).placeholder(R.mipmap.place_holder).into(holder.img_girl);//显示美女图片
-        holder.img_girl.setOnClickListener((view -> SnackbarUtils.showSimpleSnackbar(holder.img_girl,"美女被点击了")));
+        holder.img_girl.setOnClickListener((view -> PictureActivity.newInstance(mContext,mList.get(position).getUrl())));
     }
 
     @Override

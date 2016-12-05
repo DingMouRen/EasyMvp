@@ -6,8 +6,6 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.transition.Fade;
-import android.widget.TextView;
 
 import com.dingmouren.easymvp.R;
 import com.dingmouren.easymvp.base.BaseActivity;
@@ -61,7 +59,7 @@ public class SplashActivity extends BaseActivity  {
     private void playVideo() {
         mUri = Uri.parse(VIDEO_PATH);
         mVideoView.playVideo(mUri);
-        mMediaPlayer = MediaPlayer.create(this,R.raw.igotyou);
+        mMediaPlayer = MediaPlayer.create(this,R.raw.redlight);
         mMediaPlayer.start();
         mMediaPlayer.setLooping(true);
     }

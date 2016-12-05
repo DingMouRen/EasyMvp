@@ -12,11 +12,9 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.dingmouren.easymvp.R;
 import com.dingmouren.easymvp.bean.GirlPic;
 import com.dingmouren.easymvp.helper.CardAdapterHelper;
+import com.dingmouren.easymvp.ui.picture.PictureActivity;
 
 import java.util.List;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * Created by dingmouren on 2016/12/3.
@@ -51,6 +49,12 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryV
     public void onBindViewHolder(GalleryViewHolder holder, int position) {
         mCardAdpaterHelper.onBindViewHolder(holder.itemView,position,getItemCount());
         Glide.with(mContext).load(mList.get(position).getUrl()).centerCrop().placeholder(R.mipmap.place_holder).diskCacheStrategy(DiskCacheStrategy.ALL).into(holder.img);
+        holder.img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                PictureActivity.newInstance(mContext,mList.get(position).getUrl());
+            }
+        });
     }
 
     @Override

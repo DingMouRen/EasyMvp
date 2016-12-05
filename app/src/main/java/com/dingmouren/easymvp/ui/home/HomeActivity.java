@@ -1,6 +1,5 @@
 package com.dingmouren.easymvp.ui.home;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -10,18 +9,15 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
 import android.view.MenuItem;
 
 import com.dingmouren.easymvp.R;
 import com.dingmouren.easymvp.base.BaseActivity;
-import com.dingmouren.easymvp.base.BasePresenter;
 import com.dingmouren.easymvp.ui.gallery.GalleryActivity;
 import com.dingmouren.easymvp.util.SnackbarUtils;
 
@@ -46,6 +42,7 @@ public class HomeActivity extends BaseActivity implements HomeContract.View{
     public HomeAdapter mHomeAdapter;
     public HomePresenter mHomePresenter;
     private Controller mController;
+    private ActionBarDrawerToggle mDrawerToggle;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,12 +51,23 @@ public class HomeActivity extends BaseActivity implements HomeContract.View{
         ButterKnife.bind(this);
         //初始化SwipeRefresh的颜色
         setupSwipeRefresh();
+        //初始化toolbar
+        initToolbar();
         //初始化底部导航栏
         setupTabBottom();
         //初始化布局
         initView();
         //初始化数据
         initData();
+    }
+
+    public void initToolbar(){
+        mToolbar.setTitle("");
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        mDrawerToggle = new ActionBarDrawerToggle(this,mDrawer,mToolbar,R.string.drawer_open,R.string.drawer_close);
+        mDrawerToggle.syncState();
     }
 
     private void setupSwipeRefresh() {

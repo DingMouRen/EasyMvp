@@ -63,6 +63,8 @@ dependencies {
     compile 'com.android.support:support-annotations:25.0.1'
     /*底部导航*/
     compile 'me.majiajie:pager-bottom-tab-strip:1.0.0'
+    /*可缩放的view*/
+    compile 'com.github.chrisbanes.photoview:library:1.2.3'
 }
 //数据库版本以及Dao的相关设置
 greendao {
