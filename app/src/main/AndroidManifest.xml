@@ -31,7 +31,9 @@
         <activity android:name=".ui.home.HomeActivity"
             android:screenOrientation="portrait"
             android:launchMode="singleTask"
-            />
+            >
+
+        </activity>
 
         <!--相册-->
         <activity android:name=".ui.gallery.GalleryActivity"
