@@ -4,6 +4,14 @@
     android:layout_height="match_parent"
     android:background="@android:color/white"
     >
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:elevation="@dimen/dp_3"
+        >
+
+    </android.support.v7.widget.Toolbar>
     <ImageView
         android:id="@+id/img_picture"
         android:layout_width="match_parent"
