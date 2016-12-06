@@ -9,7 +9,49 @@
     tools:openDrawer="start"
     tools:context="com.dingmouren.easymvp.ui.home.HomeActivity">
 
-     <include layout="@layout/coordinator_home"/>
+    <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/coordinator"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/appbar_layout_main"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <include layout="@layout/toolbar" />
+
+        </android.support.design.widget.AppBarLayout>
+
+        <FrameLayout
+            android:id="@+id/frame_home_activity"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab_main"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|bottom"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_marginBottom="@dimen/fab_margin_bottom_60dp"
+            app:fabSize="mini"
+            android:src="@mipmap/fab"
+            app:layout_anchor="@id/frame_home_activity"
+            app:layout_anchorGravity="bottom|right"
+            app:layout_behavior="com.dingmouren.easymvp.behavior.HomeFabBehavior"
+            />
+        <me.majiajie.pagerbottomtabstrip.PagerBottomTabLayout
+            android:id="@+id/tab_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            app:layout_behavior="com.dingmouren.easymvp.behavior.HomeTabBottomBehavior"
+            />
+    </android.support.design.widget.CoordinatorLayout>
 
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_view_main"
