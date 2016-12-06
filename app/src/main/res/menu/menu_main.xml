@@ -6,8 +6,8 @@
         android:icon="@android:drawable/ic_menu_gallery"/>
     <item
         android:id="@+id/item2"
-        android:title="item"
-        android:icon="@android:drawable/ic_menu_share"/>
+        android:title="视频"
+        android:icon="@android:drawable/presence_video_away"/>
     <item
         android:id="@+id/item3"
         android:title="item"

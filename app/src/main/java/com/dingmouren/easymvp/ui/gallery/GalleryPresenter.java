@@ -1,37 +1,18 @@
 package com.dingmouren.easymvp.ui.gallery;
 
-import android.annotation.TargetApi;
-import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.os.Build;
 import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v8.renderscript.Allocation;
-import android.support.v8.renderscript.Element;
-import android.support.v8.renderscript.RenderScript;
-import android.support.v8.renderscript.ScriptIntrinsicBlur;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.animation.GlideAnimation;
-import com.bumptech.glide.request.target.ImageViewTarget;
-import com.bumptech.glide.request.target.SimpleTarget;
 import com.dingmouren.easymvp.api.ApiManager;
 import com.dingmouren.easymvp.bean.GirlPic;
 import com.dingmouren.easymvp.helper.CardScaleHelper;
-import com.dingmouren.easymvp.util.BlurBitmapUtils;
 import com.dingmouren.easymvp.util.SnackbarUtils;
-import com.dingmouren.easymvp.util.ViewSwitchUtils;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
-import jp.wasabeef.glide.transformations.GrayscaleTransformation;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 

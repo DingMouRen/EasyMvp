@@ -3,8 +3,10 @@ package com.dingmouren.easymvp.ui.home;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.Settings;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -16,11 +18,15 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.dingmouren.easymvp.R;
 import com.dingmouren.easymvp.base.BaseActivity;
 import com.dingmouren.easymvp.ui.gallery.GalleryActivity;
+import com.dingmouren.easymvp.ui.video.VideoActivity;
 import com.dingmouren.easymvp.util.SnackbarUtils;
+
+import java.lang.reflect.Method;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -122,7 +128,7 @@ public class HomeActivity extends BaseActivity {
                     mFragmentTransaction.replace(R.id.frame_home_activity,mHomeFragment).commit();
                     break;
                 case 1:
-                    SnackbarUtils.showSimpleSnackbar(mDrawer, "位置被点击了");
+                    SnackbarUtils.showSimpleSnackbar(mDrawer, "开启音乐");
                     break;
                 case 2:
                     SnackbarUtils.showSimpleSnackbar(mDrawer, "搜索被点击了");
@@ -143,6 +149,9 @@ public class HomeActivity extends BaseActivity {
             switch (item.getItemId()) {
                 case R.id.item1:
                     startActivity(new Intent(HomeActivity.this, GalleryActivity.class));
+                    break;
+                case R.id.item2:
+                    startActivity(new Intent(HomeActivity.this, VideoActivity.class));
                     break;
 
             }

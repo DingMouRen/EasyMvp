@@ -22,3 +22,8 @@
       **[] $VALUES;
       public *;
     }
+#gsyvideoplayer 视频播放框架
+-keep class tv.danmaku.ijk.** { *; }
+-dontwarn tv.danmaku.ijk.**
+-keep class com.shuyu.gsyvideoplayer.** { *; }
+-dontwarn com.shuyu.gsyvideoplayer.**

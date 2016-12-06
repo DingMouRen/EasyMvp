@@ -46,6 +46,10 @@
             android:theme="@style/SplashTheme"
             android:launchMode="singleTask"
             />
+        <!--视频-->
+        <activity android:name=".ui.video.VideoActivity"
+            android:theme="@style/SplashTheme"
+            android:launchMode="singleTask"/>
     </application>
 
 </manifest>

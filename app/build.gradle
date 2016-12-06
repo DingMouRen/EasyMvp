@@ -7,14 +7,11 @@ android {
     buildToolsVersion "25.0.0"
     defaultConfig {
         applicationId "com.dingmouren.easymvp"
-        minSdkVersion 15
+        minSdkVersion 16
         targetSdkVersion 25
         versionCode 1
         versionName "1.0.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        //启用renderscript 在模糊这块用到了
-        renderscriptTargetApi = 18
-        renderscriptSupportModeEnabled = true
     }
     buildTypes {
         release {
@@ -67,6 +64,8 @@ dependencies {
     compile 'com.github.chrisbanes.photoview:library:1.2.3'
     /*fab菜单控件*/
     compile 'io.github.yavski:fab-speed-dial:1.0.6'
+    /*基于ijkplayer的视频播放框架*/
+    compile 'com.shuyu:gsyVideoPlayer:1.4.1'
 }
 //数据库版本以及Dao的相关设置
 greendao {
