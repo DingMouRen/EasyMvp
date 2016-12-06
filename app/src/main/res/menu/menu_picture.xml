@@ -2,9 +2,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
+        android:id="@+id/back"
+        android:title="返回"
+        android:icon="@mipmap/arrow_back"
+        />
+
+    <item
         android:id="@+id/img_save"
-        android:title=""
+        android:title="下载图片"
         android:icon="@mipmap/save"
-        app:showAsAction="always"
         />
 </menu>

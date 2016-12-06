@@ -52,7 +52,7 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryV
         holder.img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                PictureActivity.newInstance(mContext,mList.get(position).getUrl());
+                PictureActivity.newInstance(mContext,mList.get(position).getUrl(),mList.get(position).get_id());
             }
         });
     }

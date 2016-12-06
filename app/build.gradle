@@ -65,6 +65,8 @@ dependencies {
     compile 'me.majiajie:pager-bottom-tab-strip:1.0.0'
     /*可缩放的view*/
     compile 'com.github.chrisbanes.photoview:library:1.2.3'
+    /*fab菜单控件*/
+    compile 'io.github.yavski:fab-speed-dial:1.0.6'
 }
 //数据库版本以及Dao的相关设置
 greendao {

@@ -46,7 +46,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder
     @Override
     public void onBindViewHolder(HomeViewHolder holder, int position) {
         Glide.with(mContext).load(mList.get(position).getUrl()).centerCrop().diskCacheStrategy(DiskCacheStrategy.ALL).placeholder(R.mipmap.place_holder).into(holder.img_girl);//显示美女图片
-        holder.img_girl.setOnClickListener((view -> PictureActivity.newInstance(mContext,mList.get(position).getUrl())));
+        holder.img_girl.setOnClickListener((view -> PictureActivity.newInstance(mContext,mList.get(position).getUrl(),mList.get(position).get_id())));
     }
 
     @Override

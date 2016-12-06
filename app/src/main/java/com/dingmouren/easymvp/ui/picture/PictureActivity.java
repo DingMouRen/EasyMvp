@@ -7,10 +7,12 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.Nullable;
+import android.support.design.internal.NavigationMenu;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -28,21 +30,28 @@ import java.util.Random;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.github.yavski.fabspeeddial.FabSpeedDial;
+import io.github.yavski.fabspeeddial.FabSpeedDialBehaviour;
 import uk.co.senab.photoview.PhotoViewAttacher;
 
 /**
  * Created by dingzi on 2016/12/5.
  */
 
-public class PictureActivity extends BaseActivity {
+public class PictureActivity extends BaseActivity   {
 
     public static final String IMG_URL = "img_url";
+    public static final String IMG_ID = "img_Id";
+
     private static final String SAVED_PATH = Environment.getExternalStorageDirectory().getAbsolutePath() + "/EasyMvp";
+    private String imgId;
     @BindView(R.id.img_picture)  ImageView img;
-    @BindView(R.id.toolbar)   Toolbar mToolbar;
-    public static Intent newInstance(Context  context,String imgUrl){
+    @BindView(R.id.fab_dialog)  FabSpeedDial mFabDialog;
+
+    public static Intent newInstance(Context  context,String imgUrl,String imgId){
         Intent intent = new Intent(context,PictureActivity.class);
         intent.putExtra(IMG_URL,imgUrl);
+        intent.putExtra(IMG_ID,imgId);
         context.startActivity(intent);
         return intent;
     }
@@ -52,39 +61,48 @@ public class PictureActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_picture);
         ButterKnife.bind(this);
-        initToolbar();
         initPicture();
+        initFabDialog();
         overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
     }
 
-    private void initToolbar() {
-        mToolbar.setTitle("");
-        setSupportActionBar(mToolbar);
-        mToolbar.setNavigationIcon(R.mipmap.arrow_back);
-        mToolbar.setNavigationOnClickListener((view) -> finish());
-    }
 
     private void initPicture() {
         String imgurl = getIntent().getStringExtra(IMG_URL);
+        imgId = getIntent().getStringExtra(IMG_ID);
         Glide.with(this).load(imgurl).centerCrop().diskCacheStrategy(DiskCacheStrategy.ALL).into(img);
         new PhotoViewAttacher(img);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_picture,menu);
-        return true;
+    private void initFabDialog() {
+        mFabDialog.setMenuListener(new FabSpeedDial.MenuListener() {
+            @Override
+            public boolean onPrepareMenu(NavigationMenu navigationMenu) {
+                return true;
+            }
+
+            @Override
+            public boolean onMenuItemSelected(MenuItem menuItem) {
+                switch (menuItem.getItemId()){
+                    case R.id.back:
+                        finish();
+                        break;
+                    case R.id.img_save:
+                        saveImage();
+                        break;
+                }
+                return true;
+            }
+
+            @Override
+            public void onMenuClosed() {
+
+            }
+        });
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
-            case R.id.img_save:
-                saveImage();
-                break;
-        }
-        return super.onOptionsItemSelected(item);
-    }
+
+
 
     /**
      * 保存图片到
@@ -101,7 +119,7 @@ public class PictureActivity extends BaseActivity {
         if (!dir.exists()){
             dir.mkdir();
         }
-        File file = new File(dir,"girl"+new Random().nextInt(888) + ".png");
+        File file = new File(dir,"girl_"+imgId + ".png");
 
         try {
             FileOutputStream fos = new FileOutputStream(file);
