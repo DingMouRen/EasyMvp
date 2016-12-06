@@ -14,9 +14,18 @@
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>
     </style>
+    <!--HomeActivity的theme-->
+    <style name="HomeActivityTheme" parent="AppTheme">
+        <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
+    </style>
     <!--相册界面theme-->
     <style name="GalleryTheme" parent="AppTheme" >
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
+
+    <!--白色的打开侧滑栏按钮-->
+    <style name="DrawerArrowStyle" parent="Widget.AppCompat.DrawerArrowToggle">
+        <item name="color">@android:color/white</item>
     </style>
 </resources>

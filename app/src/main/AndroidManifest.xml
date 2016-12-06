@@ -31,6 +31,7 @@
         <activity android:name=".ui.home.HomeActivity"
             android:screenOrientation="portrait"
             android:launchMode="singleTask"
+            android:theme="@style/HomeActivityTheme"
             >
 
         </activity>
