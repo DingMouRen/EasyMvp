@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    >
+    <TextView
+        android:id="@+id/tv_item_video"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" 
+        android:text="This is a 段子"
+        android:padding="@dimen/dp_3"
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        />
+    <FrameLayout
+        android:id="@+id/frame_item_video"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_video_height"
+        android:layout_below="@+id/tv_item_video"
+        />
+    <ImageView
+        android:id="@+id/img_item_video"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_video_height"
+        android:layout_below="@+id/tv_item_video"
+        />
+
+</RelativeLayout>

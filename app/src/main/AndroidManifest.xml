@@ -48,8 +48,10 @@
             />
         <!--视频-->
         <activity android:name=".ui.video.VideoActivity"
-            android:theme="@style/SplashTheme"
-            android:launchMode="singleTask"/>
+            android:theme="@style/HomeActivityTheme"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"
+             />
     </application>
 
 </manifest>

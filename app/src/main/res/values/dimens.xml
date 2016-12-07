@@ -20,13 +20,6 @@
     <dimen name="gallery_margin">20dp</dimen>
     <!--loaidngview的宽高-->
     <dimen name="loading_size">100dp</dimen>
-
-    <!--faboptions -->
-    <dimen name="faboptions_button_padding">8dp</dimen>
-    <dimen name="faboptions_button_layout_height">44dp</dimen>
-    <dimen name="faboptions_layout_height">98dp</dimen>
-    <dimen name="faboptions_separator_margin">2dp</dimen>
-    <dimen name="faboptions_icon_size">20dp</dimen>
-    <dimen name="faboptions_radius">20dp</dimen>
-    <dimen name="faboptions_vector_dimensions">24dp</dimen>
+    <!--视频条高度-->
+    <dimen name="item_video_height">200dp</dimen>
 </resources>
