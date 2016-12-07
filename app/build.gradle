@@ -66,6 +66,8 @@ dependencies {
     compile 'io.github.yavski:fab-speed-dial:1.0.6'
     /*基于ijkplayer的视频播放框架*/
     compile 'com.shuyu:gsyVideoPlayer:1.4.1'
+    /*html解析器*/
+    compile 'org.jsoup:jsoup:1.10.1'
 }
 //数据库版本以及Dao的相关设置
 greendao {
