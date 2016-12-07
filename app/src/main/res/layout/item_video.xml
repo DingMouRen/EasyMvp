@@ -12,17 +12,24 @@
         android:padding="@dimen/dp_3"
         android:layout_margin="@dimen/activity_horizontal_margin"
         />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_item_video"
+         >
     <FrameLayout
         android:id="@+id/frame_item_video"
         android:layout_width="match_parent"
         android:layout_height="@dimen/item_video_height"
-        android:layout_below="@+id/tv_item_video"
+
         />
     <ImageView
         android:id="@+id/img_item_video"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/item_video_height"
-        android:layout_below="@+id/tv_item_video"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:src="@drawable/video_click_play_selector"
         />
-
+    </RelativeLayout>
 </RelativeLayout>

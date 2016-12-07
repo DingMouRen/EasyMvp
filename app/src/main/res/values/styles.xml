@@ -23,9 +23,17 @@
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>
     </style>
+    <!--视频列表Theme-->
+    <style name="VideoActivityTheme" parent="AppTheme">
+        <item name="android:actionOverflowButtonStyle">@style/ToolbarArrowStyle</item>
+    </style>
 
     <!--白色的打开侧滑栏按钮-->
     <style name="DrawerArrowStyle" parent="Widget.AppCompat.DrawerArrowToggle">
+        <item name="color">@android:color/white</item>
+    </style>
+    <!--toolbar返回箭头颜色-->
+    <style name="ToolbarArrowStyle" parent="Widget.AppCompat.DrawerArrowToggle">
         <item name="color">@android:color/white</item>
     </style>
 </resources>

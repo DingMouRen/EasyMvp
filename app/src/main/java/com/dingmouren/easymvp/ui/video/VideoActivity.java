@@ -64,6 +64,7 @@ public class VideoActivity extends BaseActivity {
         mToolbar.setTitleTextColor(getResources().getColor(android.R.color.white));
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        mToolbar.setNavigationIcon(R.mipmap.arrow_back);//设置返回箭头图片
         mToolbar.setNavigationOnClickListener(view -> finish());
     }
 

@@ -155,8 +155,8 @@ public class HomeActivity extends BaseActivity {
                     break;
 
             }
-            item.setChecked(true);
             mDrawer.closeDrawers();
+            item.setChecked(false);
             return true;
         }
     };
