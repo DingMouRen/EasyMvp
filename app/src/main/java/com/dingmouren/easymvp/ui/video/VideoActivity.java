@@ -97,13 +97,13 @@ public class VideoActivity extends BaseActivity {
          public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
              super.onScrolled(recyclerView, dx, dy);
              mFirstVisibleItem = mLinearLayoutManager.findFirstVisibleItemPosition();
-             mLastVisibleItem = mFirstVisibleItem + mLinearLayoutManager.getItemCount();
+             mLastVisibleItem = mLinearLayoutManager.findLastVisibleItemPosition();
              //大于0说明有播放，对应的播放列表TAG
              if (mListVideoUtil.getPlayPosition() >= 0 && mListVideoUtil.getPlayTAG().equals(VideoAdapter.TAG)){
                  //播放当前的位置
                  int position = mListVideoUtil.getPlayPosition();
                  //不可视的时候
-                 if ((mFirstVisibleItem > position || mLastVisibleItem < position)){
+                 if ((position < mFirstVisibleItem||  position >  mLastVisibleItem)){
                      //如果是小窗口就不需要处理
                      if (!mListVideoUtil.isSmall()){
                          //设置小窗口的宽高
