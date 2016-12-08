@@ -5,9 +5,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.dingmouren.easymvp.api.ApiManager;
-import com.dingmouren.easymvp.bean.GirlPic;
-import com.dingmouren.easymvp.ui.picture.WelfareAdapter;
-import com.dingmouren.easymvp.ui.picture.WelfareContract;
+import com.dingmouren.easymvp.bean.GankWelfare;
 import com.dingmouren.easymvp.util.SnackbarUtils;
 
 import java.util.ArrayList;
@@ -27,7 +25,7 @@ public class WelfarePresenter extends WelfareContract.Presenter<WelfareContract.
     public RecyclerView mRecycler;
     public WelfareAdapter mWelfareAdapter;
 
-    private List<GirlPic> mList = new ArrayList<>();
+    private List<GankWelfare.ResultsBean> mList = new ArrayList<>();
     private int mPage = 1;
     private int mLastVisibleItem;
     private boolean isLoadMore = false;//是否加载更多
@@ -47,7 +45,7 @@ public class WelfarePresenter extends WelfareContract.Presenter<WelfareContract.
         ApiManager.getApiInstance().mApiService.getGirlPics(mPage)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(girlResult -> displayData(girlResult.getResults()),this ::loadError);
+                .subscribe(gankWelfare -> displayData(gankWelfare.getResults()),this :: loadError);
 
     }
 
@@ -60,7 +58,7 @@ public class WelfarePresenter extends WelfareContract.Presenter<WelfareContract.
      * 显示获取的数据
      * @param list
      */
-    public void displayData(List<GirlPic> list){
+    public void displayData(List<GankWelfare.ResultsBean> list){
             if (list == null){
                 mHomeView.setDataRefresh(false);
                 return;

@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.dingmouren.easymvp.R;
-import com.dingmouren.easymvp.bean.GirlPic;
+import com.dingmouren.easymvp.bean.GankWelfare;
 import com.dingmouren.easymvp.helper.CardAdapterHelper;
 import com.dingmouren.easymvp.ui.picture.PictureActivity;
 
@@ -23,18 +23,18 @@ import java.util.List;
 public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryViewHolder> {
 
     private Context mContext;
-    private List<GirlPic> mList;
+    private List<GankWelfare.ResultsBean> mList;
     private CardAdapterHelper mCardAdpaterHelper = new CardAdapterHelper();
     public GalleryAdapter(Context mContext) {
         this.mContext = mContext;
     }
 
-    public GalleryAdapter(Context mContext, List<GirlPic> mList) {
+    public GalleryAdapter(Context mContext, List<GankWelfare.ResultsBean> mList) {
         this.mContext = mContext;
         this.mList = mList;
     }
 
-    public  void setList(List<GirlPic> list){
+    public  void setList(List<GankWelfare.ResultsBean> list){
         this.mList = list;
     }
 

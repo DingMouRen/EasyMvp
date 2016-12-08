@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.dingmouren.easymvp.R;
-import com.dingmouren.easymvp.bean.GirlPic;
+import com.dingmouren.easymvp.bean.GankWelfare;
 
 import java.util.List;
 
@@ -21,18 +21,18 @@ import java.util.List;
 public class WelfareAdapter extends RecyclerView.Adapter<WelfareAdapter.HomeViewHolder> {
 
     private Context mContext;
-    private List<GirlPic> mList;
+    private List<GankWelfare.ResultsBean> mList;
 
     public WelfareAdapter(Context mContext) {
         this.mContext = mContext;
     }
 
-    public WelfareAdapter(Context mContext, List<GirlPic> mList) {
+    public WelfareAdapter(Context mContext, List<GankWelfare.ResultsBean> mList) {
         this.mContext = mContext;
         this.mList = mList;
     }
 
-    public void setList(List<GirlPic> list){
+    public void setList(List<GankWelfare.ResultsBean> list){
         this.mList = list;
     }
 

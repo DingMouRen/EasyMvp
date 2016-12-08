@@ -6,7 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.ImageView;
 
 import com.dingmouren.easymvp.api.ApiManager;
-import com.dingmouren.easymvp.bean.GirlPic;
+import com.dingmouren.easymvp.bean.GankWelfare;
 import com.dingmouren.easymvp.helper.CardScaleHelper;
 import com.dingmouren.easymvp.util.SnackbarUtils;
 
@@ -32,7 +32,7 @@ public class GalleryPresenter extends GalleryContract.Presenter<GalleryContract.
     private int page = 1;
     private boolean isLoadMore = false;
     private int mLastVisibleItem;
-    public List<GirlPic> mList = new ArrayList<>();
+    public List<GankWelfare.ResultsBean> mList = new ArrayList<>();
     private int mLastPos = -1;
     private Runnable mBlurRunnable;
 
@@ -51,7 +51,7 @@ public class GalleryPresenter extends GalleryContract.Presenter<GalleryContract.
         ApiManager.getApiInstance().mApiService.getGirlPics(page)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(girlResult ->  displayData(girlResult.getResults()),this :: loadError);
+            .subscribe(gankWelfare -> displayData(gankWelfare.getResults()),this :: loadError);
     }
 
     /**
@@ -67,7 +67,7 @@ public class GalleryPresenter extends GalleryContract.Presenter<GalleryContract.
      * 展示相册图片
      * @param list
      */
-    private void displayData(List<GirlPic> list){
+    private void displayData(List<GankWelfare.ResultsBean> list){
         mGalleryView.setDataRefresh(true);
         if (list == null){
             return;
