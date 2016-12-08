@@ -1,29 +1,22 @@
 package com.dingmouren.easymvp.ui.video;
 
-import android.content.pm.ActivityInfo;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.util.TypedValue;
-import android.view.View;
-import android.widget.AbsListView;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 
 import com.dingmouren.easymvp.R;
 import com.dingmouren.easymvp.base.BaseActivity;
 import com.dingmouren.easymvp.listener.SampleListener;
+import com.dingmouren.easymvp.util.video_helper.CustomListVideoUtil;
+import com.dingmouren.easymvp.util.video_helper.CustomStandardGSYVideoPlayer;
 import com.jiongbull.jlog.JLog;
 import com.shuyu.gsyvideoplayer.GSYVideoPlayer;
-import com.shuyu.gsyvideoplayer.utils.ListVideoUtil;
-import com.shuyu.gsyvideoplayer.utils.OrientationUtils;
-import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -40,11 +33,12 @@ public class VideoActivity extends BaseActivity {
     @BindView(R.id.recycler) RecyclerView mRecycler;
     @BindView(R.id.video_container) FrameLayout mVideoContainer;
 
-    private ListVideoUtil mListVideoUtil;
+    private CustomListVideoUtil mListVideoUtil;
     private VideoAdapter mAdapter;
     private int mLastVisibleItem;
     private int mFirstVisibleItem;
     private LinearLayoutManager mLinearLayoutManager;
+    private CustomStandardGSYVideoPlayer mStandardGSYVideoPlayer;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,10 +63,16 @@ public class VideoActivity extends BaseActivity {
     }
 
     private void initViewAndUtil(){
-        mListVideoUtil = new ListVideoUtil(this);
+        mListVideoUtil = new CustomListVideoUtil(this);
+        mStandardGSYVideoPlayer = mListVideoUtil.getGsyVideoPlayer();
+        mStandardGSYVideoPlayer.setDialogVolumeProgressBar(getResources().getDrawable(R.drawable.progressbar_video_volume));//设置声音进度条的颜色
+        mStandardGSYVideoPlayer.setBottomProgressBarDrawable(getResources().getDrawable(R.drawable.progressbar_video_bottom));//设置底部不弹出进度条的颜色
+        //设置底部弹出进度条的颜色
+        mStandardGSYVideoPlayer.setBottomShowProgressBarDrawable(getResources().getDrawable(R.drawable.progressbar_video_bottom),getResources().getDrawable(R.drawable.progressbar_video_bottom));
         mListVideoUtil.setFullViewContainer(mVideoContainer);//设置全屏时候的根布局,framelayout
         mListVideoUtil.setHideStatusBar(true);//设置隐藏手机状态栏
         mListVideoUtil.setHideActionBar(true);//播放视频时隐藏toolbar
+        mListVideoUtil.setFullLandFrist(true);//点击最大化，是否立马进入横屏
 
         mLinearLayoutManager = new LinearLayoutManager(this);
         mAdapter = new VideoAdapter(this,mListVideoUtil);
@@ -110,6 +110,7 @@ public class VideoActivity extends BaseActivity {
                          int width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,208,getResources().getDisplayMetrics());
                          int height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,117,getResources().getDisplayMetrics());
                          mListVideoUtil.showSmallVideo(new Point(width,height),false,true);
+                         mStandardGSYVideoPlayer.getSmallVideoPlayer().setBottomProgressBarDrawable(null);
                      }
                  }else {
                      if (mListVideoUtil.isSmall()) mListVideoUtil.smallVideoToNormal();

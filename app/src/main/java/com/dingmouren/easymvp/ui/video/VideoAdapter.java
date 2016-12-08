@@ -11,8 +11,7 @@ import android.widget.TextView;
 
 import com.dingmouren.easymvp.R;
 import com.dingmouren.easymvp.bean.VideoBean;
-import com.shuyu.gsyvideoplayer.utils.ListVideoUtil;
-import com.shuyu.gsyvideoplayer.utils.OrientationUtils;
+import com.dingmouren.easymvp.util.video_helper.CustomListVideoUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,11 +25,11 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoViewHol
     public  final String URL = "http://baobab.wdjcdn.com/14564977406580.mp4";
     private Context mContext;
     private List<VideoBean> mList = new ArrayList<>();
-    private ListVideoUtil mListVideoUtil;
+    private CustomListVideoUtil mListVideoUtil;
     private ImageView mImg;
     public final static String TAG = "VideoAdapter";
 
-    public VideoAdapter(Context mContext, ListVideoUtil listVideoUtil) {
+    public VideoAdapter(Context mContext, CustomListVideoUtil listVideoUtil) {
         this.mContext = mContext;
         this.mListVideoUtil = listVideoUtil;
         //用于测试，创建一个集合
@@ -39,7 +38,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoViewHol
         }
     }
 
-    public VideoAdapter(Context mContext, List<VideoBean> mList, ListVideoUtil listVideoUtil) {
+    public VideoAdapter(Context mContext, List<VideoBean> mList, CustomListVideoUtil listVideoUtil) {
         this.mContext = mContext;
         this.mList = mList;
         this.mListVideoUtil = listVideoUtil;

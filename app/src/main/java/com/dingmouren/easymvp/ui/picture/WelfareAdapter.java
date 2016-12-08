@@ -1,4 +1,4 @@
-package com.dingmouren.easymvp.ui.home;
+package com.dingmouren.easymvp.ui.picture;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -11,7 +11,6 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.dingmouren.easymvp.R;
 import com.dingmouren.easymvp.bean.GirlPic;
-import com.dingmouren.easymvp.ui.picture.PictureActivity;
 
 import java.util.List;
 
@@ -19,16 +18,16 @@ import java.util.List;
  * Created by dingmouren on 2016/12/1.
  */
 
-public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder> {
+public class WelfareAdapter extends RecyclerView.Adapter<WelfareAdapter.HomeViewHolder> {
 
     private Context mContext;
     private List<GirlPic> mList;
 
-    public HomeAdapter(Context mContext) {
+    public WelfareAdapter(Context mContext) {
         this.mContext = mContext;
     }
 
-    public HomeAdapter(Context mContext, List<GirlPic> mList) {
+    public WelfareAdapter(Context mContext, List<GirlPic> mList) {
         this.mContext = mContext;
         this.mList = mList;
     }

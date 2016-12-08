@@ -3,30 +3,22 @@ package com.dingmouren.easymvp.ui.home;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
-import android.provider.Settings;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.TypedValue;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.dingmouren.easymvp.R;
 import com.dingmouren.easymvp.base.BaseActivity;
 import com.dingmouren.easymvp.ui.gallery.GalleryActivity;
+import com.dingmouren.easymvp.ui.picture.WelfareFragment;
 import com.dingmouren.easymvp.ui.video.VideoActivity;
 import com.dingmouren.easymvp.util.SnackbarUtils;
-
-import java.lang.reflect.Method;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -54,7 +46,7 @@ public class HomeActivity extends BaseActivity {
     private ActionBarDrawerToggle mDrawerToggle;
     private FragmentManager mFragmentManager;
     private FragmentTransaction mFragmentTransaction;
-    private HomeFragment mHomeFragment;
+    private WelfareFragment mWelfareFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,8 +65,6 @@ public class HomeActivity extends BaseActivity {
     private void initHomeFragment() {
         mFragmentManager = getFragmentManager();
         mFragmentTransaction = mFragmentManager.beginTransaction();
-        mHomeFragment = new HomeFragment();
-        mFragmentTransaction.replace(R.id.frame_home_activity,mHomeFragment).commit();
     }
 
     public void initToolbar() {
@@ -91,7 +81,7 @@ public class HomeActivity extends BaseActivity {
         mController = mTabBottom.builder()
                 .addTabItem(R.mipmap.home, "首页")
                 .addTabItem(R.mipmap.music_icon, "Music")
-                .addTabItem(R.mipmap.weather, "天气")
+                .addTabItem(android.R.drawable.ic_menu_gallery, "福利")
                 .addTabItem(R.mipmap.setting, "设置")
                 .build();
         mController.addTabItemClickListener(mTabItemListener);
@@ -110,7 +100,8 @@ public class HomeActivity extends BaseActivity {
                     SnackbarUtils.showSimpleSnackbar(mDrawer, "开启音乐");
                     break;
                 case 2:
-                    SnackbarUtils.showSimpleSnackbar(mDrawer, "开启天气");
+                    mWelfareFragment = new WelfareFragment();
+                    mFragmentTransaction.replace(R.id.frame_home_activity,mWelfareFragment).commit();
                     break;
                 case 3:
                     SnackbarUtils.showSimpleSnackbar(mDrawer, "开启设置");
@@ -124,14 +115,14 @@ public class HomeActivity extends BaseActivity {
         public void onRepeatClick(int index, Object tag) {
             switch (index) {
                 case 0:
-                    mHomeFragment = new HomeFragment();
-                    mFragmentTransaction.replace(R.id.frame_home_activity,mHomeFragment).commit();
+
                     break;
                 case 1:
                     SnackbarUtils.showSimpleSnackbar(mDrawer, "开启音乐");
                     break;
                 case 2:
-                    SnackbarUtils.showSimpleSnackbar(mDrawer, "搜索被点击了");
+                    mWelfareFragment = new WelfareFragment();
+                    mFragmentTransaction.replace(R.id.frame_home_activity,mWelfareFragment).commit();
                     break;
                 case 3:
                     SnackbarUtils.showSimpleSnackbar(mDrawer, "帮助被点击了");

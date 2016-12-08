@@ -1,14 +1,14 @@
-package com.dingmouren.easymvp.ui.home;
+package com.dingmouren.easymvp.ui.picture;
 
-import android.content.Context;
 import android.os.Handler;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.dingmouren.easymvp.api.ApiManager;
 import com.dingmouren.easymvp.bean.GirlPic;
+import com.dingmouren.easymvp.ui.picture.WelfareAdapter;
+import com.dingmouren.easymvp.ui.picture.WelfareContract;
 import com.dingmouren.easymvp.util.SnackbarUtils;
-import com.jiongbull.jlog.JLog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,23 +20,23 @@ import rx.schedulers.Schedulers;
  * Created by dingmouren on 2016/12/1.
  */
 
-public class HomePresenter extends HomeContract.Presenter<HomeContract.View> {
+public class WelfarePresenter extends WelfareContract.Presenter<WelfareContract.View> {
 
-    public HomeContract.View mHomeView;
+    public WelfareContract.View mHomeView;
     public GridLayoutManager mGridLayoutManager;
     public RecyclerView mRecycler;
-    public HomeAdapter mHomeAdapter;
+    public WelfareAdapter mWelfareAdapter;
 
     private List<GirlPic> mList = new ArrayList<>();
     private int mPage = 1;
     private int mLastVisibleItem;
     private boolean isLoadMore = false;//是否加载更多
 
-    public HomePresenter(HomeContract.View view) {
+    public WelfarePresenter(WelfareContract.View view) {
         this.mHomeView = view;
         mGridLayoutManager = mHomeView.getLayoutManager();
         mRecycler = mHomeView.getRecyclerView();
-        mHomeAdapter = mHomeView.getHomeAdapter();
+        mWelfareAdapter = mHomeView.getHomeAdapter();
     }
 
     /**
@@ -67,8 +67,8 @@ public class HomePresenter extends HomeContract.Presenter<HomeContract.View> {
             }else {
                 mList.addAll(list);
             }
-            mHomeAdapter.setList(mList);
-            mHomeAdapter.notifyDataSetChanged();
+            mWelfareAdapter.setList(mList);
+            mWelfareAdapter.notifyDataSetChanged();
         mHomeView.setDataRefresh(false);
     }
 

@@ -5,7 +5,7 @@
     <color name="colorAccent">#F25D8E</color>
 
     <!--主色-->
-    <color name="main_color">#F25D8E</color>
+    <color name="main_color">#39E0FF</color>
 
     <!--倒计时控件背景半透明颜色-->
     <color name="timer_background_color">#20F25D8E</color>

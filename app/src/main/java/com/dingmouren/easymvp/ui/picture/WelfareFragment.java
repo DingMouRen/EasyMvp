@@ -1,4 +1,4 @@
-package com.dingmouren.easymvp.ui.home;
+package com.dingmouren.easymvp.ui.picture;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -20,14 +20,14 @@ import butterknife.ButterKnife;
  * Created by dingmouren on 2016/12/6.
  */
 
-public class HomeFragment extends BaseFragment implements HomeContract.View{
+public class WelfareFragment extends BaseFragment implements WelfareContract.View{
 
     @BindView(R.id.swipe_refresh)  SwipeRefreshLayout mSwipeRefresh;
     @BindView(R.id.recycler)  RecyclerView mRecycler;
 
     private GridLayoutManager mGridLayoutManager;
-    public HomeAdapter mHomeAdapter;
-    public HomePresenter mHomePresenter;
+    public WelfareAdapter mWelfareAdapter;
+    public WelfarePresenter mWelfarePresenter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -53,7 +53,7 @@ public class HomeFragment extends BaseFragment implements HomeContract.View{
 //            mSwipeRefresh.setProgressBackgroundColorSchemeResource(android.R.color.holo_blue_bright);//设置进度圈背景颜色
             //这里进行单位换算  第一个参数是单位，第二个参数是单位数值，这里最终返回的是24dp对相应的px值
             mSwipeRefresh.setProgressViewOffset(true,0, (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,24,getResources().getDisplayMetrics()));
-            mSwipeRefresh.setOnRefreshListener(()-> mHomePresenter.requestData());
+            mSwipeRefresh.setOnRefreshListener(()-> mWelfarePresenter.requestData());
         }
     }
 
@@ -63,28 +63,28 @@ public class HomeFragment extends BaseFragment implements HomeContract.View{
     private void initView(){
         //列表相关
         mGridLayoutManager = new GridLayoutManager(getActivity(),2);
-        mHomeAdapter = new HomeAdapter(getActivity());
+        mWelfareAdapter = new WelfareAdapter(getActivity());
         mRecycler.setHasFixedSize(true);
         mRecycler.setLayoutManager(mGridLayoutManager);
-        mRecycler.setAdapter(mHomeAdapter);
+        mRecycler.setAdapter(mWelfareAdapter);
     }
 
     /**
      * 初始化数据
      */
     private void initData(){
-        mHomePresenter = createPresenter();
+        mWelfarePresenter = createPresenter();
         setDataRefresh(true);
-        mHomePresenter.requestData();
-        mHomePresenter.addScrollListener();
+        mWelfarePresenter.requestData();
+        mWelfarePresenter.addScrollListener();
    }
 
     /**
      * 获取presenter实例
      * @return
      */
-    public HomePresenter createPresenter(){
-        return new HomePresenter((HomeContract.View) this);
+    public WelfarePresenter createPresenter(){
+        return new WelfarePresenter((WelfareContract.View) this);
     }
     @Override
     public void setDataRefresh(boolean refresh) {
@@ -106,7 +106,7 @@ public class HomeFragment extends BaseFragment implements HomeContract.View{
     }
 
     @Override
-    public HomeAdapter getHomeAdapter() {
-        return mHomeAdapter == null ? new HomeAdapter(getActivity()) : mHomeAdapter;
+    public WelfareAdapter getHomeAdapter() {
+        return mWelfareAdapter == null ? new WelfareAdapter(getActivity()) : mWelfareAdapter;
     }
 }
