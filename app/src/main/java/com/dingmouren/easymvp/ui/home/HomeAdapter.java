@@ -13,7 +13,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.dingmouren.easymvp.R;
 import com.dingmouren.easymvp.bean.GankContent;
-import com.dingmouren.easymvp.util.SnackbarUtils;
+import com.dingmouren.easymvp.ui.webdetail.WebDetailActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,6 +52,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder
     public void onBindViewHolder(HomeViewHolder holder, int position) {
         if ( position == 0){
             holder.imgGirl.setVisibility(View.VISIBLE);
+            holder.cardView.setVisibility(View.GONE);
             Glide.with(mContext).load(mImgUrl).centerCrop().diskCacheStrategy(DiskCacheStrategy.ALL).placeholder(R.mipmap.place_holder).into(holder.imgGirl);
         }else {
             holder.imgGirl.setVisibility(View.GONE);
@@ -73,6 +74,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder
         @BindView(R.id.tv_itemHome_first)  TextView tv_first;
         @BindView(R.id.tv_itemHome_anthor) TextView tv_Author;
         @BindView(R.id.tv_itemHome_title) TextView tv_title;
+         private String mAuthor;
         public HomeViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this,itemView);
@@ -86,34 +88,32 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder
 
             switch (gank.getType()){
                 case "Android":
-                    Glide.with(mContext).load(R.mipmap.android).centerCrop().into(imgFirst);
+                    imgFirst.setImageResource(R.mipmap.android);
                     break;
                 case "iOS":
-                    Glide.with(mContext).load(R.mipmap.ios).centerCrop().into(imgFirst);
+                    imgFirst.setImageResource(R.mipmap.ios);
                     break;
                 case "休息视频":
-                    Glide.with(mContext).load(R.mipmap.video).centerCrop().into(imgFirst);
+                    imgFirst.setImageResource(R.mipmap.video);
                     break;
                 case "前端":
-                    Glide.with(mContext).load(R.mipmap.web).centerCrop().into(imgFirst);
+                    imgFirst.setImageResource(R.mipmap.web);
                     break;
                 case "拓展资源":
-                    Glide.with(mContext).load(R.mipmap.tuozhan).centerCrop().into(imgFirst);
+                    imgFirst.setImageResource(R.mipmap.tuozhan);
                     break;
-              /*  case "瞎推荐":
-                    Glide.with(mContext).load(R.mipmap.tuijian).centerCrop().into(imgFirst);
-                    break;*/
             }
 
-            tv_first.setText("来自话题 ： " + gank.getType());
-            tv_Author.setText("by " + gank.getWho());
+            tv_first.setText("来自话题:" + gank.getType());
+            mAuthor =  gank.getWho() ==  null ? "无名教主" : gank.getWho().toString();
+            tv_Author.setText("  by " +mAuthor);
             tv_title.setText(gank.getDesc());
             String imgUrl;
-           /* if (gank.getImages().size()>0) {
+           /* if (gank.getImages() != null  ) { //加载图片Bug  不能显示以及错位
                  imgUrl = gank.getImages().get(0);
-                Glide.with(mContext).load(imgUrl).asGif().centerCrop().diskCacheStrategy(DiskCacheStrategy.ALL).into(imgContent);
+                Glide.with(mContext).load(imgUrl).diskCacheStrategy(DiskCacheStrategy.ALL).into(imgContent);
             }*/
-            cardView.setOnClickListener((view) -> SnackbarUtils.showSimpleSnackbar(cardView,"打开详情页"));
+            cardView.setOnClickListener((view) -> WebDetailActivity.newInstance(mContext,gank.getUrl(),gank.getDesc()));
         }
     }
 }

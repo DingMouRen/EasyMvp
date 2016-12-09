@@ -1,15 +1,9 @@
 package com.dingmouren.easymvp.ui.home;
 
-import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.webkit.WebView;
 
 import com.dingmouren.easymvp.R;
 import com.dingmouren.easymvp.base.BaseFragment;
@@ -18,7 +12,6 @@ import com.dingmouren.easymvp.bean.GankContent;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * Created by dingmouren on 2016/12/8.
@@ -53,7 +46,6 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
         mHomeAdapter = new HomeAdapter(getActivity());
         mRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecycler.setHasFixedSize(true);
-        mRecycler.setAdapter(mHomeAdapter);
     }
 
 
@@ -87,7 +79,7 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
     @Override
     public void setData(List<GankContent> list, String girlImgUrl) {
         mHomeAdapter.setData(list,girlImgUrl);
-        mHomeAdapter.notifyDataSetChanged();
+        mRecycler.setAdapter(mHomeAdapter);
     }
 
 

@@ -52,6 +52,9 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"
              />
+        <!--WebView展示界面-->
+        <activity android:name=".ui.webdetail.WebDetailActivity"
+            android:launchMode="singleTask"/>
     </application>
 
 </manifest>

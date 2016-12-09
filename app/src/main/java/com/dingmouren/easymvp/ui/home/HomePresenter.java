@@ -1,15 +1,8 @@
 package com.dingmouren.easymvp.ui.home;
 
-import android.webkit.WebChromeClient;
-import android.webkit.WebSettings;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
-
 import com.dingmouren.easymvp.api.ApiManager;
 import com.dingmouren.easymvp.bean.GankContent;
 import com.dingmouren.easymvp.bean.GankResultCategory;
-import com.dingmouren.easymvp.util.HtmlFormat;
-import com.dingmouren.easymvp.util.SnackbarUtils;
 import com.jiongbull.jlog.JLog;
 
 import java.util.ArrayList;
@@ -27,7 +20,7 @@ public class HomePresenter extends HomeContract.Presenter {
     private static final String TAG = HomePresenter.class.getName();
     private HomeContract.View mView;
     private String mDate;
-    public String mImgUrl;
+    public List<GankContent> mList;
 
     public HomePresenter(HomeContract.View view){
         this.mView = view;
@@ -57,14 +50,14 @@ public class HomePresenter extends HomeContract.Presenter {
     }
 
     private void parseData(GankResultCategory results) {
-        List<GankContent> list = new ArrayList<>();
-        list.clear();
-        list.addAll(results.getAndroid());
-        list.addAll(results.getiOS());
-        list.addAll(results.get前端());
-        list.addAll(results.get拓展资源());
-        list.addAll(results.get休息视频());
-        mView.setData(list,results.get福利().get(0).getUrl());
+        mList = new ArrayList<>();
+        mList.clear();
+        mList.addAll(results.getAndroid());
+        mList.addAll(results.getiOS());
+        mList.addAll(results.get前端());
+        mList.addAll(results.get拓展资源());
+        mList.addAll(results.get休息视频());
+        mView.setData(mList,results.get福利().get(0).getUrl());
         mView.setDataRefresh(false);
 
     }
