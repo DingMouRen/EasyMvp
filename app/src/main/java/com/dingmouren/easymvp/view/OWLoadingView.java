@@ -31,7 +31,7 @@ public class OWLoadingView extends SurfaceView {
     private float space;
     //六边形的半径
     private float hexagonRadius;
-    private int color = Color.parseColor("#F25D8E");//默认颜色
+    private int color = Color.parseColor("#39E0FF");//默认颜色
     private Paint paint;
     private float sin30 = (float) Math.sin(30f * 2f * Math.PI / 360f);
     private float cos30 = (float) Math.cos(30f * 2f * Math.PI / 360f);

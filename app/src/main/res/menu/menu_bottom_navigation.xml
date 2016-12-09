@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/item_home"
+        android:checked="true"
+        android:icon="@drawable/ic_home_black_24dp"
+        android:title="@string/main_home" />
+
+    <item
+        android:id="@+id/item_category"
+        android:icon="@drawable/ic_category_black_24dp"
+        android:title="@string/main_category" />
+    <item
+        android:id="@+id/item_welfare"
+        android:icon="@drawable/ic_welfare_black_24dp"
+        android:title="@string/main_welfare" />
+    <item
+        android:id="@+id/item_reading"
+        android:icon="@drawable/ic_reading_black_24dp"
+        android:title="@string/main_reading" />
+
+</menu>

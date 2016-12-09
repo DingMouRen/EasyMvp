@@ -23,18 +23,18 @@ import java.util.List;
 public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryViewHolder> {
 
     private Context mContext;
-    private List<GankWelfare.ResultsBean> mList;
+    private List<GankWelfare> mList;
     private CardAdapterHelper mCardAdpaterHelper = new CardAdapterHelper();
     public GalleryAdapter(Context mContext) {
         this.mContext = mContext;
     }
 
-    public GalleryAdapter(Context mContext, List<GankWelfare.ResultsBean> mList) {
+    public GalleryAdapter(Context mContext, List<GankWelfare> mList) {
         this.mContext = mContext;
         this.mList = mList;
     }
 
-    public  void setList(List<GankWelfare.ResultsBean> list){
+    public  void setList(List<GankWelfare> list){
         this.mList = list;
     }
 

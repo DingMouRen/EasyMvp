@@ -32,15 +32,20 @@ public class SplashActivity extends BaseActivity  {
     private ObjectAnimator mObjectAnimator;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_splash);
-        ButterKnife.bind(this);
+    protected int setLayoutResourceID() {
+        return R.layout.activity_splash;
+    }
+
+    @Override
+    protected void setUpView() {
         //初始化倒计时
         initTimer(1);
         //播放视频
         playVideo();
+    }
 
+    @Override
+    protected void setUpData() {
 
     }
 

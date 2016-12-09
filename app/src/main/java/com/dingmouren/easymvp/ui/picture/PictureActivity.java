@@ -56,14 +56,22 @@ public class PictureActivity extends BaseActivity   {
         return intent;
     }
 
+
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_picture);
-        ButterKnife.bind(this);
+    protected int setLayoutResourceID() {
+        return R.layout.activity_picture;
+    }
+
+    @Override
+    protected void setUpView() {
         initPicture();
         initFabDialog();
         overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
+    }
+
+    @Override
+    protected void setUpData() {
+
     }
 
 

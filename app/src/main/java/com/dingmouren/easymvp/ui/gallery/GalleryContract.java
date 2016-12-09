@@ -22,7 +22,6 @@ public interface GalleryContract {
         RecyclerView getRecyclerView();
         GalleryAdapter getGalleryAdapter();
         LinearLayoutManager getLayoutManager();
-        ImageView getBlurImageView();
         CardScaleHelper getCardScaleHelper();
     }
 

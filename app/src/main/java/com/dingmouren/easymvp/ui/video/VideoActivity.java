@@ -39,17 +39,24 @@ public class VideoActivity extends BaseActivity {
     private int mFirstVisibleItem;
     private LinearLayoutManager mLinearLayoutManager;
     private CustomStandardGSYVideoPlayer mStandardGSYVideoPlayer;
+
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_video);
-        ButterKnife.bind(this);
+    protected int setLayoutResourceID() {
+        return R.layout.activity_video;
+    }
+
+    @Override
+    protected void setUpView() {
         //初始化toolbar
         initToolbar();
         //初始化视图以及工具类
         initViewAndUtil();
         //初始化监听
         initListener();
+    }
+
+    @Override
+    protected void setUpData() {
 
     }
 

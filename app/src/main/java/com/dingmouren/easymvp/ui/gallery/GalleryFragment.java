@@ -16,37 +16,42 @@ import com.dingmouren.easymvp.helper.CardScaleHelper;
 import com.dingmouren.easymvp.view.OWLoadingView;
 import com.dingmouren.easymvp.view.SpeedRecyclerView;
 
+import butterknife.BindView;
+
 /**
  * Created by dingmouren on 2016/12/3.
  */
 
 public class GalleryFragment extends BaseFragment implements GalleryContract.View{
+    @BindView(R.id.speed_recycler)  SpeedRecyclerView mRecycler;
+    @BindView(R.id.loading)  OWLoadingView mLoading;
 
-    Toolbar mToolbar;
-    SpeedRecyclerView mRecycler;
-    ImageView mBlurImg;
-    OWLoadingView mLoading;
     public LinearLayoutManager mLinearLayoutManager;
     public GalleryAdapter mGalleryAdapter;
     public GalleryPresenter mPresenter;
     private CardScaleHelper mCardScaleHepler = null;
+
+
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_gallery,container,false);
-        mToolbar = (Toolbar) rootView.findViewById(R.id.toolbar);
-        mRecycler = (SpeedRecyclerView) rootView.findViewById(R.id.speed_recycler);
-        mBlurImg = (ImageView) rootView.findViewById(R.id.img_blur);
-        mLoading = (OWLoadingView) rootView.findViewById(R.id.loading);
-        return rootView;
+    protected int setLayoutResourceID() {
+        return R.layout.fragment_gallery;
+    }
+
+    @Override
+    protected void setUpView() {
+        //初始化相册布局
+        initView();
+    }
+
+    @Override
+    protected void setUpData() {
+        //初始化相册数据
+        initData();
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        //初始化相册布局
-        initView();
-        //初始化相册数据
-        initData();
     }
 
 
@@ -99,11 +104,6 @@ public class GalleryFragment extends BaseFragment implements GalleryContract.Vie
     @Override
     public LinearLayoutManager getLayoutManager() {
         return mLinearLayoutManager ==  null ? new LinearLayoutManager(getActivity(), OrientationHelper.HORIZONTAL,false) : mLinearLayoutManager ;
-    }
-
-    @Override
-    public ImageView getBlurImageView() {
-        return mBlurImg;
     }
 
     @Override

@@ -1,10 +1,10 @@
 package com.dingmouren.easymvp.ui.gallery;
 
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -25,18 +25,23 @@ public class GalleryActivity extends BaseActivity{
 
     @BindView(R.id.toolbar)  Toolbar mToolbar;
     @BindView(R.id.frame_gallery)  FrameLayout mFrameGallery;
-    private FragmentManager mFragmentManager;
-    private FragmentTransaction mFragmentTransaction;
-    private GalleryFragment mGalleryFragment;
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_gallery);
-        ButterKnife.bind(this);
+    protected int setLayoutResourceID() {
+        return R.layout.activity_gallery;
+    }
+
+
+    @Override
+    protected void setUpView() {
         //初始化toolbar
         initToolbar();
         //初始化fragment
         initFragment();
+    }
+
+    @Override
+    protected void setUpData() {
+
     }
 
     private void initToolbar() {
@@ -48,10 +53,7 @@ public class GalleryActivity extends BaseActivity{
 
 
     private void initFragment() {
-        mFragmentManager = getFragmentManager();
-        mFragmentTransaction = mFragmentManager.beginTransaction();
-        mGalleryFragment = new GalleryFragment();
-        mFragmentTransaction.replace(R.id.frame_gallery,mGalleryFragment).commit();
+        getSupportFragmentManager().beginTransaction().add(R.id.frame_gallery,new GalleryFragment()).commit();
     }
 
     View.OnClickListener mArrowListener = new View.OnClickListener() {

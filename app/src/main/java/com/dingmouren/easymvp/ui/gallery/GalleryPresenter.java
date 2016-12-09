@@ -26,13 +26,11 @@ public class GalleryPresenter extends GalleryContract.Presenter<GalleryContract.
     public RecyclerView mRecycler;
     public GalleryAdapter mGalleryAdapter;
     public LinearLayoutManager mLinearLayoutManager;
-    public ImageView mBlurImg;
-    private CardScaleHelper mCardScaleHepler;
 
     private int page = 1;
     private boolean isLoadMore = false;
     private int mLastVisibleItem;
-    public List<GankWelfare.ResultsBean> mList = new ArrayList<>();
+    public List<GankWelfare> mList = new ArrayList<>();
     private int mLastPos = -1;
     private Runnable mBlurRunnable;
 
@@ -41,8 +39,6 @@ public class GalleryPresenter extends GalleryContract.Presenter<GalleryContract.
         this.mRecycler = view.getRecyclerView();
         this.mGalleryAdapter = view.getGalleryAdapter();
         mLinearLayoutManager = view.getLayoutManager();
-        mBlurImg = view.getBlurImageView();
-        mCardScaleHepler = view.getCardScaleHelper();
     }
 
     //请求数据
@@ -51,7 +47,7 @@ public class GalleryPresenter extends GalleryContract.Presenter<GalleryContract.
         ApiManager.getApiInstance().mApiService.getGirlPics(page)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(gankWelfare -> displayData(gankWelfare.getResults()),this :: loadError);
+            .subscribe(listGankResult -> displayData(listGankResult.results),this :: loadError);
     }
 
     /**
@@ -67,7 +63,7 @@ public class GalleryPresenter extends GalleryContract.Presenter<GalleryContract.
      * 展示相册图片
      * @param list
      */
-    private void displayData(List<GankWelfare.ResultsBean> list){
+    private void displayData(List<GankWelfare > list){
         mGalleryView.setDataRefresh(true);
         if (list == null){
             return;

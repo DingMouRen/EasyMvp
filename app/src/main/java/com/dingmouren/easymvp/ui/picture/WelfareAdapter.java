@@ -10,6 +10,8 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.dingmouren.easymvp.R;
+import com.dingmouren.easymvp.bean.GankDataUpToDate;
+import com.dingmouren.easymvp.bean.GankResult;
 import com.dingmouren.easymvp.bean.GankWelfare;
 
 import java.util.List;
@@ -21,18 +23,18 @@ import java.util.List;
 public class WelfareAdapter extends RecyclerView.Adapter<WelfareAdapter.HomeViewHolder> {
 
     private Context mContext;
-    private List<GankWelfare.ResultsBean> mList;
+    private List<GankWelfare> mList;
 
     public WelfareAdapter(Context mContext) {
         this.mContext = mContext;
     }
 
-    public WelfareAdapter(Context mContext, List<GankWelfare.ResultsBean> mList) {
+    public WelfareAdapter(Context mContext, List<GankWelfare> mList) {
         this.mContext = mContext;
         this.mList = mList;
     }
 
-    public void setList(List<GankWelfare.ResultsBean> list){
+    public void setList(List<GankWelfare> list){
         this.mList = list;
     }
 

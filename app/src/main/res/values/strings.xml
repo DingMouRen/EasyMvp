@@ -3,5 +3,9 @@
     <string name="gallery">相册</string>
     <string name="drawer_open">打开</string>
     <string name="drawer_close">关闭</string>
+    <string name="main_home">最新</string>
+    <string name="main_category">分类浏览</string>
+    <string name="main_reading">闲读</string>
+    <string name="main_welfare">福利</string>
 
 </resources>
