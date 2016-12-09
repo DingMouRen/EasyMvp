@@ -5,9 +5,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.dingmouren.easymvp.api.ApiManager;
-import com.dingmouren.easymvp.bean.GankDataUpToDate;
-import com.dingmouren.easymvp.bean.GankResult;
-import com.dingmouren.easymvp.bean.GankWelfare;
+import com.dingmouren.easymvp.bean.GankResultWelfare;
 import com.dingmouren.easymvp.util.SnackbarUtils;
 
 import java.util.ArrayList;
@@ -27,7 +25,7 @@ public class WelfarePresenter extends WelfareContract.Presenter<WelfareContract.
     public RecyclerView mRecycler;
     public WelfareAdapter mWelfareAdapter;
 
-    private List<GankWelfare> mList = new ArrayList<>();
+    private List<GankResultWelfare> mList = new ArrayList<>();
     private int mPage = 1;
     private int mLastVisibleItem;
     private boolean isLoadMore = false;//是否加载更多
@@ -59,7 +57,7 @@ public class WelfarePresenter extends WelfareContract.Presenter<WelfareContract.
      * 显示获取的数据
      * @param list
      */
-    public void displayData(List<GankWelfare> list){
+    public void displayData(List<GankResultWelfare> list){
             if (list == null){
                 mHomeView.setDataRefresh(false);
                 return;

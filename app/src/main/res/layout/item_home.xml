@@ -1,17 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/cardView"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    app:cardCornerRadius="@dimen/dp_5"
-    app:cardElevation="@dimen/dp_3"
-    android:layout_margin="@dimen/dp_5"
-    >
-        <ImageView
-            android:id="@+id/img_item_home"
+    android:layout_height="wrap_content">
+    <com.dingmouren.easymvp.view.AutoScaleHeightImageView
+        android:id="@+id/img_itemHome_girl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        />
+    <android.support.v7.widget.CardView
+        android:id="@+id/card_itemHome"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/img_itemHome_girl"
+        >
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/img_girl_height_200dp"
-            />
+            android:layout_height="wrap_content">
+            <!--内容：来自话题、作者-->
+            <RelativeLayout
+                android:id="@+id/relative_itemHome_first"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <!--话题图片-->
+                <ImageView
+                    android:id="@+id/img_itemHome_first"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp" />
+                <!--来自话题-->
+                <TextView
+                    android:id="@+id/tv_itemHome_first"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/img_itemHome_first"
+                    />
+                <!--作者-->
+                <TextView
+                    android:id="@+id/tv_itemHome_anthor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/tv_itemHome_first"
+                    />
 
-</android.support.v7.widget.CardView>
+            </RelativeLayout>
+            <!--干活的标题-->
+            <TextView
+                android:id="@+id/tv_itemHome_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/relative_itemHome_first"
+                />
+            <!--显示第一张图片-->
+            <com.dingmouren.easymvp.view.AutoScaleHeightImageView
+                android:id="@+id/img_itemHome_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_itemHome_title"
+                />
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
+</RelativeLayout>

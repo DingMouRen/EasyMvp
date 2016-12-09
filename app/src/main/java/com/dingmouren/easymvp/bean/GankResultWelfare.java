@@ -8,7 +8,7 @@ import java.util.List;
  * Created by dingmouren on 2016/12/8.
  */
 
-public class GankWelfare extends BaseEntity {
+public class GankResultWelfare extends BaseEntity {
 
     /**
      * _id : 5848c92e421aa963efd90da4

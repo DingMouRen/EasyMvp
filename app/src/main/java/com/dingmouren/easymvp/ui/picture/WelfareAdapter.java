@@ -10,9 +10,7 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.dingmouren.easymvp.R;
-import com.dingmouren.easymvp.bean.GankDataUpToDate;
-import com.dingmouren.easymvp.bean.GankResult;
-import com.dingmouren.easymvp.bean.GankWelfare;
+import com.dingmouren.easymvp.bean.GankResultWelfare;
 
 import java.util.List;
 
@@ -23,24 +21,24 @@ import java.util.List;
 public class WelfareAdapter extends RecyclerView.Adapter<WelfareAdapter.HomeViewHolder> {
 
     private Context mContext;
-    private List<GankWelfare> mList;
+    private List<GankResultWelfare> mList;
 
     public WelfareAdapter(Context mContext) {
         this.mContext = mContext;
     }
 
-    public WelfareAdapter(Context mContext, List<GankWelfare> mList) {
+    public WelfareAdapter(Context mContext, List<GankResultWelfare> mList) {
         this.mContext = mContext;
         this.mList = mList;
     }
 
-    public void setList(List<GankWelfare> list){
+    public void setList(List<GankResultWelfare> list){
         this.mList = list;
     }
 
     @Override
     public HomeViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.item_home,parent,false);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.item_welfare,parent,false);
         return new HomeViewHolder(view);
     }
 

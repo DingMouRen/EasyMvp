@@ -3,11 +3,9 @@ package com.dingmouren.easymvp.ui.gallery;
 import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.widget.ImageView;
 
 import com.dingmouren.easymvp.api.ApiManager;
-import com.dingmouren.easymvp.bean.GankWelfare;
-import com.dingmouren.easymvp.helper.CardScaleHelper;
+import com.dingmouren.easymvp.bean.GankResultWelfare;
 import com.dingmouren.easymvp.util.SnackbarUtils;
 
 import java.util.ArrayList;
@@ -30,7 +28,7 @@ public class GalleryPresenter extends GalleryContract.Presenter<GalleryContract.
     private int page = 1;
     private boolean isLoadMore = false;
     private int mLastVisibleItem;
-    public List<GankWelfare> mList = new ArrayList<>();
+    public List<GankResultWelfare> mList = new ArrayList<>();
     private int mLastPos = -1;
     private Runnable mBlurRunnable;
 
@@ -63,7 +61,7 @@ public class GalleryPresenter extends GalleryContract.Presenter<GalleryContract.
      * 展示相册图片
      * @param list
      */
-    private void displayData(List<GankWelfare > list){
+    private void displayData(List<GankResultWelfare> list){
         mGalleryView.setDataRefresh(true);
         if (list == null){
             return;

@@ -3,6 +3,8 @@ package com.dingmouren.easymvp.ui.home;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +13,9 @@ import android.webkit.WebView;
 
 import com.dingmouren.easymvp.R;
 import com.dingmouren.easymvp.base.BaseFragment;
+import com.dingmouren.easymvp.bean.GankContent;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -22,39 +27,36 @@ import butterknife.ButterKnife;
 public class HomeFragment extends BaseFragment implements HomeContract.View {
 
     @BindView(R.id.swipe_refresh)  SwipeRefreshLayout mSwipeRefresh;
-    @BindView(R.id.webview)  WebView mWebView;
+    @BindView(R.id.recycler)  RecyclerView mRecycler;
 
 
     private HomePresenter mPresenter;
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_home,container,false);
-        ButterKnife.bind(this,rootView);
-        return rootView;
-    }
+    private HomeAdapter mHomeAdapter;
 
     @Override
     protected int setLayoutResourceID() {
-        return 0;
+        return R.layout.fragment_home;
     }
 
     @Override
     protected void setUpView() {
-
+        initSwipeReferesh();
+        initView();
     }
 
     @Override
     protected void setUpData() {
-
-    }
-
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        initSwipeReferesh();
         initData();
     }
+
+    private void initView() {
+        mHomeAdapter = new HomeAdapter(getActivity());
+        mRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mRecycler.setHasFixedSize(true);
+        mRecycler.setAdapter(mHomeAdapter);
+    }
+
+
 
     private void initSwipeReferesh() {
         if (mSwipeRefresh != null) {
@@ -83,7 +85,10 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
     }
 
     @Override
-    public WebView getWebView() {
-        return mWebView;
+    public void setData(List<GankContent> list, String girlImgUrl) {
+        mHomeAdapter.setData(list,girlImgUrl);
+        mHomeAdapter.notifyDataSetChanged();
     }
+
+
 }
