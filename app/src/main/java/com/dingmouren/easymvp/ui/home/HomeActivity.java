@@ -2,7 +2,6 @@ package com.dingmouren.easymvp.ui.home;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -116,7 +115,7 @@ public class HomeActivity extends BaseActivity {
     }
     BottomNavigationView.OnNavigationItemSelectedListener mTabItemListener =  new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        public boolean onNavigationItemSelected( MenuItem item) {
             Class<?> clazz = null;
             switch (item.getItemId()){
                 case R.id.item_home:

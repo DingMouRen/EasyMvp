@@ -16,7 +16,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/img_itemHome_girl"
         android:layout_marginTop="@dimen/gallery_margin"
-        app:cardElevation="@dimen/dp_3"
         android:padding="@dimen/dp_5"
         >
         <LinearLayout
