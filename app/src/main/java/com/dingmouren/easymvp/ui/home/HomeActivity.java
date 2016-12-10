@@ -13,11 +13,13 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
 
 import com.dingmouren.easymvp.R;
 import com.dingmouren.easymvp.base.BaseActivity;
 import com.dingmouren.easymvp.base.BaseFragment;
+import com.dingmouren.easymvp.ui.about.AboutActivity;
 import com.dingmouren.easymvp.ui.gallery.GalleryActivity;
 import com.dingmouren.easymvp.ui.picture.WelfareFragment;
 import com.dingmouren.easymvp.ui.video.VideoActivity;
@@ -153,6 +155,21 @@ public class HomeActivity extends BaseActivity {
         mCurrentFragment = fragment;
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_home,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.action_about:
+                AboutActivity.newInstance(this);
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
     //侧滑栏选项的监听
     NavigationView.OnNavigationItemSelectedListener mNavgationViewItemSelectedListener = new NavigationView.OnNavigationItemSelectedListener() {
@@ -172,4 +189,6 @@ public class HomeActivity extends BaseActivity {
             return true;
         }
     };
+
+
 }

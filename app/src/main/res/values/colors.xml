@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#F25D8E</color>
-    <color name="colorPrimaryDark">#F25D8E</color>
-    <color name="colorAccent">#F25D8E</color>
+    <color name="colorPrimary">#39E0FF</color>
+    <color name="colorPrimaryDark">#39E0FF</color>
+    <color name="colorAccent">#39E0FF</color>
 
     <!--主色-->
     <color name="main_color">#39E0FF</color>

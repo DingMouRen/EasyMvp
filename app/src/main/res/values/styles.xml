@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
@@ -27,6 +27,11 @@
     <style name="VideoActivityTheme" parent="AppTheme">
         <item name="android:actionOverflowButtonStyle">@style/ToolbarArrowStyle</item>
     </style>
+    <!--AboutActivity的Theme-->
+    <style name="AboutTheme" parent="AppTheme">
+       <!-- <item name="android:windowDrawsSystemBarBackgrounds">true</item>-->
+        <item name="android:statusBarColor">@android:color/transparent</item>
+    </style>
 
     <!--白色的打开侧滑栏按钮-->
     <style name="DrawerArrowStyle" parent="Widget.AppCompat.DrawerArrowToggle">
@@ -36,7 +41,6 @@
     <style name="ToolbarArrowStyle" parent="Widget.AppCompat.DrawerArrowToggle">
         <item name="color">@android:color/white</item>
     </style>
-
 
 
 </resources>

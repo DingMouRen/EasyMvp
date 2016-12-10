@@ -18,7 +18,8 @@
         <android.support.design.widget.AppBarLayout
             android:id="@+id/appbar_layout_main"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            >
 
             <include layout="@layout/toolbar" />
 
@@ -64,7 +65,7 @@
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_header"
-        app:menu="@menu/menu_main"
+        app:menu="@menu/menu_nav"
         />
 
 </android.support.v4.widget.DrawerLayout>

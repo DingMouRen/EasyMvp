@@ -2,7 +2,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/root_view_gallery"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    >
     <com.dingmouren.easymvp.view.SpeedRecyclerView
         android:id="@+id/speed_recycler"
         android:layout_width="match_parent"

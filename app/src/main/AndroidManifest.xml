@@ -55,6 +55,10 @@
         <!--WebView展示界面-->
         <activity android:name=".ui.webdetail.WebDetailActivity"
             android:launchMode="singleTask"/>
+        <!--关于-->
+        <activity android:name=".ui.about.AboutActivity"
+            android:theme="@style/AboutTheme"
+            android:launchMode="singleTask"/>
     </application>
 
 </manifest>
