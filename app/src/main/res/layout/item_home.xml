@@ -16,6 +16,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/img_itemHome_girl"
         android:layout_marginTop="@dimen/gallery_margin"
+        android:elevation="@dimen/dp_5"
         android:padding="@dimen/dp_5"
         >
         <LinearLayout
