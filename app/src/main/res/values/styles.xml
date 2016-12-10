@@ -31,6 +31,8 @@
     <style name="AboutTheme" parent="AppTheme">
        <!-- <item name="android:windowDrawsSystemBarBackgrounds">true</item>-->
         <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="colorPrimary">@android:color/transparent</item>
+        <item name="colorAccent">@android:color/transparent</item>
     </style>
 
     <!--白色的打开侧滑栏按钮-->
