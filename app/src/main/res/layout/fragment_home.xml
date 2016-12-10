@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/swipe_refresh"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
@@ -11,5 +11,31 @@
         android:layout_height="wrap_content"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         />
-
-</android.support.v4.widget.SwipeRefreshLayout>
+    <RelativeLayout
+        android:id="@+id/relative_progressbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:clickable="true"
+        android:visibility="visible"
+        >
+    <ProgressBar
+        android:id="@+id/progressbar_home"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:indeterminateBehavior="repeat"
+        android:max="100"
+        android:indeterminate="true"
+        android:indeterminateDuration="1000"
+        />
+        <TextView
+            android:id="@+id/tv_home_progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/progressbar_home"
+            android:layout_centerHorizontal="true"
+            android:padding="@dimen/dp_5"
+            />
+    </RelativeLayout>
+</RelativeLayout>

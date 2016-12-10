@@ -8,6 +8,7 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.TextView;
 
 import com.dingmouren.easymvp.R;
 import com.dingmouren.easymvp.base.BaseActivity;
@@ -24,6 +25,7 @@ public class WebDetailActivity extends BaseActivity {
     private static final String DESC = "desc";
     @BindView(R.id.toolbar)  Toolbar mToolbar;
     @BindView(R.id.webview)  WebView mWebView;
+    @BindView(R.id.tv_title_video)  TextView mTitle;
     private String mUrl,mDesc ;
     private WebSettings mSettings;
 
@@ -47,17 +49,18 @@ public class WebDetailActivity extends BaseActivity {
 
     @Override
     protected void setUpView() {
-        mToolbar.setTitle(mDesc);
+        mTitle.setText(mDesc);
         mToolbar.setTitleTextColor(getResources().getColor(android.R.color.white));
         setSupportActionBar(mToolbar);
         mToolbar.setNavigationIcon(R.mipmap.arrow_back);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        mToolbar.setNavigationOnClickListener((view) -> finish());
     }
 
     @Override
     protected void setUpData() {
         mSettings = mWebView.getSettings();
         mSettings.setJavaScriptEnabled(true);
+        mSettings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
         mWebView.setWebChromeClient(new WebChromeClient());
         mWebView.setWebViewClient(new WebViewClient());
         mWebView.loadUrl(mUrl);

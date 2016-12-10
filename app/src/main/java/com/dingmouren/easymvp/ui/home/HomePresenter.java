@@ -1,5 +1,13 @@
 package com.dingmouren.easymvp.ui.home;
 
+import android.os.Build;
+import android.os.Handler;
+import android.view.View;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+
+import com.dingmouren.easymvp.R;
 import com.dingmouren.easymvp.api.ApiManager;
 import com.dingmouren.easymvp.bean.GankContent;
 import com.dingmouren.easymvp.bean.GankResultCategory;
@@ -20,13 +28,26 @@ public class HomePresenter extends HomeContract.Presenter {
     private static final String TAG = HomePresenter.class.getName();
     private HomeContract.View mView;
     private String mDate;
+    private RelativeLayout mRelativeProgressbar;
+    private TextView mProgressTextView;
+    private ProgressBar mProgressbar;
     public List<GankContent> mList;
-
+    private View.OnClickListener mListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            requestData();
+        }
+    };
     public HomePresenter(HomeContract.View view){
         this.mView = view;
+        mRelativeProgressbar = mView.getProgressBarRelative();
+        mProgressTextView = mView.getProgressBarTextView();
+        mProgressbar = mView.getProgressbar();
+        mRelativeProgressbar.setOnClickListener(mListener);
     }
 
     public void requestData(){
+        mView.setDataRefresh(true);
         ApiManager.getApiInstance().mApiService.getGankDatePushed()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -35,7 +56,13 @@ public class HomePresenter extends HomeContract.Presenter {
 
     private void loadError(Throwable throwable){
         throwable.printStackTrace();
-        mView.setDataRefresh(false);
+        new Handler().postDelayed(()->{
+            mRelativeProgressbar.setVisibility(View.VISIBLE);
+            mProgressbar.setIndeterminateDrawable(mProgressbar.getContext().getResources().getDrawable(R.mipmap.loading_error));
+            mProgressbar.setProgressDrawable(mProgressbar.getContext().getResources().getDrawable(R.mipmap.loading_error));
+            mProgressTextView.setText("这里空空如也，点击刷新哟~~");
+        },3000);
+
     }
 
     private void getData(String date){

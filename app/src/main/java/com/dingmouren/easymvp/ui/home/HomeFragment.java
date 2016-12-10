@@ -4,6 +4,10 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
+import android.view.View;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.dingmouren.easymvp.R;
 import com.dingmouren.easymvp.base.BaseFragment;
@@ -19,9 +23,10 @@ import butterknife.BindView;
 
 public class HomeFragment extends BaseFragment implements HomeContract.View {
 
-    @BindView(R.id.swipe_refresh)  SwipeRefreshLayout mSwipeRefresh;
     @BindView(R.id.recycler)  RecyclerView mRecycler;
-
+    @BindView(R.id.relative_progressbar)  RelativeLayout mRelativeProgressbar;
+    @BindView(R.id.tv_home_progress)  TextView mProgressTextView;
+    @BindView(R.id.progressbar_home) ProgressBar mProgressbar;
 
     private HomePresenter mPresenter;
     private HomeAdapter mHomeAdapter;
@@ -33,7 +38,6 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
 
     @Override
     protected void setUpView() {
-        initSwipeReferesh();
         initView();
     }
 
@@ -50,19 +54,9 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
 
 
 
-    private void initSwipeReferesh() {
-        if (mSwipeRefresh != null) {
-            mSwipeRefresh.setColorSchemeResources(R.color.main_color);//设置进度动画的颜色
-//            mSwipeRefresh.setProgressBackgroundColorSchemeResource(android.R.color.holo_blue_bright);//设置进度圈背景颜色
-            //这里进行单位换算  第一个参数是单位，第二个参数是单位数值，这里最终返回的是24dp对相应的px值
-            mSwipeRefresh.setProgressViewOffset(true, 0, (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 24, getResources().getDisplayMetrics()));
-            mSwipeRefresh.setOnRefreshListener(() -> mPresenter.requestData());
-        }
-    }
 
 
     private void initData() {
-        mSwipeRefresh.setRefreshing(true);
         mPresenter = new HomePresenter((HomeContract.View)this);
         mPresenter.requestData();
     }
@@ -70,9 +64,9 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
     @Override
     public void setDataRefresh(boolean refresh) {
         if (refresh){
-            mSwipeRefresh.setRefreshing(true);
+            showLoading(refresh);
         }else {
-            mSwipeRefresh.setRefreshing(false);
+            showLoading(refresh);
         }
     }
 
@@ -82,5 +76,34 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
         mRecycler.setAdapter(mHomeAdapter);
     }
 
+    @Override
+    public RelativeLayout getProgressBarRelative() {
+        return mRelativeProgressbar;
+    }
+
+    @Override
+    public TextView getProgressBarTextView() {
+        return mProgressTextView;
+    }
+
+    @Override
+    public ProgressBar getProgressbar() {
+        return mProgressbar;
+    }
+
+    /**
+     * 刷新时的loading
+     * @param refresh
+     */
+    private void showLoading(boolean refresh){
+        if (refresh){
+            mProgressbar.setIndeterminateDrawable(getResources().getDrawable(R.drawable.progressbar_circle));
+            mProgressbar.setProgressDrawable(getResources().getDrawable(R.drawable.progressbar_circle));
+            mRelativeProgressbar.setVisibility(View.VISIBLE);
+            mProgressTextView.setText("正在拼命加载中。。。");
+        }else {
+            mRelativeProgressbar.setVisibility(View.GONE);
+        }
+    }
 
 }
