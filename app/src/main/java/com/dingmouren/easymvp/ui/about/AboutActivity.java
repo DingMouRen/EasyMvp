@@ -2,6 +2,7 @@ package com.dingmouren.easymvp.ui.about;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.internal.NavigationMenu;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.widget.NestedScrollView;
@@ -25,9 +26,9 @@ import jp.wasabeef.glide.transformations.BlurTransformation;
 
 public class AboutActivity extends BaseActivity {
 
-    @BindView(R.id.toolbar)  Toolbar mToolbar;
+    @BindView(R.id.content_toolbar)  Toolbar mContentToolbar;
+    @BindView(R.id.title_toolbar)  Toolbar mTitleToolbar;
     @BindView(R.id.collapsing)  CollapsingToolbarLayout mCollapsing;
-    @BindView(R.id.fab_dialog) FabSpeedDial mFab;
     @BindView(R.id.nestedScrollView)  NestedScrollView mNestedScrollView;
 
     public static void newInstance(Context context){
@@ -40,9 +41,26 @@ public class AboutActivity extends BaseActivity {
     }
 
     @Override
-    protected void setUpView() {
+    protected void init(Bundle savedInstanceState) {
         setBlur();
-        setUpFab();
+    }
+
+    @Override
+    protected void setUpView() {
+        initCollapsing();
+        initToolbar();
+    }
+
+    private void initToolbar() {
+        setSupportActionBar(mTitleToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        mTitleToolbar.setNavigationIcon(R.mipmap.arrow_back);
+        mTitleToolbar.setNavigationOnClickListener((view)-> finish());
+    }
+
+    private void initCollapsing() {
+        mCollapsing.setTitle("What is 梦想？");
+        mCollapsing.setCollapsedTitleTextColor(getResources().getColor(android.R.color.transparent));
     }
 
 
@@ -51,32 +69,6 @@ public class AboutActivity extends BaseActivity {
 
     }
 
-    /**
-     * 初始化fab
-     */
-    private void setUpFab() {
-        mFab.setMenuListener(new FabSpeedDial.MenuListener() {
-            @Override//使用自定义的Menu
-            public boolean onPrepareMenu(NavigationMenu navigationMenu) {
-                return true;
-            }
-
-            @Override
-            public boolean onMenuItemSelected(MenuItem menuItem) {
-                switch (menuItem.getItemId()){
-                    case R.id.back:
-                        finish();
-                        break;
-                }
-                return true;
-            }
-
-            @Override
-            public void onMenuClosed() {
-
-            }
-        });
-    }
 
     /**
      * 设置毛玻璃效果,用在这里比较难看
@@ -86,7 +78,7 @@ public class AboutActivity extends BaseActivity {
                 .into(new SimpleTarget<GlideDrawable>() {
                     @Override
                     public void onResourceReady(GlideDrawable resource, GlideAnimation<? super GlideDrawable> glideAnimation) {
-                        mToolbar.setBackground(resource);
+                        mContentToolbar.setBackground(resource);
                     }
                 });
     }
