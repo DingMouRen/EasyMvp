@@ -22,4 +22,10 @@
     <dimen name="loading_size">100dp</dimen>
     <!--视频条高度-->
     <dimen name="item_video_height">200dp</dimen>
+    <!--分类浏览card上下的margin-->
+    <dimen name="category_item_margin_20dp">20dp</dimen>
+    <dimen name="category_item_title_15sp">15sp</dimen>
+    <dimen name="category_item_subtitle_12sp">12sp</dimen>
+
+
 </resources>

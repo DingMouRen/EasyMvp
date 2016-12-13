@@ -20,6 +20,7 @@ import com.dingmouren.easymvp.R;
 import com.dingmouren.easymvp.base.BaseActivity;
 import com.dingmouren.easymvp.base.BaseFragment;
 import com.dingmouren.easymvp.ui.about.AboutActivity;
+import com.dingmouren.easymvp.ui.category.CategoryFragment;
 import com.dingmouren.easymvp.ui.gallery.GalleryActivity;
 import com.dingmouren.easymvp.ui.picture.WelfareFragment;
 import com.dingmouren.easymvp.ui.video.VideoActivity;
@@ -126,6 +127,7 @@ public class HomeActivity extends BaseActivity {
                     break;
                 case R.id.item_category:
                     mToolbar.setTitle(getResources().getString(R.string.main_category));
+                    clazz = CategoryFragment.class;
                     break;
                 case R.id.item_welfare:
                     mToolbar.setTitle(getResources().getString(R.string.main_welfare));

@@ -1,5 +1,6 @@
 package com.dingmouren.easymvp.api;
 
+import com.dingmouren.easymvp.bean.GankContent;
 import com.dingmouren.easymvp.bean.GankResultCategory;
 import com.dingmouren.easymvp.bean.GankResult;
 import com.dingmouren.easymvp.bean.GankResultWelfare;
@@ -16,9 +17,6 @@ import rx.Observable;
 
 public interface Api {
 
-    //获取最新一天的数据
-    @GET("history/content/1/1")
-    Observable<GankResult<List<GankResultCategory>>> getDataUpToDate();
 
     //获取发布过的日期
     @GET("day/history")
@@ -28,10 +26,12 @@ public interface Api {
     @GET("day/{date}")
     Observable<GankResult<GankResultCategory>>  getGankDay(@Path("date") String date);
 
-    @GET("data/福利/1/1")
-    Observable<GankResult<List<GankResultWelfare>>> getFirstGirl();
-
+    //获取图片
     @GET("data/福利/10/{page}")
     Observable<GankResult<List<GankResultWelfare>>> getGirlPics(@Path("page") int page);
+
+    //根据类别查询内容
+    @GET("data/{category}/20/{pageIndex}")
+    Observable<GankResult<List<GankContent>>> getCategoryGankContent(@Path("category") String category,@Path("pageIndex") int pageIndex);
 
 }

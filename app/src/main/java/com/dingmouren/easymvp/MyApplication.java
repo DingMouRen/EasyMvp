@@ -15,5 +15,6 @@ public class MyApplication extends Application {
         super.onCreate();
         JLog.init(this)
                 .setDebug(BuildConfig.DEBUG);
+        MultiTypeInstaller.install();
     }
 }
