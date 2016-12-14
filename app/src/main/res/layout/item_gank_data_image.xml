@@ -4,20 +4,17 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@android:color/white"
+    android:layout_marginTop="@dimen/category_item_margin_20dp"
     >
-    <FrameLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/img_girl_height_200dp">
-        <android.support.v4.view.ViewPager
-            android:id="@+id/viewpager"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+        android:layout_height="300dp">
+
         <RelativeLayout
             android:id="@+id/rl_bottom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:background="#aa000000"
             >
             <TextView
                 android:id="@+id/tv_title"
@@ -26,10 +23,11 @@
                 android:layout_alignParentTop="true"
                 android:textSize="@dimen/category_item_title_15sp"
                 android:text="基于material design support的开源学习项目(Github)"
-                android:textColor="@android:color/white"
+                android:textColor="@android:color/black"
                 android:layout_marginRight="@dimen/activity_horizontal_margin"
                 android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                android:padding="@dimen/dp_3"
+                android:paddingBottom="@dimen/dp_5"
+                android:paddingTop="15dp"
                 />
             <TextView
                 android:id="@+id/tv_anthor"
@@ -37,26 +35,30 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tv_title"
                 android:text="作者：daimajia"
-                android:textColor="@android:color/white"
                 android:textSize="@dimen/category_item_subtitle_12sp"
                 android:layout_marginRight="@dimen/activity_horizontal_margin"
                 android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                android:padding="@dimen/dp_5"
                 />
             <TextView
                 android:id="@+id/tv_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tv_title"
-                android:textColor="@android:color/white"
                 android:textSize="@dimen/category_item_subtitle_12sp"
                 android:layout_alignParentRight="true"
                 android:text="2016/12/12"
                 android:layout_marginRight="@dimen/activity_horizontal_margin"
                 android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                android:padding="@dimen/dp_5"
                 />
         </RelativeLayout>
-    </FrameLayout>
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/rl_bottom"
+            android:scaleType="fitCenter"
+            android:src="@mipmap/error"
+            />
+    </RelativeLayout>
 
 </android.support.v7.widget.CardView>

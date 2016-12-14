@@ -30,7 +30,7 @@ public class GankContent extends BaseEntity{
     private String type;
     private String url;
     private boolean used;
-    private Object who;
+    private String who;
     private List<String> images;
 
     public String get_id() {
@@ -97,11 +97,11 @@ public class GankContent extends BaseEntity{
         this.used = used;
     }
 
-    public Object getWho() {
+    public String getWho() {
         return who;
     }
 
-    public void setWho(Object who) {
+    public void setWho(String who) {
         this.who = who;
     }
 
@@ -111,5 +111,21 @@ public class GankContent extends BaseEntity{
 
     public void setImages(List<String> images) {
         this.images = images;
+    }
+
+    @Override
+    public String toString() {
+        return "GankContent{" +
+                "_id='" + _id + '\'' +
+                ", createdAt='" + createdAt + '\'' +
+                ", desc='" + desc + '\'' +
+                ", publishedAt='" + publishedAt + '\'' +
+                ", source='" + source + '\'' +
+                ", type='" + type + '\'' +
+                ", url='" + url + '\'' +
+                ", used=" + used +
+                ", who='" + who + '\'' +
+                ", images=" + images +
+                '}';
     }
 }

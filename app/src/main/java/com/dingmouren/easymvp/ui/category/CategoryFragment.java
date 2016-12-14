@@ -14,7 +14,7 @@ import butterknife.BindView;
 
 public class CategoryFragment extends BaseFragment {
 
-    public static String[] titles = new String[]{"Android","IOS","前端","拓展资源","瞎推荐","休息视频"};
+    public static String[] titles = new String[]{"Android","iOS","前端","拓展资源","瞎推荐","休息视频"};
     private ViewPagerAdapter mAdapter;
 
     @BindView(R.id.tab_layout) TabLayout mTabLayout;
@@ -40,6 +40,7 @@ public class CategoryFragment extends BaseFragment {
     protected void setUpData() {
         mAdapter = new ViewPagerAdapter(getChildFragmentManager(),titles);
         mViewPager.setAdapter(mAdapter);
+        mViewPager.setOffscreenPageLimit(0);
         mTabLayout.setupWithViewPager(mViewPager);
     }
 }

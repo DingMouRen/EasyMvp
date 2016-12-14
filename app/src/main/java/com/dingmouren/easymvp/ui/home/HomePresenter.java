@@ -81,7 +81,9 @@ public class HomePresenter extends HomeContract.Presenter {
         mList.clear();
         mList.addAll(results.getAndroid());
         mList.addAll(results.getiOS());
-        mList.addAll(results.get前端());
+        if (null != results.get前端()) {
+            mList.addAll(results.get前端());
+        }
         mList.addAll(results.get拓展资源());
         mList.addAll(results.get休息视频());
         mView.setData(mList,results.get福利().get(0).getUrl());

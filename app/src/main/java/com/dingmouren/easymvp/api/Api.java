@@ -31,7 +31,7 @@ public interface Api {
     Observable<GankResult<List<GankResultWelfare>>> getGirlPics(@Path("page") int page);
 
     //根据类别查询内容
-    @GET("data/{category}/20/{pageIndex}")
+    @GET("data/{category}/10/{pageIndex}")
     Observable<GankResult<List<GankContent>>> getCategoryGankContent(@Path("category") String category,@Path("pageIndex") int pageIndex);
 
 }

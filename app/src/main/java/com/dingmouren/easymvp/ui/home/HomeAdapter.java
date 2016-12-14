@@ -105,7 +105,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder
             }
 
             tv_first.setText("来自话题:" + gank.getType());
-            mAuthor =  gank.getWho() ==  null ? "无名教主" : gank.getWho().toString();
+            mAuthor =  gank.getWho() ==  null ? "无名教主" : gank.getWho();
             tv_Author.setText("  by " +mAuthor);
             tv_title.setText(gank.getDesc());
             String imgUrl;

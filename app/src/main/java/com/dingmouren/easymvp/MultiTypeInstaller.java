@@ -1,9 +1,6 @@
 package com.dingmouren.easymvp;
 
-import com.dingmouren.easymvp.bean.multitype.GankDataImage;
-import com.dingmouren.easymvp.bean.multitype.GankDataText;
-import com.dingmouren.easymvp.bean.provider.GankDataImageViewProvider;
-import com.dingmouren.easymvp.bean.provider.GankDataTextViewProvider;
+import com.dingmouren.easymvp.bean.GankContent;
 
 import me.drakeet.multitype.GlobalMultiTypePool;
 
@@ -13,7 +10,5 @@ import me.drakeet.multitype.GlobalMultiTypePool;
 
 public class MultiTypeInstaller {
     static void install(){
-        GlobalMultiTypePool.register(GankDataText.class,new GankDataTextViewProvider());
-        GlobalMultiTypePool.register(GankDataImage.class,new GankDataImageViewProvider());
     }
 }

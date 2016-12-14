@@ -9,25 +9,23 @@ import com.dingmouren.easymvp.R;
 import com.dingmouren.easymvp.base.BaseFragment;
 import com.dingmouren.easymvp.bean.GankContent;
 
-import java.util.ArrayList;
+
 import java.util.List;
 
 import butterknife.BindView;
-import me.drakeet.multitype.MultiTypeAdapter;
 
 /**
  * Created by dingmouren on 2016/12/13.
  */
 
-public class CategoryDetailFragment extends BaseFragment implements CategoryContract.View{
+public class CategoryDetailFragment extends BaseFragment implements CategoryContract.View {
 
     @BindView(R.id.swipe_refresh)  SwipeRefreshLayout mSwipeRefresh;
     @BindView(R.id.recycler) RecyclerView mRecycler;
 
-    private MultiTypeAdapter mMultiTypeAdapter;
-    private List mItems;
     private String mType;
     private LinearLayoutManager mLinearLayoutManager;
+    private CategoryAdapter mAdapter;
     private CategoryPresenter mPresenter;
     @Override
     protected int setLayoutResourceID() {
@@ -37,43 +35,67 @@ public class CategoryDetailFragment extends BaseFragment implements CategoryCont
     @Override
     protected void init() {
         mType = getArguments().getString("type");
-        mItems = new ArrayList<>();
-        mMultiTypeAdapter = new MultiTypeAdapter(mItems);
-        mMultiTypeAdapter.applyGlobalMultiTypePool();
+        mAdapter = new CategoryAdapter(getActivity());
+
     }
 
     @Override
     protected void setUpView() {
-        setupSwipeRefresh();  //初始化SwipeRefresh的颜色
-        initView();
+        //SwipeRefresh相关
+        if (mSwipeRefresh != null){
+            mSwipeRefresh.setColorSchemeResources(R.color.main_color);//设置进度动画的颜色
+            mSwipeRefresh.setProgressViewOffset(true,0, (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,24,getResources().getDisplayMetrics()));
+            mSwipeRefresh.setOnRefreshListener(()->mPresenter.requestData());
+        }
+
+        //RecyclerView相关
+        mLinearLayoutManager = new LinearLayoutManager(mRecycler.getContext());
+        mRecycler.setHasFixedSize(true);
+        mRecycler.setLayoutManager(mLinearLayoutManager);
+        mRecycler.setAdapter(mAdapter);
+        //Presenter相关
+        mPresenter = new CategoryPresenter((CategoryContract.View)this);
+
     }
 
     @Override
     protected void setUpData() {
-
+        setRefresh(true);
+        mPresenter.requestData();
+        mPresenter.addScrollListener();//滚动的监听
     }
 
-    private void initView() {
-        mRecycler.setLayoutManager(new LinearLayoutManager(mRecycler.getContext()));
-        mRecycler.setHasFixedSize(true);
-    }
 
-    /**
-     * 初始化SwipeRefresh的颜色
-     */
-    private void setupSwipeRefresh() {
-        if (mSwipeRefresh != null){
-            mSwipeRefresh.setColorSchemeResources(R.color.main_color);//设置进度动画的颜色
-//            mSwipeRefresh.setProgressBackgroundColorSchemeResource(android.R.color.holo_blue_bright);//设置进度圈背景颜色
-            //这里进行单位换算  第一个参数是单位，第二个参数是单位数值，这里最终返回的是24dp对相应的px值
-            mSwipeRefresh.setProgressViewOffset(true,0, (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,24,getResources().getDisplayMetrics()));
-            mSwipeRefresh.setOnRefreshListener(()-> mPresenter.requestData());
+    @Override
+    public void setRefresh(boolean refresh) {
+        if (refresh){
+            mSwipeRefresh.setRefreshing(true);
+        }else {
+            mSwipeRefresh.setRefreshing(false);
         }
+    }
+
+
+    @Override
+    public RecyclerView getRecyclerView() {
+        return mRecycler;
+    }
+
+    @Override
+    public LinearLayoutManager getLayoutManager() {
+        return mLinearLayoutManager;
+    }
+
+    @Override
+    public String getType() {
+        return mType;
     }
 
     @Override
     public void setData(List<GankContent> list) {
-        mItems.addAll(list);
-        mRecycler.setAdapter(mMultiTypeAdapter);
+        mAdapter.setList(list);
+        mAdapter.notifyDataSetChanged();
     }
+
+
 }
