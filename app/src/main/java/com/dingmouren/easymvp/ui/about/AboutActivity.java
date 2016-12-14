@@ -42,7 +42,7 @@ public class AboutActivity extends BaseActivity {
 
     @Override
     protected void init(Bundle savedInstanceState) {
-        setBlur();
+//        setBlur();
     }
 
     @Override
@@ -71,7 +71,7 @@ public class AboutActivity extends BaseActivity {
 
 
     /**
-     * 设置毛玻璃效果,用在这里比较难看
+     * 设置毛玻璃效果
      */
     private void setBlur(){
         Glide.with(this).load(R.mipmap.about).bitmapTransform(new BlurTransformation(this,100))
