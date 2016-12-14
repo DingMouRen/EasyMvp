@@ -23,6 +23,7 @@ import com.dingmouren.easymvp.ui.about.AboutActivity;
 import com.dingmouren.easymvp.ui.category.CategoryFragment;
 import com.dingmouren.easymvp.ui.gallery.GalleryActivity;
 import com.dingmouren.easymvp.ui.picture.WelfareFragment;
+import com.dingmouren.easymvp.ui.reading.ReadingFragment;
 import com.dingmouren.easymvp.ui.video.VideoActivity;
 import com.dingmouren.easymvp.util.FragmentHelpr;
 import com.dingmouren.easymvp.util.SnackbarUtils;
@@ -135,6 +136,7 @@ public class HomeActivity extends BaseActivity {
                     break;
                 case R.id.item_reading:
                     mToolbar.setTitle(getResources().getString(R.string.main_reading));
+                    clazz = ReadingFragment.class;
                     break;
                 default:
                     break;

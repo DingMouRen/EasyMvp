@@ -11,6 +11,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.dingmouren.easymvp.R;
 import com.dingmouren.easymvp.bean.GankContent;
 import com.dingmouren.easymvp.ui.webdetail.WebDetailActivity;
@@ -55,7 +56,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
         holder.tv_time.setText(mList.get(position).getPublishedAt());
         holder.cardView.setOnClickListener((view) -> WebDetailActivity.newInstance(holder.cardView.getContext(),mList.get(position).getUrl(),mList.get(position).getDesc()));
         if (null != mList.get(position).getImages() && 0 < mList.get(position).getImages().size()) {
-            Glide.with(holder.image.getContext()).load(mList.get(position).getImages().get(0)).placeholder(R.mipmap.loading).into(holder.image);
+            Glide.with(holder.image.getContext()).load(mList.get(position).getImages().get(0)).placeholder(R.mipmap.loading).diskCacheStrategy(DiskCacheStrategy.ALL).into(holder.image);
         }
     }
 
