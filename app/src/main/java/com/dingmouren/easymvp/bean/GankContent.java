@@ -2,12 +2,14 @@ package com.dingmouren.easymvp.bean;
 
 import com.dingmouren.easymvp.base.BaseEntity;
 
+import org.greenrobot.greendao.annotation.Entity;
+import org.greenrobot.greendao.annotation.Id;
+
 import java.util.List;
 
 /**
  * Created by dingmouren on 2016/12/9.
  */
-
 public class GankContent extends BaseEntity{
     /**
      * _id : 5847f803421aa963eaaee13b
@@ -21,7 +23,6 @@ public class GankContent extends BaseEntity{
      * who : null
      * images : ["http://img.gank.io/42358c4d-24d2-4771-bce0-5d9ac7f49638"]
      */
-
     private String _id;
     private String createdAt;
     private String desc;

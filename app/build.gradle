@@ -54,7 +54,8 @@ dependencies {
     compile 'com.jiongbull:jlog:1.0.5'
     /* greendao 数据库*/
     compile 'org.greenrobot:greendao:3.2.0'
-    compile 'net.zetetic:android-database-sqlcipher:3.5.4'
+//    compile 'net.zetetic:android-database-sqlcipher:3.5.4' //数据库加密时添加
+//    compile 'com.github.yuweiguocn:GreenDaoUpgradeHelper:v1.2.0' //使用数据库升级辅助GreenDaoUpgradleHepler时添加
     /*Glide的transformation库，拥有裁剪，着色，模糊，滤镜等多种转换效果*/
     compile 'jp.wasabeef:glide-transformations:2.0.1'
     compile 'com.android.support:support-annotations:25.0.1'
@@ -78,9 +79,13 @@ dependencies {
 //数据库版本以及Dao的相关设置
 greendao {
     //数据库schema版本
-    schemaVersion 1000
-//设置DaoMaster DaoSession Dao包名
-//    daoPackage 'com.dingzi.greendao'
-//设置DaoMaster DaoSeeeion Dao目录
-//    targetGenDir 'src/main/java'
+    schemaVersion 1
+//设置DaoMaster DaoSession Dao包名，默认的是bean所在的包名
+    daoPackage 'com.dingzi.greendao'
+//设置DaoMaster DaoSeeeion Dao目录，默认是build/generated/source/greendao
+//    targetGenDir 'src/main/greendao'
+    //设置true,自动生成测试单元
+//    generateTests 'true'
+    //设置生成的单元测试目录，默认是src/androidTest/java
+//    targetGenDirTests 'src/androidTest/java'
 }

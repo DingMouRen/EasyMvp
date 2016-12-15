@@ -12,6 +12,8 @@ import android.view.ViewGroup;
 
 import com.dingmouren.easymvp.R;
 import com.dingmouren.easymvp.base.BaseFragment;
+import com.dingmouren.easymvp.util.SnackbarUtils;
+import com.jiongbull.jlog.JLog;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -21,14 +23,14 @@ import butterknife.ButterKnife;
  */
 
 public class WelfareFragment extends BaseFragment implements WelfareContract.View{
-
+    public static final String TAG = WelfareFragment.class.getName();
     @BindView(R.id.swipe_refresh)  SwipeRefreshLayout mSwipeRefresh;
     @BindView(R.id.recycler)  RecyclerView mRecycler;
 
     private GridLayoutManager mGridLayoutManager;
     public WelfareAdapter mWelfareAdapter;
     public WelfarePresenter mWelfarePresenter;
-
+    public boolean isNullDatabase = true;//设置标记，如果数据库没有数据，设置为true
 
     @Override
     protected int setLayoutResourceID() {
@@ -60,7 +62,7 @@ public class WelfareFragment extends BaseFragment implements WelfareContract.Vie
 //            mSwipeRefresh.setProgressBackgroundColorSchemeResource(android.R.color.holo_blue_bright);//设置进度圈背景颜色
             //这里进行单位换算  第一个参数是单位，第二个参数是单位数值，这里最终返回的是24dp对相应的px值
             mSwipeRefresh.setProgressViewOffset(true,0, (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,24,getResources().getDisplayMetrics()));
-            mSwipeRefresh.setOnRefreshListener(()-> mWelfarePresenter.requestData());
+            mSwipeRefresh.setOnRefreshListener(()-> SnackbarUtils.showSimpleSnackbar(mSwipeRefresh,"往下滑查看更多美女~~"));
         }
     }
 
@@ -82,7 +84,14 @@ public class WelfareFragment extends BaseFragment implements WelfareContract.Vie
     private void initData(){
         mWelfarePresenter = createPresenter();
         setDataRefresh(true);
-        mWelfarePresenter.requestData();
+        if ( !mWelfarePresenter.setDataFormDatabase()){//当从数据库取出的数据为空时，去请求最新一页网络数据
+            JLog.e(TAG,"数据库没取出数据" );
+            mWelfarePresenter.requestData();
+        }else {
+            isNullDatabase = false;
+            JLog.e(TAG,"数据库取出数据 ");
+        }
+
         mWelfarePresenter.addScrollListener();
    }
 
@@ -115,5 +124,10 @@ public class WelfareFragment extends BaseFragment implements WelfareContract.Vie
     @Override
     public WelfareAdapter getHomeAdapter() {
         return mWelfareAdapter == null ? new WelfareAdapter(getActivity()) : mWelfareAdapter;
+    }
+
+    @Override
+    public boolean getIsNullDatabase() {
+        return isNullDatabase;
     }
 }

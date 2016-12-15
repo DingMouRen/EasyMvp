@@ -18,6 +18,7 @@ public interface WelfareContract {
         GridLayoutManager getLayoutManager();
         RecyclerView getRecyclerView();
         WelfareAdapter getHomeAdapter();
+        boolean getIsNullDatabase();
     }
 
     abstract class Presenter<V extends BaseView> extends BasePresenter<View>{
