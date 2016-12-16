@@ -27,7 +27,8 @@ public interface HomeContract {
         ProgressBar getProgressbar();
     }
 
-    abstract class Presenter<V extends BaseView> extends BasePresenter<View> {
-
+    interface Presenter<V extends BaseView> extends BasePresenter<View> {
+        void requestData();
+        void loadError(Throwable throwable);
     }
 }

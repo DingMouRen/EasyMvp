@@ -48,11 +48,6 @@ public class WelfareFragment extends BaseFragment implements WelfareContract.Vie
         initData();//初始化数据
     }
 
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-    }
-
     /**
      * 初始化SwipeRefresh的颜色
      */
@@ -62,7 +57,7 @@ public class WelfareFragment extends BaseFragment implements WelfareContract.Vie
 //            mSwipeRefresh.setProgressBackgroundColorSchemeResource(android.R.color.holo_blue_bright);//设置进度圈背景颜色
             //这里进行单位换算  第一个参数是单位，第二个参数是单位数值，这里最终返回的是24dp对相应的px值
             mSwipeRefresh.setProgressViewOffset(true,0, (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,24,getResources().getDisplayMetrics()));
-            mSwipeRefresh.setOnRefreshListener(()-> SnackbarUtils.showSimpleSnackbar(mSwipeRefresh,"往下滑查看更多美女~~"));
+            mSwipeRefresh.setOnRefreshListener(()-> setDataRefresh(false));
         }
     }
 

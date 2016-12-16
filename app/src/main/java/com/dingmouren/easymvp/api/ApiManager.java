@@ -17,8 +17,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ApiManager {
 
     private static final String GANK_BASE_URL = "http://gank.io/api/";
-    private static final int READ_TIME_OUT = 5;
-    private static final int CONNECT_TIME_OUT = 5;
+    private static final int READ_TIME_OUT = 3;
+    private static final int CONNECT_TIME_OUT = 3;
     protected static final Object monitor = new Object();
 
     public Retrofit mRetrofit;

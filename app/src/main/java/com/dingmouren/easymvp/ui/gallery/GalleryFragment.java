@@ -40,23 +40,6 @@ public class GalleryFragment extends BaseFragment implements GalleryContract.Vie
     @Override
     protected void setUpView() {
         //初始化相册布局
-        initView();
-    }
-
-    @Override
-    protected void setUpData() {
-        //初始化相册数据
-        initData();
-    }
-
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-    }
-
-
-
-    private void initView() {
         mGalleryAdapter = new GalleryAdapter(getActivity());
         mLinearLayoutManager = new LinearLayoutManager(getActivity(),OrientationHelper.HORIZONTAL,false);
         mRecycler.setLayoutManager(mLinearLayoutManager);
@@ -68,11 +51,15 @@ public class GalleryFragment extends BaseFragment implements GalleryContract.Vie
         mCardScaleHepler.attachToRecyclerView(mRecycler);
     }
 
-    private void initData() {
+    @Override
+    protected void setUpData() {
+        //初始化相册数据
         mPresenter = createPresenter();
         mPresenter.requestData();
         mPresenter.addScrollistener();
     }
+
+
 
     /**
      * 创建GalleryPresenter实例

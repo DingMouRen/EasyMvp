@@ -21,7 +21,7 @@ public interface WelfareContract {
         boolean getIsNullDatabase();
     }
 
-    abstract class Presenter<V extends BaseView> extends BasePresenter<View>{
+    interface Presenter<V extends BaseView> extends BasePresenter<View>{
 
     }
 

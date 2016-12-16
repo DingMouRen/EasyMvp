@@ -15,7 +15,7 @@ public interface VideoContract {
         Presenter createPresenter(Context context);
     }
 
-    abstract class Presenter<V extends BaseView> extends BasePresenter<View>{
+    interface Presenter<V extends BaseView> extends BasePresenter<View>{
 
     }
 }

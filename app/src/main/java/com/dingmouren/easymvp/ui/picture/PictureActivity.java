@@ -63,25 +63,26 @@ public class PictureActivity extends BaseActivity   {
     }
 
     @Override
+    protected void init(Bundle savedInstanceState) {
+        imgId = getIntent().getStringExtra(IMG_ID);
+    }
+
+    @Override
     protected void setUpView() {
-        initPicture();
         initFabDialog();
         overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
     }
 
     @Override
     protected void setUpData() {
-
-    }
-
-
-    private void initPicture() {
         String imgurl = getIntent().getStringExtra(IMG_URL);
-        imgId = getIntent().getStringExtra(IMG_ID);
         Glide.with(this).load(imgurl).centerCrop().diskCacheStrategy(DiskCacheStrategy.ALL).into(img);
         new PhotoViewAttacher(img);
     }
 
+    /**
+     * 初始化fab
+     */
     private void initFabDialog() {
         mFabDialog.setMenuListener(new FabSpeedDial.MenuListener() {
             @Override
@@ -113,7 +114,7 @@ public class PictureActivity extends BaseActivity   {
 
 
     /**
-     * 保存图片到
+     * 保存图片
      */
     private void saveImage() {
         SnackbarUtils.showSimpleSnackbar(img,"图片保存在"+ SAVED_PATH);

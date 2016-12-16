@@ -38,25 +38,13 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
 
     @Override
     protected void setUpView() {
-        initView();
-    }
-
-    @Override
-    protected void setUpData() {
-        initData();
-    }
-
-    private void initView() {
         mHomeAdapter = new HomeAdapter(getActivity());
         mRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecycler.setHasFixedSize(true);
     }
 
-
-
-
-
-    private void initData() {
+    @Override
+    protected void setUpData() {
         mPresenter = new HomePresenter((HomeContract.View)this);
         mPresenter.requestData();
     }

@@ -28,7 +28,7 @@ import static android.R.id.list;
  * Created by dingmouren on 2016/12/1.
  */
 
-public class WelfarePresenter extends WelfareContract.Presenter<WelfareContract.View> {
+public class WelfarePresenter implements WelfareContract.Presenter<WelfareContract.View> {
 
     public static final String TAG = WelfarePresenter.class.getName();
 

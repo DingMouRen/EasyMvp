@@ -18,7 +18,7 @@ import rx.schedulers.Schedulers;
  * Created by dingmouren on 2016/12/3.
  */
 
-public class GalleryPresenter extends GalleryContract.Presenter<GalleryContract.View> {
+public class GalleryPresenter implements GalleryContract.Presenter<GalleryContract.View> {
 
     public GalleryContract.View mGalleryView;
     public RecyclerView mRecycler;

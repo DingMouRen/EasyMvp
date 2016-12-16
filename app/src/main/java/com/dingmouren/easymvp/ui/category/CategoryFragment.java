@@ -26,14 +26,10 @@ public class CategoryFragment extends BaseFragment {
 
     @Override
     protected void setUpView() {
-        initTabLayout();
-
-    }
-
-    private void initTabLayout() {
         for (int i = 0; i <titles.length ; i++) {
             mTabLayout.addTab(mTabLayout.newTab().setText(titles[i]));
         }
+
     }
 
     @Override

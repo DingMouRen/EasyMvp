@@ -22,7 +22,7 @@ public interface CategoryContract {
         String getType();
         void setData(List<GankContent> list);
     }
-    abstract class  Presenter<V extends View > extends BasePresenter{
+    interface   Presenter<V extends View > extends BasePresenter{
 
     }
 }

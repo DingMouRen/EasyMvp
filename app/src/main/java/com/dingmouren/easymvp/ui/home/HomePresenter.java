@@ -23,7 +23,7 @@ import rx.schedulers.Schedulers;
  * Created by dingmouren on 2016/12/8.
  */
 
-public class HomePresenter extends HomeContract.Presenter {
+public class HomePresenter implements HomeContract.Presenter {
 
     private static final String TAG = HomePresenter.class.getName();
     private HomeContract.View mView;
@@ -32,6 +32,7 @@ public class HomePresenter extends HomeContract.Presenter {
     private TextView mProgressTextView;
     private ProgressBar mProgressbar;
     public List<GankContent> mList;
+    //点击重新请求数据
     private View.OnClickListener mListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
@@ -46,6 +47,10 @@ public class HomePresenter extends HomeContract.Presenter {
         mRelativeProgressbar.setOnClickListener(mListener);
     }
 
+    /**
+     * 请求数据，请求的是发布文章的日期集合，获取最新的日期
+     */
+    @Override
     public void requestData(){
         mView.setDataRefresh(true);
         ApiManager.getApiInstance().mApiService.getGankDatePushed()
@@ -54,7 +59,12 @@ public class HomePresenter extends HomeContract.Presenter {
                 .subscribe(listGankResult -> getData(listGankResult.results.get(0)),this :: loadError);
     }
 
-    private void loadError(Throwable throwable){
+    /**
+     * 异常处理
+     * @param throwable
+     */
+    @Override
+    public void loadError(Throwable throwable){
         throwable.printStackTrace();
         new Handler().postDelayed(()->{
             mRelativeProgressbar.setVisibility(View.VISIBLE);
@@ -65,6 +75,10 @@ public class HomePresenter extends HomeContract.Presenter {
 
     }
 
+    /**
+     * 对获取的最新日期进行解析，去请求这个日期的数据
+     * @param date
+     */
     private void getData(String date){
         mDate =date.replace('-', '/');
         JLog.e("mDate------",mDate);

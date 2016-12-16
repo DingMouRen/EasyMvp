@@ -19,7 +19,7 @@ import rx.schedulers.Schedulers;
  * Created by dingmouren on 2016/12/14.
  */
 
-public class CategoryPresenter extends CategoryContract.Presenter{
+public class CategoryPresenter implements CategoryContract.Presenter{
 
     private CategoryContract.View mView;
     private RecyclerView mRecycler;

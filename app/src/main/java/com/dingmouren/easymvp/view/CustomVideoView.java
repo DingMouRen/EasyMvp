@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.VideoView;
 
 /**
+ * 支持充满屏幕的VideoView
  * Created by dingmouren on 2016/12/3.
  */
 

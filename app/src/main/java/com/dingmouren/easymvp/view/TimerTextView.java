@@ -5,6 +5,7 @@ import android.util.AttributeSet;
 import android.widget.TextView;
 
 /**
+ * 倒计时的TextView
  * Created by dingmouren on 2016/12/3.
  */
 

@@ -39,24 +39,14 @@ import me.majiajie.pagerbottomtabstrip.listener.OnTabItemSelectListener;
 
 public class HomeActivity extends BaseActivity {
 
-    @BindView(R.id.drawer_main)
-    DrawerLayout mDrawer;
-    @BindView(R.id.coordinator)
-    CoordinatorLayout mCoordinator;
-    @BindView(R.id.toolbar)
-    Toolbar mToolbar;
-    RecyclerView mRecycler;
-    @BindView(R.id.nav_view_main)
-    NavigationView mNavView;
-    @BindView(R.id.fab_main)
-    FloatingActionButton mFab;
-    @BindView(R.id.tab_bottom)
-    BottomNavigationView mTabBottom;
+    @BindView(R.id.drawer_main)  DrawerLayout mDrawer;
+    @BindView(R.id.coordinator)  CoordinatorLayout mCoordinator;
+    @BindView(R.id.toolbar)  Toolbar mToolbar;
+    @BindView(R.id.nav_view_main)  NavigationView mNavView;
+    @BindView(R.id.fab_main)  FloatingActionButton mFab;
+    @BindView(R.id.tab_bottom)  BottomNavigationView mTabBottom;
 
-    private Controller mController;
     private ActionBarDrawerToggle mDrawerToggle;
-    private WelfareFragment mWelfareFragment;
-    private HomeFragment mHomeFragment;
     private FragmentManager mFragmentManager;
     private BaseFragment mCurrentFragment;
 
@@ -89,17 +79,11 @@ public class HomeActivity extends BaseActivity {
         initToolbar();
         //初始化底部导航栏
         setupTabBottom();
-        //初始化首页视图
-        initHomeFragment();
         mNavView.setNavigationItemSelectedListener(mNavgationViewItemSelectedListener);
     }
 
     @Override
     protected void setUpData() {
-
-    }
-
-    private void initHomeFragment() {
 
     }
 
@@ -189,7 +173,6 @@ public class HomeActivity extends BaseActivity {
 
             }
             mDrawer.closeDrawers();
-            item.setChecked(false);
             return true;
         }
     };

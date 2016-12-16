@@ -75,6 +75,8 @@ dependencies {
     compile('me.drakeet.multitype:multitype:2.3.0', {
         exclude group: 'com.android.support'
     })
+    /*EventBus事件总线*/
+    compile 'org.greenrobot:eventbus:3.0.0'
 }
 //数据库版本以及Dao的相关设置
 greendao {

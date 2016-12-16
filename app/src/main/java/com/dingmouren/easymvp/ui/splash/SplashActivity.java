@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 
 import com.dingmouren.easymvp.R;
@@ -23,13 +24,6 @@ import butterknife.OnClick;
 
 public class SplashActivity extends BaseActivity  {
 
-    private  String VIDEO_PATH = "android.resource://com.dingmouren.easymvp/" + R.raw.video;
-
-    @BindView(R.id.video_view)  CustomVideoView mVideoView;
-    @BindView(R.id.tv_splash)  TimerTextView mTimer;
-    private Uri mUri;
-    private MediaPlayer mMediaPlayer;
-    private ObjectAnimator mObjectAnimator;
 
     @Override
     protected int setLayoutResourceID() {
@@ -38,56 +32,21 @@ public class SplashActivity extends BaseActivity  {
 
     @Override
     protected void setUpView() {
-        //初始化倒计时
-        initTimer(1);
-        //播放视频
-        playVideo();
+
     }
 
     @Override
     protected void setUpData() {
-
+        new Handler().postDelayed(()->   turnToHome(),1500);
     }
 
-    private void initTimer(long time) {
-        mTimer.setTimes(time);
-        mTimer.beginRun();
+    private void turnToHome(){
+        startActivity(new Intent(SplashActivity.this,HomeActivity.class));
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+        finish();
     }
 
-    //渐变的属性动画，这里没有用到
-    private void alphaAnimate() {
-        mObjectAnimator = ObjectAnimator.ofFloat(mVideoView,"alpha",0f,1f);
-        mObjectAnimator.setDuration(1000 );
-        mObjectAnimator.start();
-    }
 
-    private void playVideo() {
-        mUri = Uri.parse(VIDEO_PATH);
-        mVideoView.playVideo(mUri);
-        mMediaPlayer = MediaPlayer.create(this,R.raw.redlight);
-        mMediaPlayer.start();
-        mMediaPlayer.setLooping(true);
-    }
+//            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
 
-    @OnClick(R.id.tv_splash)
-     void onClick(){
-        if (!mTimer.isRun()) {
-            startActivity(new Intent(SplashActivity.this, HomeActivity.class));
-            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-            mMediaPlayer.stop();
-            finish();
-        }
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if (mVideoView != null & mUri != null & mMediaPlayer != null){
-            mVideoView.stopPlayback();
-            mMediaPlayer.release();
-            mMediaPlayer = null;
-            mUri = null;
-        }
-
-    }
 }

@@ -33,25 +33,14 @@ public class GalleryActivity extends BaseActivity{
     @Override
     protected void setUpView() {
         //初始化toolbar
-        initToolbar();
-        //初始化fragment
-        initFragment();
-    }
-
-    @Override
-    protected void setUpData() {
-
-    }
-
-    private void initToolbar() {
         mToolbar.setTitle("相册");
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         mToolbar.setNavigationOnClickListener(mArrowListener );
     }
 
-
-    private void initFragment() {
+    @Override
+    protected void setUpData() {
         getSupportFragmentManager().beginTransaction().add(R.id.frame_gallery,new GalleryFragment()).commit();
     }
 
@@ -59,6 +48,7 @@ public class GalleryActivity extends BaseActivity{
         @Override
         public void onClick(View view) {
             startActivity(new Intent(GalleryActivity.this, HomeActivity.class));
+            finish();
         }
     };
 

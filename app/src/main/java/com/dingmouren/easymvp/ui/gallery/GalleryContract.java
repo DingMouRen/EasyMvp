@@ -25,7 +25,7 @@ public interface GalleryContract {
         CardScaleHelper getCardScaleHelper();
     }
 
-    abstract class Presenter<V extends View> extends BasePresenter{
+    interface Presenter<V extends View> extends BasePresenter{
 
     }
 }

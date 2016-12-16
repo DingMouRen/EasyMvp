@@ -1,5 +1,6 @@
 package com.dingmouren.easymvp.ui.category;
 
+import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -71,7 +72,7 @@ public class CategoryDetailFragment extends BaseFragment implements CategoryCont
         if (refresh){
             mSwipeRefresh.setRefreshing(true);
         }else {
-            mSwipeRefresh.setRefreshing(false);
+            new Handler().postDelayed(()->mSwipeRefresh.setRefreshing(refresh),1000);//延时消失加载的loading
         }
     }
 
