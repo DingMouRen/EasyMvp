@@ -56,6 +56,7 @@ public class SplashActivity extends BaseActivity {
     private void startLogoAnimTxt() {
         Animation animation = AnimationUtils.loadAnimation(this, R.anim.anim_splash_top_in);
         logo_text.startAnimation(animation);
+        ObjectAnimator.ofFloat(logo_bg,"alpha",0.0f,1.0f).setDuration(1300).start();//背景圆圈渐变的动画
     }
 
     /**
@@ -74,7 +75,7 @@ public class SplashActivity extends BaseActivity {
                     animatorSet.playTogether(ObjectAnimator.ofFloat(logo_bg, "scaleX", new float[]{1.0f, 1.25f, 0.75f, 1.15f, 1.0f}),
                             ObjectAnimator.ofFloat(logo_bg, "scaleY", new float[]{1.0f, 0.75f, 1.25f, 0.85f, 1.0f}));
                     animatorSet.start();
-                    animatorSet.addListener(animatorSetListener);
+                    animatorSet.addListener(animatorSetListener);//添加动画的监听
                 }
             }
 
@@ -88,6 +89,9 @@ public class SplashActivity extends BaseActivity {
 
     }
 
+    /**
+     * 跳转HomeActivity
+     */
     private void turnToHome() {
         startActivity(new Intent(SplashActivity.this, HomeActivity.class));
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
