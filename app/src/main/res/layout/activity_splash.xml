@@ -1,13 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/blue"
-    >
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@android:color/white">
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/logo_bg"
+        android:layout_width="130dp"
+        android:layout_height="150dp"
+        android:src="@mipmap/logo_bg"
+        android:layout_gravity="center"
+        app:border_color="@android:color/black"
+        app:border_width="@dimen/dp_3"
+
+        />
     <ImageView
+        android:id="@+id/logo_text"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_centerInParent="true"
-        android:src="@mipmap/icon"
+        android:src="@mipmap/logo_txt"
+        android:layout_gravity="center"
+        android:padding="@dimen/dp_5"
         />
-</RelativeLayout>
+</FrameLayout>
