@@ -11,6 +11,7 @@ import com.dingmouren.easymvp.R;
 import com.dingmouren.easymvp.api.ApiManager;
 import com.dingmouren.easymvp.bean.GankContent;
 import com.dingmouren.easymvp.bean.GankResultCategory;
+import com.dingmouren.easymvp.ui.home.layouts.ImgHome;
 import com.jiongbull.jlog.JLog;
 
 import java.util.ArrayList;
@@ -31,7 +32,7 @@ public class HomePresenter implements HomeContract.Presenter {
     private RelativeLayout mRelativeProgressbar;
     private TextView mProgressTextView;
     private ProgressBar mProgressbar;
-    public List<GankContent> mList;
+    public List<Object> mItems;
     //点击重新请求数据
     private View.OnClickListener mListener = new View.OnClickListener() {
         @Override
@@ -45,6 +46,7 @@ public class HomePresenter implements HomeContract.Presenter {
         mRelativeProgressbar = mView.getProgressBarRelative();
         mProgressTextView = mView.getProgressBarTextView();
         mProgressbar = mView.getProgressbar();
+        mItems = mView.getItems();
         mRelativeProgressbar.setOnClickListener(mListener);
     }
 
@@ -94,20 +96,39 @@ public class HomePresenter implements HomeContract.Presenter {
     }
 
     private void parseData(GankResultCategory results) {
-        mList = new ArrayList<>();
-        mList.clear();
-        if (null != results.getAndroid())
-            mList.addAll(results.getAndroid());
-        if (null != results.getiOS())
-            mList.addAll(results.getiOS());
-        if (null != results.get前端())
-            mList.addAll(results.get前端());
-        if (null != results.get拓展资源())
-            mList.addAll(results.get拓展资源());
-        if (null != results.get休息视频())
-            mList.addAll(results.get休息视频());
-        mView.setData(mList, results.get福利().get(0).getUrl());
-        mView.setDataRefresh(false);
+        mItems.clear();
+
+        if (null != results.get福利().get(0).getUrl())
+            mItems.add(new ImgHome(results.get福利().get(0).getUrl()));
+
+        if (null != results.getAndroid()) {
+            for (int i = 0; i < results.getAndroid().size() ; i++) {
+                mItems.add(results.getAndroid().get(i));
+            }
+        }
+        if (null != results.getiOS()){
+            for (int i = 0; i < results.getiOS().size() ; i++) {
+                mItems.add(results.getiOS().get(i));
+            }
+        }
+
+        if (null != results.get前端()){
+            for (int i = 0; i < results.get前端().size() ; i++) {
+                mItems.add(results.get前端().get(i));
+            }
+        }
+
+        if (null != results.get拓展资源()){
+            for (int i = 0; i < results.get拓展资源().size() ; i++) {
+                mItems.add(results.get拓展资源().get(i));
+            }
+        }
+        if (null != results.get休息视频()){
+            for (int i = 0; i < results.get休息视频().size() ; i++) {
+                mItems.add(results.get休息视频().get(i));
+            }
+        }
+        mView.setData();
 
     }
 }

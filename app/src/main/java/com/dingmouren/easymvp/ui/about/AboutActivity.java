@@ -22,6 +22,7 @@ import jp.wasabeef.glide.transformations.BlurTransformation;
 
 /**
  * Created by dingmouren on 2016/12/10.
+ *
  */
 
 public class AboutActivity extends BaseActivity {

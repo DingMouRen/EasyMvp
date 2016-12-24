@@ -27,5 +27,7 @@
     <dimen name="category_item_title_15sp">15sp</dimen>
     <dimen name="category_item_subtitle_12sp">12sp</dimen>
 
+    <dimen name="image_final_width">32dp</dimen>
+
 
 </resources>

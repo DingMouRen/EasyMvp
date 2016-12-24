@@ -12,10 +12,16 @@ import android.widget.TextView;
 import com.dingmouren.easymvp.R;
 import com.dingmouren.easymvp.base.BaseFragment;
 import com.dingmouren.easymvp.bean.GankContent;
+import com.dingmouren.easymvp.ui.home.layouts.GankHomeViewProvider;
+import com.dingmouren.easymvp.ui.home.layouts.ImgHome;
+import com.dingmouren.easymvp.ui.home.layouts.ImgHomeViewProvider;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import me.drakeet.multitype.Items;
+import me.drakeet.multitype.MultiTypeAdapter;
 
 /**
  * Created by dingmouren on 2016/12/8.
@@ -29,7 +35,8 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
     @BindView(R.id.progressbar_home) ProgressBar mProgressbar;
 
     private HomePresenter mPresenter;
-    private HomeAdapter mHomeAdapter;
+    private List<Object> mItems;
+    private MultiTypeAdapter mMultiTypeAdapter;
 
     @Override
     protected int setLayoutResourceID() {
@@ -37,8 +44,18 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
     }
 
     @Override
+    protected void init() {
+        //初始化布局容器和适配器
+        mItems = new ArrayList<>();
+        mMultiTypeAdapter = new MultiTypeAdapter(mItems);
+
+        //注册布局
+        mMultiTypeAdapter.register(ImgHome.class,new ImgHomeViewProvider());
+        mMultiTypeAdapter.register(GankContent.class,new GankHomeViewProvider());
+    }
+
+    @Override
     protected void setUpView() {
-        mHomeAdapter = new HomeAdapter(getActivity());
         mRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecycler.setHasFixedSize(true);
     }
@@ -47,6 +64,7 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
     protected void setUpData() {
         mPresenter = new HomePresenter((HomeContract.View)this);
         mPresenter.requestData();
+
     }
 
     @Override
@@ -58,10 +76,13 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
         }
     }
 
+    /**
+     * 显示数据
+     */
     @Override
-    public void setData(List<GankContent> list, String girlImgUrl) {
-        mHomeAdapter.setData(list,girlImgUrl);
-        mRecycler.setAdapter(mHomeAdapter);
+    public void setData() {
+        mRecycler.setAdapter(mMultiTypeAdapter);
+        setDataRefresh(false);
     }
 
     @Override
@@ -77,6 +98,11 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
     @Override
     public ProgressBar getProgressbar() {
         return mProgressbar;
+    }
+
+    @Override
+    public List<Object> getItems() {
+        return mItems;
     }
 
     /**

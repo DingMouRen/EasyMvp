@@ -77,6 +77,8 @@ dependencies {
     })
     /*EventBus事件总线*/
     compile 'org.greenrobot:eventbus:3.0.0'
+    /*banner轮播框架*/
+    compile 'com.youth.banner:banner:1.4.5'
 }
 //数据库版本以及Dao的相关设置
 greendao {

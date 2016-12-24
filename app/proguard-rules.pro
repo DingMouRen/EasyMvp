@@ -16,7 +16,7 @@
 #   public *;
 #}
 
-#glide
+# glide
    -keep public class * implements com.bumptech.glide.module.GlideModule
     -keep public enum com.bumptech.glide.load.resource.bitmap.ImageHeaderParser$** {
       **[] $VALUES;
@@ -24,19 +24,24 @@
     }
 
 
-#gsyvideoplayer 视频播放框架
+# gsyvideoplayer 视频播放框架
 -keep class tv.danmaku.ijk.** { *; }
 -dontwarn tv.danmaku.ijk.**
 -keep class com.shuyu.gsyvideoplayer.** { *; }
 -dontwarn com.shuyu.gsyvideoplayer.**
 
 
-#greenDao 3
+# greenDao 3
 -keepclassmembers class * extends org.greenrobot.greendao.AbstractDao {
 public static java.lang.String TABLENAME;
 }
 -keep class **$Properties
-# If you do not use SQLCipher:
+#If you do not use SQLCipher:
 -dontwarn org.greenrobot.greendao.database.**
-# If you do not use RxJava:
+#If you do not use RxJava:
 -dontwarn rx.**
+
+# banner
+-keep class com.youth.banner.** {
+    *;
+ }

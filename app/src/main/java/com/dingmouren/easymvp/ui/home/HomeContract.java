@@ -21,10 +21,11 @@ public interface HomeContract {
 
     interface View extends BaseView{
         void setDataRefresh(boolean refresh);
-        void setData(List<GankContent> list,String girlImgUrl);
+        void setData();
         RelativeLayout getProgressBarRelative();
         TextView getProgressBarTextView();
         ProgressBar getProgressbar();
+        List<Object> getItems();
     }
 
     interface Presenter<V extends BaseView> extends BasePresenter<View> {
