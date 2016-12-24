@@ -5,7 +5,8 @@ import android.support.v7.widget.RecyclerView;
 
 import com.dingmouren.easymvp.base.BasePresenter;
 import com.dingmouren.easymvp.base.BaseView;
-import com.dingmouren.easymvp.ui.picture.WelfareAdapter;
+
+import java.util.List;
 
 /**
  * Created by dingmouren on 2016/12/1.
@@ -17,8 +18,9 @@ public interface WelfareContract {
         void setDataRefresh(boolean refresh);
         GridLayoutManager getLayoutManager();
         RecyclerView getRecyclerView();
-        WelfareAdapter getHomeAdapter();
         boolean getIsNullDatabase();
+        void notifyDataSetChanged();
+        List<Object> getItems();
     }
 
     interface Presenter<V extends BaseView> extends BasePresenter<View>{

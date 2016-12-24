@@ -2,6 +2,7 @@ package com.dingmouren.easymvp.ui.picture;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,11 +13,17 @@ import android.view.ViewGroup;
 
 import com.dingmouren.easymvp.R;
 import com.dingmouren.easymvp.base.BaseFragment;
+import com.dingmouren.easymvp.bean.GankResultWelfare;
+import com.dingmouren.easymvp.ui.picture.layouts.WelfareImageViewProvider;
 import com.dingmouren.easymvp.util.SnackbarUtils;
 import com.jiongbull.jlog.JLog;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import me.drakeet.multitype.MultiTypeAdapter;
 
 /**
  * Created by dingmouren on 2016/12/6.
@@ -26,9 +33,10 @@ public class WelfareFragment extends BaseFragment implements WelfareContract.Vie
     public static final String TAG = WelfareFragment.class.getName();
     @BindView(R.id.swipe_refresh)  SwipeRefreshLayout mSwipeRefresh;
     @BindView(R.id.recycler)  RecyclerView mRecycler;
+    private List<Object> mItems;
+    private MultiTypeAdapter mMultiTypeAdapter;
 
     private GridLayoutManager mGridLayoutManager;
-    public WelfareAdapter mWelfareAdapter;
     public WelfarePresenter mWelfarePresenter;
     public boolean isNullDatabase = true;//设置标记，如果数据库没有数据，设置为true
 
@@ -38,20 +46,15 @@ public class WelfareFragment extends BaseFragment implements WelfareContract.Vie
     }
 
     @Override
-    protected void setUpView() {
-        setupSwipeRefresh();  //初始化SwipeRefresh的颜色
-        initView();//初始化视图
+    protected void init() {
+        mItems = new ArrayList<>();
+        mMultiTypeAdapter = new MultiTypeAdapter(mItems);
+        mMultiTypeAdapter.register(GankResultWelfare.class,new WelfareImageViewProvider());
     }
 
     @Override
-    protected void setUpData() {
-        initData();//初始化数据
-    }
-
-    /**
-     * 初始化SwipeRefresh的颜色
-     */
-    private void setupSwipeRefresh() {
+    protected void setUpView() {
+        //初始化SwipeRefresh的颜色
         if (mSwipeRefresh != null){
             mSwipeRefresh.setColorSchemeResources(R.color.main_color);//设置进度动画的颜色
 //            mSwipeRefresh.setProgressBackgroundColorSchemeResource(android.R.color.holo_blue_bright);//设置进度圈背景颜色
@@ -59,24 +62,15 @@ public class WelfareFragment extends BaseFragment implements WelfareContract.Vie
             mSwipeRefresh.setProgressViewOffset(true,0, (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,24,getResources().getDisplayMetrics()));
             mSwipeRefresh.setOnRefreshListener(()-> setDataRefresh(false));
         }
-    }
-
-    /**
-     * 初始化视图
-     */
-    private void initView(){
         //列表相关
         mGridLayoutManager = new GridLayoutManager(getActivity(),2);
-        mWelfareAdapter = new WelfareAdapter(getActivity());
         mRecycler.setHasFixedSize(true);
         mRecycler.setLayoutManager(mGridLayoutManager);
-        mRecycler.setAdapter(mWelfareAdapter);
+        mRecycler.setAdapter(mMultiTypeAdapter);
     }
 
-    /**
-     * 初始化数据
-     */
-    private void initData(){
+    @Override
+    protected void setUpData() {
         mWelfarePresenter = createPresenter();
         setDataRefresh(true);
         if ( !mWelfarePresenter.setDataFormDatabase()){//当从数据库取出的数据为空时，去请求最新一页网络数据
@@ -88,7 +82,8 @@ public class WelfareFragment extends BaseFragment implements WelfareContract.Vie
         }
 
         mWelfarePresenter.addScrollListener();
-   }
+    }
+
 
     /**
      * 获取presenter实例
@@ -116,13 +111,21 @@ public class WelfareFragment extends BaseFragment implements WelfareContract.Vie
         return mRecycler;
     }
 
-    @Override
-    public WelfareAdapter getHomeAdapter() {
-        return mWelfareAdapter == null ? new WelfareAdapter(getActivity()) : mWelfareAdapter;
-    }
+
 
     @Override
     public boolean getIsNullDatabase() {
         return isNullDatabase;
+    }
+
+    @Override
+    public void notifyDataSetChanged() {
+        mMultiTypeAdapter.notifyDataSetChanged();
+        setDataRefresh(false);
+    }
+
+    @Override
+    public List<Object> getItems() {
+        return mItems;
     }
 }

@@ -21,7 +21,7 @@ public interface HomeContract {
 
     interface View extends BaseView{
         void setDataRefresh(boolean refresh);
-        void setData();
+        void notifyDataSetChanged();
         RelativeLayout getProgressBarRelative();
         TextView getProgressBarTextView();
         ProgressBar getProgressbar();

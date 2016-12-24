@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 
 import com.dingmouren.easymvp.api.ApiManager;
 import com.dingmouren.easymvp.bean.GankContent;
+import com.dingmouren.easymvp.bean.GankResult;
 import com.dingmouren.easymvp.util.SnackbarUtils;
 import com.jiongbull.jlog.JLog;
 
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
 import rx.schedulers.Schedulers;
 
 /**
@@ -56,12 +58,20 @@ public class CategoryPresenter implements CategoryContract.Presenter{
         SnackbarUtils.showSimpleSnackbar(mRecycler,"网络不见了~~");
     }
 
+    /**
+     * 将获取的数据添加到items
+     * @param list
+     */
     private void parseData(List<GankContent> list){
         for (int i = 0; i < list.size(); i++) {
             mItems.add(list.get(i));
         }
         mView.setData();
     }
+
+    /**
+     * 对Recyclerview的监听，滑动到最底部时，自动加载下一页
+     */
 
     public void addScrollListener(){
         mRecycler.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -86,5 +96,25 @@ public class CategoryPresenter implements CategoryContract.Presenter{
                 mLastVisibleItem = mLinearLayoutManager.findLastVisibleItemPosition();
             }
         });
+    }
+
+    /**
+     * 下拉刷新时，请求第一页数据
+     */
+    public void requestFirstPage(){
+        mView.setRefresh(true);
+        ApiManager.getApiInstance().mApiService.getCategoryGankContent(mStype,1)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<GankResult<List<GankContent>>>() {
+                    @Override
+                    public void call(GankResult<List<GankContent>> listGankResult) {
+                        mItems.clear();
+                        for (int i = 0; i < listGankResult.results.size(); i++) {
+                            mItems.add(listGankResult.results.get(i));
+                        }
+                        mView.setData();
+                    }
+                });
     }
 }

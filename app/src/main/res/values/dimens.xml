@@ -8,7 +8,7 @@
     <dimen name="px_1">1px</dimen>
 
 
-    <dimen name="img_girl_height_200dp">200dp</dimen>
+    <dimen name="img_girl_height_256dp">256dp</dimen>
     <dimen name="fab_margin_bottom_60dp">60dp</dimen>
     <!--nav_header图片宽高-->
     <dimen name="img_width_nav_header">120dp</dimen>

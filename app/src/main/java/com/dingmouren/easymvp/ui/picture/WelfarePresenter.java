@@ -32,10 +32,9 @@ public class WelfarePresenter implements WelfareContract.Presenter<WelfareContra
 
     public static final String TAG = WelfarePresenter.class.getName();
 
-    public WelfareContract.View mHomeView;
+    public WelfareContract.View mView;
     public GridLayoutManager mGridLayoutManager;
     public RecyclerView mRecycler;
-    public WelfareAdapter mWelfareAdapter;
 
     private List<GankResultWelfare> mList = new ArrayList<>();
     private int mPage = 1;
@@ -44,14 +43,15 @@ public class WelfarePresenter implements WelfareContract.Presenter<WelfareContra
     private GankResultWelfareDao mWelFareDao;
     private boolean isNullDatabase;
     private static final int countDatabase = 10;
+    private List<Object> mItems;
 
     public WelfarePresenter(WelfareContract.View view) {
-        this.mHomeView = view;
-        mGridLayoutManager = mHomeView.getLayoutManager();
-        mRecycler = mHomeView.getRecyclerView();
-        mWelfareAdapter = mHomeView.getHomeAdapter();
-        isNullDatabase = mHomeView.getIsNullDatabase();
+        this.mView = view;
+        mGridLayoutManager = mView.getLayoutManager();
+        mRecycler = mView.getRecyclerView();
+        isNullDatabase = mView.getIsNullDatabase();
         mWelFareDao = MyApplication.getDaoSession().getGankResultWelfareDao();
+        mItems = mView.getItems();
     }
 
     /**
@@ -76,7 +76,7 @@ public class WelfarePresenter implements WelfareContract.Presenter<WelfareContra
     private void loadError(Throwable throwable) {
         throwable.printStackTrace();
         mPage = mPage - 1;//不管是不是加载了数据库的数据，都从第一页开始加载
-        mHomeView.setDataRefresh(false);
+        mView.setDataRefresh(false);
         SnackbarUtils.showSimpleSnackbar(mRecycler, "网络不见了~~");
     }
 
@@ -86,16 +86,12 @@ public class WelfarePresenter implements WelfareContract.Presenter<WelfareContra
      * @param list
      */
     public void displayData(List<GankResultWelfare> list) {
-        if (list == null) {
-            mHomeView.setDataRefresh(false);
-            return;
-        } else {
-            mList.addAll(list);
+        for (int i = 0; i < list.size(); i++) {
+            mItems.add(list.get(i));
         }
         saveWelFares(mList);//插入数据库
-        mWelfareAdapter.setList(mList);
-        mWelfareAdapter.notifyDataSetChanged();
-        mHomeView.setDataRefresh(false);
+        mView.notifyDataSetChanged();
+
     }
 
     /**
@@ -118,9 +114,10 @@ public class WelfarePresenter implements WelfareContract.Presenter<WelfareContra
     public boolean setDataFormDatabase() {
         List<GankResultWelfare> list = mWelFareDao.queryBuilder().limit(countDatabase).list();
         JLog.e(TAG, "数据库取出---" + list.size() + "条数据");
-        mWelfareAdapter.setList(list);//从数据库中查询20条
-        mWelfareAdapter.notifyDataSetChanged();
-        mHomeView.setDataRefresh(false);
+        for (int i = 0; i < list.size(); i++) {
+            mItems.add(list.get(i));
+        }
+        mView.notifyDataSetChanged();
         if (0 == list.size()) {
             return false;
         }else {
@@ -137,7 +134,7 @@ public class WelfarePresenter implements WelfareContract.Presenter<WelfareContra
                     mLastVisibleItem = mGridLayoutManager.findLastVisibleItemPosition();//获取最后一个可见的条目的角标
                     //当上拉到最后一条时，请求下一页数据
                     if (mLastVisibleItem + 1 == mGridLayoutManager.getItemCount()) {
-                        mHomeView.setDataRefresh(true);
+                        mView.setDataRefresh(true);
                         isLoadMore = true;
                         new Handler().postDelayed(() -> requestData(), 1000);
                     }

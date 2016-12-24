@@ -80,7 +80,7 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
      * 显示数据
      */
     @Override
-    public void setData() {
+    public void notifyDataSetChanged() {
         mRecycler.setAdapter(mMultiTypeAdapter);
         setDataRefresh(false);
     }

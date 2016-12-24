@@ -53,7 +53,7 @@ public class CategoryDetailFragment extends BaseFragment implements CategoryCont
         if (mSwipeRefresh != null){
             mSwipeRefresh.setColorSchemeResources(R.color.main_color);//设置进度动画的颜色
             mSwipeRefresh.setProgressViewOffset(true,0, (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,24,getResources().getDisplayMetrics()));
-            mSwipeRefresh.setOnRefreshListener(()->setRefresh(false));
+
         }
 
         //RecyclerView相关
@@ -71,6 +71,7 @@ public class CategoryDetailFragment extends BaseFragment implements CategoryCont
     protected void setUpData() {
         mPresenter.requestData();
         mPresenter.addScrollListener();//滚动的监听
+        mSwipeRefresh.setOnRefreshListener(()->mPresenter.requestFirstPage());//每次下拉刷新时都会清空数据，然后加载第一页的数据
     }
 
 

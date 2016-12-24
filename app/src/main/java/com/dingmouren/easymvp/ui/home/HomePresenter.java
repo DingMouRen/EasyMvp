@@ -128,7 +128,7 @@ public class HomePresenter implements HomeContract.Presenter {
                 mItems.add(results.get休息视频().get(i));
             }
         }
-        mView.setData();
+        mView.notifyDataSetChanged();
 
     }
 }
