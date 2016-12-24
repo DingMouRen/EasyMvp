@@ -8,13 +8,13 @@
     >
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="300dp">
+        android:layout_height="wrap_content">
 
         <RelativeLayout
             android:id="@+id/rl_bottom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
+            android:layout_marginBottom="@dimen/activity_horizontal_margin"
             >
             <TextView
                 android:id="@+id/tv_title"
@@ -26,7 +26,8 @@
                 android:textColor="@android:color/black"
                 android:layout_marginRight="@dimen/activity_horizontal_margin"
                 android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                android:paddingBottom="@dimen/dp_5"
+                android:maxLines="3"
+                android:layout_marginBottom="5dp"
                 android:paddingTop="15dp"
                 />
             <TextView
@@ -36,6 +37,7 @@
                 android:layout_below="@+id/tv_title"
                 android:text="作者：daimajia"
                 android:textSize="@dimen/category_item_subtitle_12sp"
+                android:layout_alignParentLeft="true"
                 android:layout_marginRight="@dimen/activity_horizontal_margin"
                 android:layout_marginLeft="@dimen/activity_horizontal_margin"
                 />
@@ -51,14 +53,33 @@
                 android:layout_marginLeft="@dimen/activity_horizontal_margin"
                 />
         </RelativeLayout>
-        <ImageView
-            android:id="@+id/image"
+        <!--显示轮播图片-->
+        <FrameLayout
+            android:id="@+id/frame"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_below="@+id/rl_bottom"
-            android:scaleType="fitCenter"
-            android:src="@mipmap/error"
-            />
+            android:visibility="visible"
+            >
+            <android.support.v4.view.ViewPager
+                android:id="@+id/viewpager"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:layout_below="@+id/tv_itemHome_title"
+                android:paddingBottom="@dimen/dp_5"
+                android:paddingTop="@dimen/dp_5"
+
+                />
+            <TextView
+                android:id="@+id/tv_page"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/circle_shape_count_down"
+                android:layout_gravity="bottom|right"
+                android:gravity="center"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                />
+        </FrameLayout>
     </RelativeLayout>
 
 </android.support.v7.widget.CardView>

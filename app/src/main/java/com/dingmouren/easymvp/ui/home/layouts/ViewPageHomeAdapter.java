@@ -7,6 +7,7 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.dingmouren.easymvp.R;
+import com.dingmouren.easymvp.util.imageloader.ImageLoader;
 
 import java.util.List;
 
@@ -25,8 +26,8 @@ public class ViewPageHomeAdapter extends PagerAdapter {
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
         ImageView imgView = new ImageView(container.getContext());
-        Glide.with(container.getContext()).load(mListImgUrls.get(position)).placeholder(R.mipmap.loading).into(imgView);
-        imgView.setOnClickListener((view)-> Glide.with(container.getContext()).load(mListImgUrls.get(position)).placeholder(R.mipmap.loading).into(imgView));//点击图片重新加载图片
+//        Glide.with(container.getContext()).load(mListImgUrls.get(position)).placeholder(R.mipmap.loading).into(imgView);
+        ImageLoader.displayImage(imgView, mListImgUrls.get(position));
         container.addView(imgView);
         return imgView;
     }

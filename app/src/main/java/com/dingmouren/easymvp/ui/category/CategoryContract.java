@@ -20,7 +20,8 @@ public interface CategoryContract {
         RecyclerView getRecyclerView();
         LinearLayoutManager getLayoutManager();
         String getType();
-        void setData(List<GankContent> list);
+        void setData();
+        List<Object> getItems();
     }
     interface   Presenter<V extends View > extends BasePresenter{
 

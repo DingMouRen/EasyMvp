@@ -30,16 +30,18 @@ public class CategoryPresenter implements CategoryContract.Presenter{
     private int pageIndex = 1;
     private int mLastVisibleItem;
     private boolean isLoadMore = false;
-
+    private List<Object> mItems;
 
     public CategoryPresenter(CategoryContract.View view) {
         this.mView = view;
         this.mRecycler = mView.getRecyclerView();
         this.mLinearLayoutManager = mView.getLayoutManager();
         this.mStype = mView.getType();
+        this.mItems = mView.getItems();
     }
 
     public void requestData(){
+        mView.setRefresh(true);
         if (isLoadMore) pageIndex++;
         ApiManager.getApiInstance().mApiService.getCategoryGankContent(mStype,pageIndex)
                 .subscribeOn(Schedulers.io())
@@ -55,13 +57,10 @@ public class CategoryPresenter implements CategoryContract.Presenter{
     }
 
     private void parseData(List<GankContent> list){
-        if (null == list){
-            return;
-        }else {
-            mList.addAll(list);
+        for (int i = 0; i < list.size(); i++) {
+            mItems.add(list.get(i));
         }
-        mView.setData(mList);
-        mView.setRefresh(false);
+        mView.setData();
     }
 
     public void addScrollListener(){

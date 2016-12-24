@@ -9,11 +9,14 @@ import android.util.TypedValue;
 import com.dingmouren.easymvp.R;
 import com.dingmouren.easymvp.base.BaseFragment;
 import com.dingmouren.easymvp.bean.GankContent;
+import com.dingmouren.easymvp.ui.category.layouts.CategoryItemViewProvider;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import me.drakeet.multitype.MultiTypeAdapter;
 
 /**
  * Created by dingmouren on 2016/12/13.
@@ -26,8 +29,9 @@ public class CategoryDetailFragment extends BaseFragment implements CategoryCont
 
     private String mType;
     private LinearLayoutManager mLinearLayoutManager;
-    private CategoryAdapter mAdapter;
     private CategoryPresenter mPresenter;
+    public List<Object> mItems;
+    private MultiTypeAdapter mMultiTypeAdapter;
     @Override
     protected int setLayoutResourceID() {
         return R.layout.fragment_category_detail;
@@ -36,8 +40,11 @@ public class CategoryDetailFragment extends BaseFragment implements CategoryCont
     @Override
     protected void init() {
         mType = getArguments().getString("type");
-        mAdapter = new CategoryAdapter(getActivity());
-
+        //布局容器
+        mItems = new ArrayList<>();
+        mMultiTypeAdapter = new MultiTypeAdapter(mItems);
+        //注册布局
+        mMultiTypeAdapter.register(GankContent.class,new CategoryItemViewProvider());
     }
 
     @Override
@@ -46,14 +53,15 @@ public class CategoryDetailFragment extends BaseFragment implements CategoryCont
         if (mSwipeRefresh != null){
             mSwipeRefresh.setColorSchemeResources(R.color.main_color);//设置进度动画的颜色
             mSwipeRefresh.setProgressViewOffset(true,0, (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,24,getResources().getDisplayMetrics()));
-            mSwipeRefresh.setOnRefreshListener(()->mPresenter.requestData());
+            mSwipeRefresh.setOnRefreshListener(()->setRefresh(false));
         }
 
         //RecyclerView相关
         mLinearLayoutManager = new LinearLayoutManager(mRecycler.getContext());
         mRecycler.setHasFixedSize(true);
         mRecycler.setLayoutManager(mLinearLayoutManager);
-        mRecycler.setAdapter(mAdapter);
+        mRecycler.setAdapter(mMultiTypeAdapter);
+
         //Presenter相关
         mPresenter = new CategoryPresenter((CategoryContract.View)this);
 
@@ -61,7 +69,6 @@ public class CategoryDetailFragment extends BaseFragment implements CategoryCont
 
     @Override
     protected void setUpData() {
-        setRefresh(true);
         mPresenter.requestData();
         mPresenter.addScrollListener();//滚动的监听
     }
@@ -70,9 +77,9 @@ public class CategoryDetailFragment extends BaseFragment implements CategoryCont
     @Override
     public void setRefresh(boolean refresh) {
         if (refresh){
-            mSwipeRefresh.setRefreshing(true);
+           mSwipeRefresh.setRefreshing(true);
         }else {
-            new Handler().postDelayed(()->mSwipeRefresh.setRefreshing(refresh),1000);//延时消失加载的loading
+            new Handler().postDelayed(()->mSwipeRefresh.setRefreshing(refresh),500);//延时消失加载的loading
         }
     }
 
@@ -93,10 +100,14 @@ public class CategoryDetailFragment extends BaseFragment implements CategoryCont
     }
 
     @Override
-    public void setData(List<GankContent> list) {
-        mAdapter.setList(list);
-        mAdapter.notifyDataSetChanged();
+    public void setData() {
+        mMultiTypeAdapter.notifyDataSetChanged();
+        setRefresh(false);
     }
 
+    @Override
+    public List<Object> getItems() {
+        return mItems;
+    }
 
 }
