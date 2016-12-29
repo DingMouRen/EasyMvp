@@ -11,4 +11,5 @@
     <color name="timer_background_color">#20F25D8E</color>
     <color name="green">#80D63F</color>
     <color name="blue">#39E0FF</color>
+    <color name="gray">#CCCCCC</color>
 </resources>

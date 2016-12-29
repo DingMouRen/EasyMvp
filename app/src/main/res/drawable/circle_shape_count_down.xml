@@ -7,5 +7,5 @@
         android:width="@dimen/timer_width"
         android:height="@dimen/timer_width"/>
     <solid
-        android:color="@color/timer_background_color"/>
+        android:color="@color/gray"/>
 </shape>

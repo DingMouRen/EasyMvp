@@ -170,6 +170,8 @@ public class HomeActivity extends BaseActivity {
                 case R.id.item2:
                     startActivity(new Intent(HomeActivity.this, VideoActivity.class));
                     break;
+                case R.id.item3:
+                    break;
 
             }
             mDrawer.closeDrawers();

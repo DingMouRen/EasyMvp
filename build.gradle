@@ -18,7 +18,7 @@ buildscript {
 allprojects {
     repositories {
         jcenter()
-//        maven{url "https://jitpack.io"}//使用数据库升级辅助GreenDaoUpgradleHelper时添加
+
     }
 }
 

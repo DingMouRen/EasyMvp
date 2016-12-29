@@ -83,7 +83,9 @@
                     android:background="@drawable/circle_shape_count_down"
                     android:layout_gravity="bottom|right"
                     android:gravity="center"
+                    android:textColor="@android:color/white"
                     android:layout_marginRight="@dimen/activity_horizontal_margin"
+                    android:layout_marginBottom="@dimen/dp_5"
                     />
             </FrameLayout>
         </LinearLayout>
