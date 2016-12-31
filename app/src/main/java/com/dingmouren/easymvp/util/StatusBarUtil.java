@@ -1,6 +1,7 @@
 package com.dingmouren.easymvp.util;
 
 import android.app.Activity;
+import android.os.Build;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,16 +18,18 @@ import android.widget.FrameLayout;
 
 public class StatusBarUtil {
     public static void setStatusBarColor(Activity activity,int color){
-        Window window = activity.getWindow();
-        window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        ViewGroup decorViewGroup = (ViewGroup) window.getDecorView();
-        View statusBarView = new View(window.getContext());
-        int statusBarHeight = getStatusBarHeight(activity);
-        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,statusBarHeight);
-          params.gravity = Gravity.TOP;
-        statusBarView.setLayoutParams(params);
-        statusBarView.setBackgroundColor(color);
-        decorViewGroup.addView(statusBarView);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            Window window = activity.getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            ViewGroup decorViewGroup = (ViewGroup) window.getDecorView();
+            View statusBarView = new View(window.getContext());
+            int statusBarHeight = getStatusBarHeight(activity);
+            FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, statusBarHeight);
+            params.gravity = Gravity.TOP;
+            statusBarView.setLayoutParams(params);
+            statusBarView.setBackgroundColor(color);
+            decorViewGroup.addView(statusBarView);
+        }
     }
 
     //获取状态栏的高度
