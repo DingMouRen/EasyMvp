@@ -79,6 +79,8 @@ dependencies {
     compile 'org.greenrobot:eventbus:3.0.0'
     /*banner轮播框架*/
     compile 'com.youth.banner:banner:1.4.5'
+    /*android的注解库 50k*/
+    compile 'org.androidannotations:androidannotations:4.2.0'
 }
 //数据库版本以及Dao的相关设置
 greendao {
