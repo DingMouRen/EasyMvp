@@ -11,12 +11,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.dingmouren.easymvp.Constant;
 import com.dingmouren.easymvp.R;
 import com.dingmouren.easymvp.base.BaseFragment;
 import com.dingmouren.easymvp.bean.GankResultWelfare;
+import com.dingmouren.easymvp.event.NightModeChangeEvent;
 import com.dingmouren.easymvp.ui.picture.layouts.WelfareImageViewProvider;
+import com.dingmouren.easymvp.util.SPUtil;
 import com.dingmouren.easymvp.util.SnackbarUtils;
 import com.jiongbull.jlog.JLog;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,6 +61,7 @@ public class WelfareFragment extends BaseFragment implements WelfareContract.Vie
 
     @Override
     protected void setUpView() {
+        EventBus.getDefault().register(this);//注册事件总线
         //初始化SwipeRefresh的颜色
         if (mSwipeRefresh != null){
             mSwipeRefresh.setColorSchemeResources(R.color.main_color);//设置进度动画的颜色
@@ -84,11 +92,16 @@ public class WelfareFragment extends BaseFragment implements WelfareContract.Vie
         mWelfarePresenter.addScrollListener();
     }
 
-
-    /**
-     * 获取presenter实例
-     * @return
-     */
+    //接收到夜间模式变化的通知时，刷新视图
+    @Subscribe(threadMode = ThreadMode.MAIN,sticky = true)
+    public void changeNightMode(NightModeChangeEvent event){
+        if ((Boolean) SPUtil.get(getContext(), Constant.NIGHT_MODE,true)){
+            mSwipeRefresh.setBackgroundColor(getResources().getColor(R.color.gray));
+        }else {
+            mSwipeRefresh.setBackgroundColor(getResources().getColor(android.R.color.darker_gray));
+        }
+    }
+    // 获取presenter实例
     public WelfarePresenter createPresenter(){
         return new WelfarePresenter((WelfareContract.View) this);
     }
@@ -127,5 +140,11 @@ public class WelfareFragment extends BaseFragment implements WelfareContract.Vie
     @Override
     public List<Object> getItems() {
         return mItems;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        EventBus.getDefault().unregister(this);//解绑事件总线
     }
 }

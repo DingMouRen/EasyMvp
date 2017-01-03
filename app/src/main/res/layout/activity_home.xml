@@ -32,7 +32,7 @@
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             />
 
-        <android.support.design.widget.FloatingActionButton
+       <!-- <android.support.design.widget.FloatingActionButton
             android:id="@+id/fab_main"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -44,7 +44,7 @@
             app:layout_anchor="@id/frame_home_activity"
             app:layout_anchorGravity="bottom|right"
             app:layout_behavior="com.dingmouren.easymvp.behavior.HomeFabBehavior"
-            />
+            />-->
         <android.support.design.widget.BottomNavigationView
             android:id="@+id/tab_bottom"
             android:layout_width="match_parent"

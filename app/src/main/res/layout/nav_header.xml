@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/nav_header_layout"
     android:layout_width="match_parent"
     android:layout_height="200dp"
     android:background="@color/main_color"
@@ -12,5 +13,13 @@
         android:src="@mipmap/fab"
         android:layout_centerVertical="true"
           />
-
+    <ImageButton
+        android:id="@+id/img_btn_night"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:background="@mipmap/daily"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/activity_vertical_margin"
+        android:layout_marginTop="32dp"
+        />
 </RelativeLayout>

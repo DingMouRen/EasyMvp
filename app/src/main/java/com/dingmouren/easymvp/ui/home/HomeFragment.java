@@ -12,9 +12,14 @@ import android.widget.TextView;
 import com.dingmouren.easymvp.R;
 import com.dingmouren.easymvp.base.BaseFragment;
 import com.dingmouren.easymvp.bean.GankContent;
+import com.dingmouren.easymvp.event.NightModeChangeEvent;
 import com.dingmouren.easymvp.ui.home.layouts.GankHomeViewProvider;
 import com.dingmouren.easymvp.ui.home.layouts.ImgHome;
 import com.dingmouren.easymvp.ui.home.layouts.ImgHomeViewProvider;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,6 +61,7 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
 
     @Override
     protected void setUpView() {
+        EventBus.getDefault().register(this);//注册事件总线
         mRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecycler.setHasFixedSize(true);
     }
@@ -120,4 +126,14 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
         }
     }
 
+    //接收到改变模式的通知，重新刷新视图
+    @Subscribe(threadMode = ThreadMode.MAIN,sticky = true)
+    public void changeNightMode(NightModeChangeEvent event){
+        mMultiTypeAdapter.notifyDataSetChanged();
+    }
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        EventBus.getDefault().unregister(this);//解绑事件总线
+    }
 }

@@ -1,6 +1,7 @@
 package com.dingmouren.easymvp.ui.gallery;
 
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
@@ -13,7 +14,6 @@ import android.widget.ImageView;
 import com.dingmouren.easymvp.R;
 import com.dingmouren.easymvp.base.BaseFragment;
 import com.dingmouren.easymvp.helper.CardScaleHelper;
-import com.dingmouren.easymvp.view.OWLoadingView;
 import com.dingmouren.easymvp.view.SpeedRecyclerView;
 
 import butterknife.BindView;
@@ -24,8 +24,7 @@ import butterknife.BindView;
 
 public class GalleryFragment extends BaseFragment implements GalleryContract.View{
     @BindView(R.id.speed_recycler)  SpeedRecyclerView mRecycler;
-    @BindView(R.id.loading)  OWLoadingView mLoading;
-
+    @BindView(R.id.swipe_refresh) SwipeRefreshLayout mSwipeRefresh;
     public LinearLayoutManager mLinearLayoutManager;
     public GalleryAdapter mGalleryAdapter;
     public GalleryPresenter mPresenter;
@@ -72,9 +71,9 @@ public class GalleryFragment extends BaseFragment implements GalleryContract.Vie
     @Override
     public void setDataRefresh(boolean refresh) {
         if (refresh){
-            mLoading.startAnim();
+            mSwipeRefresh.setRefreshing(true);
         }else {
-            mLoading.stopAnim();
+            mSwipeRefresh.setRefreshing(false);
         }
     }
 

@@ -1,5 +1,6 @@
 package com.dingmouren.easymvp.ui.category.layouts;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.CardView;
@@ -10,11 +11,13 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import com.dingmouren.easymvp.Constant;
 import com.dingmouren.easymvp.R;
 import com.dingmouren.easymvp.bean.GankContent;
 import com.dingmouren.easymvp.ui.home.layouts.ViewPageHomeAdapter;
 import com.dingmouren.easymvp.ui.webdetail.WebDetailActivity;
 import com.dingmouren.easymvp.util.DateUtils;
+import com.dingmouren.easymvp.util.SPUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -49,13 +52,23 @@ public class CategoryItemViewProvider
         @BindView(R.id.viewpager) ViewPager viewPager;
         @BindView(R.id.tv_page) TextView tvPage;
         private String anthor;
+        private Context mContext;
         ViewHolder(View itemView) {
             super(itemView);
+            mContext = itemView.getContext();
             ButterKnife.bind(this,itemView);
 
         }
 
         public void bindData(GankContent gank){
+            if ((Boolean) SPUtil.get(mContext, Constant.NIGHT_MODE, true)) {
+                carView.setBackgroundColor(mContext.getResources().getColor(android.R.color.white));
+                tvTitle.setTextColor(mContext.getResources().getColor(android.R.color.black));
+            } else {
+                carView.setBackgroundColor(mContext.getResources().getColor(android.R.color.black));
+                tvTitle.setTextColor(mContext.getResources().getColor(android.R.color.darker_gray));
+            }
+
             tvTitle.setText(gank.getDesc());
             anthor = gank.getWho() ==  null ? "无名教主" : gank.getWho();
             tvAnthor.setText("  作者：" + anthor );

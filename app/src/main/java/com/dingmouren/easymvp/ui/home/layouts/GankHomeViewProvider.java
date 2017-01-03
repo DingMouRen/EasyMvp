@@ -1,5 +1,6 @@
 package com.dingmouren.easymvp.ui.home.layouts;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.CardView;
@@ -12,9 +13,11 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.dingmouren.easymvp.Constant;
 import com.dingmouren.easymvp.R;
 import com.dingmouren.easymvp.bean.GankContent;
 import com.dingmouren.easymvp.ui.webdetail.WebDetailActivity;
+import com.dingmouren.easymvp.util.SPUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -51,15 +54,23 @@ public class GankHomeViewProvider
         @BindView(R.id.viewpager) ViewPager viewpager;
         @BindView(R.id.frame)  FrameLayout frameLayout;
         @BindView(R.id.tv_page) TextView tv_page;
+        private Context mContext;
         private String anthor;
         ViewHolder(View itemView) {
             super(itemView);
+            mContext = itemView.getContext();
             ButterKnife.bind(this,itemView);
         }
 
         //绑定数据
         public void bindData(GankContent gankHome){
-
+            if ((Boolean) SPUtil.get(mContext, Constant.NIGHT_MODE, true)) {
+                cardView.setBackgroundColor(mContext.getResources().getColor(android.R.color.white));
+                tvTitle.setTextColor(mContext.getResources().getColor(android.R.color.black));
+            } else {
+                cardView.setBackgroundColor(mContext.getResources().getColor(android.R.color.black));
+                tvTitle.setTextColor(mContext.getResources().getColor(android.R.color.darker_gray));
+            }
             //根据类型显示不同类型的图片
             switch (gankHome.getType()){
                 case "Android":

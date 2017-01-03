@@ -9,8 +9,13 @@ import android.util.TypedValue;
 import com.dingmouren.easymvp.R;
 import com.dingmouren.easymvp.base.BaseFragment;
 import com.dingmouren.easymvp.bean.GankContent;
+import com.dingmouren.easymvp.event.NightModeChangeEvent;
 import com.dingmouren.easymvp.ui.category.layouts.CategoryItemViewProvider;
 
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,6 +54,7 @@ public class CategoryDetailFragment extends BaseFragment implements CategoryCont
 
     @Override
     protected void setUpView() {
+        EventBus.getDefault().register(this);//注册事件总线
         //SwipeRefresh相关
         if (mSwipeRefresh != null){
             mSwipeRefresh.setColorSchemeResources(R.color.main_color);//设置进度动画的颜色
@@ -111,4 +117,15 @@ public class CategoryDetailFragment extends BaseFragment implements CategoryCont
         return mItems;
     }
 
+    //接收到改变模式的通知，重新刷新视图
+    @Subscribe(threadMode = ThreadMode.MAIN,sticky = true)
+    public void changeNightMode(NightModeChangeEvent event){
+        mMultiTypeAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        EventBus.getDefault().unregister(this);//解绑事件总线
+    }
 }

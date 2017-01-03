@@ -16,9 +16,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.dingmouren.easymvp.Constant;
 import com.dingmouren.easymvp.R;
 import com.dingmouren.easymvp.base.BaseActivity;
 import com.dingmouren.easymvp.base.BaseFragment;
+import com.dingmouren.easymvp.event.NightModeChangeEvent;
 import com.dingmouren.easymvp.ui.about.AboutActivity;
 import com.dingmouren.easymvp.ui.category.CategoryFragment;
 import com.dingmouren.easymvp.ui.gallery.GalleryActivity;
@@ -26,8 +28,12 @@ import com.dingmouren.easymvp.ui.picture.WelfareFragment;
 import com.dingmouren.easymvp.ui.reading.ReadingFragment;
 import com.dingmouren.easymvp.ui.video.VideoActivity;
 import com.dingmouren.easymvp.util.FragmentHelpr;
+import com.dingmouren.easymvp.util.SPUtil;
 import com.dingmouren.easymvp.util.SnackbarUtils;
+import com.dingmouren.easymvp.util.StatusBarUtil;
 import com.dingmouren.easymvp.util.ViewUtils;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
@@ -43,7 +49,7 @@ public class HomeActivity extends BaseActivity {
     @BindView(R.id.coordinator)  CoordinatorLayout mCoordinator;
     @BindView(R.id.toolbar)  Toolbar mToolbar;
     @BindView(R.id.nav_view_main)  NavigationView mNavView;
-    @BindView(R.id.fab_main)  FloatingActionButton mFab;
+//    @BindView(R.id.fab_main)  FloatingActionButton mFab; 不显示这个小图标，以后留作他用
     @BindView(R.id.tab_bottom)  BottomNavigationView mTabBottom;
 
     private ActionBarDrawerToggle mDrawerToggle;
@@ -75,11 +81,11 @@ public class HomeActivity extends BaseActivity {
 
     @Override
     protected void setUpView() {
-        //初始化toolbar
-        initToolbar();
-        //初始化底部导航栏
-        setupTabBottom();
-        mNavView.setNavigationItemSelectedListener(mNavgationViewItemSelectedListener);
+        initToolbar(); //初始化toolbar
+        setupTabBottom();//初始化底部导航栏
+        setupNavView();//初始化nav_view
+        initNightMode();//初始化夜间模式
+
     }
 
     @Override
@@ -87,6 +93,9 @@ public class HomeActivity extends BaseActivity {
 
     }
 
+    /**
+     * 初始化toolbar
+     */
     public void initToolbar() {
         mToolbar.setTitle(getResources().getString(R.string.main_home));
         mToolbar.setTitleTextColor(getResources().getColor(android.R.color.white));
@@ -97,7 +106,9 @@ public class HomeActivity extends BaseActivity {
         mDrawerToggle.syncState();
     }
 
-
+    /**
+     * 初始化底部导航栏
+     */
     private void setupTabBottom() {
         mTabBottom.setOnNavigationItemSelectedListener(mTabItemListener);
     }
@@ -132,6 +143,41 @@ public class HomeActivity extends BaseActivity {
         }
     };
 
+    /**
+     * 设置nav_view
+     */
+    private void setupNavView(){
+        mNavView.setNavigationItemSelectedListener(mNavgationViewItemSelectedListener);//nav 条目点击的监听
+        mNavView.getHeaderView(0).findViewById(R.id.img_btn_night).setOnClickListener((view)-> changeNightMode());//切换夜间模式的按钮监听
+    }
+
+    //切换夜间模式，并发送事件消息通知其他视图
+    private void changeNightMode(){
+        EventBus.getDefault().postSticky(new NightModeChangeEvent());
+        if ((Boolean) SPUtil.get(HomeActivity.this, Constant.NIGHT_MODE,true)){
+            mCoordinator.setBackgroundColor(getResources().getColor(android.R.color.darker_gray));
+            mToolbar.setBackgroundColor(getResources().getColor(android.R.color.black));
+            mToolbar.setTitleTextColor(getResources().getColor(android.R.color.darker_gray));
+            mDrawerToggle.getDrawerArrowDrawable().setColor(getResources().getColor(android.R.color.darker_gray));
+            mToolbar.getOverflowIcon().setTint(getResources().getColor(android.R.color.darker_gray));
+            StatusBarUtil.setStatusBarColor(HomeActivity.this,getResources().getColor(android.R.color.black));
+            mTabBottom.setBackgroundColor(getResources().getColor(android.R.color.black));
+            mNavView.getHeaderView(0).findViewById(R.id.nav_header_layout).setBackgroundColor(getResources().getColor(android.R.color.black));
+            mNavView.getHeaderView(0).findViewById(R.id.img_btn_night).setBackground(getResources().getDrawable(R.mipmap.night));
+            SPUtil.put(HomeActivity.this, Constant.NIGHT_MODE,false);
+        }else {
+            mCoordinator.setBackgroundColor(getResources().getColor(R.color.gray));
+            mToolbar.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+            mToolbar.setTitleTextColor(getResources().getColor(android.R.color.white));
+            mDrawerToggle.getDrawerArrowDrawable().setColor(getResources().getColor(android.R.color.white));
+            mToolbar.getOverflowIcon().setTint(getResources().getColor(android.R.color.white));
+            StatusBarUtil.setStatusBarColor(HomeActivity.this,getResources().getColor(R.color.colorPrimaryDark));
+            mTabBottom.setBackgroundColor(getResources().getColor(android.R.color.white));
+            mNavView.getHeaderView(0).findViewById(R.id.nav_header_layout).setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+            mNavView.getHeaderView(0).findViewById(R.id.img_btn_night).setBackground(getResources().getDrawable(R.mipmap.daily));
+            SPUtil.put(HomeActivity.this,Constant.NIGHT_MODE,true);
+        }
+    }
     private void switchFragment(Class<?> clazz) {
         if (clazz == null) return;
         BaseFragment fragment = ViewUtils.createFragment(clazz);
@@ -179,5 +225,33 @@ public class HomeActivity extends BaseActivity {
         }
     };
 
+    //初始化夜间模式
+    private void initNightMode(){
+        if ((Boolean) SPUtil.get(HomeActivity.this, Constant.NIGHT_MODE,true)){
+            mCoordinator.setBackgroundColor(getResources().getColor(R.color.gray));
+            mToolbar.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+            mToolbar.setTitleTextColor(getResources().getColor(android.R.color.white));
+            mDrawerToggle.getDrawerArrowDrawable().setColor(getResources().getColor(android.R.color.white));
+            mToolbar.getOverflowIcon().setTint(getResources().getColor(android.R.color.white));
+            StatusBarUtil.setStatusBarColor(HomeActivity.this,getResources().getColor(R.color.colorPrimaryDark));
+            mTabBottom.setBackgroundColor(getResources().getColor(android.R.color.white));
+            mNavView.getHeaderView(0).findViewById(R.id.nav_header_layout).setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+            mNavView.getHeaderView(0).findViewById(R.id.img_btn_night).setBackground(getResources().getDrawable(R.mipmap.daily));
+        }else {
+            mCoordinator.setBackgroundColor(getResources().getColor(android.R.color.darker_gray));
+            mToolbar.setBackgroundColor(getResources().getColor(android.R.color.black));
+            mToolbar.setTitleTextColor(getResources().getColor(android.R.color.darker_gray));
+            mDrawerToggle.getDrawerArrowDrawable().setColor(getResources().getColor(android.R.color.darker_gray));
+            mToolbar.getOverflowIcon().setTint(getResources().getColor(android.R.color.darker_gray));
+            StatusBarUtil.setStatusBarColor(HomeActivity.this,getResources().getColor(android.R.color.black));
+            mTabBottom.setBackgroundColor(getResources().getColor(android.R.color.black));
+            mNavView.getHeaderView(0).findViewById(R.id.nav_header_layout).setBackgroundColor(getResources().getColor(android.R.color.black));
+            mNavView.getHeaderView(0).findViewById(R.id.img_btn_night).setBackground(getResources().getDrawable(R.mipmap.night));
+        }
+    }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
 }
