@@ -41,7 +41,6 @@ public class GalleryActivity extends BaseActivity{
 
     @Override
     protected void setUpView() {
-        EventBus.getDefault().register(this);//注册事件总线
         initToolbar();//初始化toolbar
         initNightMode();//初始化夜间模式
     }
@@ -67,20 +66,6 @@ public class GalleryActivity extends BaseActivity{
         }
     };
 
-    //接收到切换夜间模式的通知，进行对应的夜间模式的切换
-    @Subscribe(threadMode = ThreadMode.MAIN,sticky = true)
-    public void changeNightMode(NightModeChangeEvent event){
-        /*if ((Boolean) SPUtil.get(GalleryActivity.this, Constant.NIGHT_MODE,true)){
-            mRelativeLayout.setBackgroundColor(getResources().getColor(R.color.gray));
-            mToolbar.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-            StatusBarUtil.setStatusBarColor(GalleryActivity.this,getResources().getColor(R.color.colorPrimaryDark));
-        }else {
-            mRelativeLayout.setBackgroundColor(getResources().getColor(android.R.color.black));
-            mToolbar.setBackgroundColor(getResources().getColor(android.R.color.black));
-            StatusBarUtil.setStatusBarColor(GalleryActivity.this,getResources().getColor(android.R.color.black));
-        }*/
-        initNightMode();
-    }
 
     /**
      * 初始化夜间模式
@@ -104,6 +89,5 @@ public class GalleryActivity extends BaseActivity{
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        EventBus.getDefault().unregister(this);//解绑事件总线
     }
 }
