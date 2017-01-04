@@ -11,8 +11,8 @@
     <dimen name="img_girl_height_256dp">256dp</dimen>
     <dimen name="fab_margin_bottom_60dp">60dp</dimen>
     <!--nav_header图片宽高-->
-    <dimen name="img_width_nav_header">120dp</dimen>
-    <dimen name="img_height_nav_header">120dp</dimen>
+    <dimen name="img_width_nav_header">80dp</dimen>
+    <dimen name="img_height_nav_header">80dp</dimen>
     <!--splash页面倒计时的宽高-->
     <dimen name="timer_width">40dp</dimen>
     <dimen name="timer_height">40dp</dimen>

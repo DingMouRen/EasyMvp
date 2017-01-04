@@ -38,7 +38,7 @@ public class SnackbarUtils {
     private static final int color_warning = 0XFFFEC005;
     private static final int color_danger = 0XFFF44336;
 
-    private static final int color_simple = 0XFFF25D8E;
+    private static final int color_simple = 0XFF979696;
     //工具类当前持有的Snackbar实例
     private static WeakReference<Snackbar> snackbarWeakReference;
     private SnackbarUtils(){
