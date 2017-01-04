@@ -82,7 +82,7 @@ dependencies {
     /*android的注解库 50k*/
     compile 'org.androidannotations:androidannotations:4.2.0'
     /*图片选择*/
-    compile 'com.jph.takephoto:takephoto_library:3.0.4'
+    compile 'com.github.YancyYe:GalleryPick:1.1.4'
 }
 //数据库版本以及Dao的相关设置
 greendao {

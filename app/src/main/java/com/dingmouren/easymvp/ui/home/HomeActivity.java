@@ -1,29 +1,37 @@
 package com.dingmouren.easymvp.ui.home;
 
+import android.Manifest;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.dingmouren.easymvp.Constant;
 import com.dingmouren.easymvp.R;
 import com.dingmouren.easymvp.base.BaseActivity;
@@ -36,13 +44,19 @@ import com.dingmouren.easymvp.ui.picture.WelfareFragment;
 import com.dingmouren.easymvp.ui.reading.ReadingFragment;
 import com.dingmouren.easymvp.ui.video.VideoActivity;
 import com.dingmouren.easymvp.util.FragmentHelpr;
+import com.dingmouren.easymvp.util.MyGlideImageLoader;
 import com.dingmouren.easymvp.util.SPUtil;
 import com.dingmouren.easymvp.util.SnackbarUtils;
 import com.dingmouren.easymvp.util.StatusBarUtil;
 import com.dingmouren.easymvp.util.ViewUtils;
+import com.jiongbull.jlog.JLog;
+import com.yancy.gallerypick.config.GalleryConfig;
+import com.yancy.gallerypick.config.GalleryPick;
+import com.yancy.gallerypick.inter.IHandlerCallBack;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -52,6 +66,7 @@ import me.majiajie.pagerbottomtabstrip.PagerBottomTabLayout;
 import me.majiajie.pagerbottomtabstrip.listener.OnTabItemSelectListener;
 
 public class HomeActivity extends BaseActivity  {
+    private static final String TAG = HomeActivity.class.getName();
 
     @BindView(R.id.drawer_main)  DrawerLayout mDrawer;
     @BindView(R.id.coordinator)  CoordinatorLayout mCoordinator;
@@ -63,6 +78,9 @@ public class HomeActivity extends BaseActivity  {
     private ActionBarDrawerToggle mDrawerToggle;
     private FragmentManager mFragmentManager;
     private BaseFragment mCurrentFragment;
+    private ImageView mNavHeaderImg;
+    private GalleryConfig mGalleryConfig;//图片选择器的配置
+    private List<String> mNavHeaderImgPaths = new ArrayList<>();//记录已选的图片
 
     @Override
     protected int setLayoutResourceID() {
@@ -93,7 +111,7 @@ public class HomeActivity extends BaseActivity  {
         setupTabBottom();//初始化底部导航栏
         setupNavView();//初始化nav_view
         initNightMode();//初始化夜间模式
-
+        initHeader();//初始化用户头像
     }
 
     @Override
@@ -119,36 +137,6 @@ public class HomeActivity extends BaseActivity  {
     private void setupTabBottom() {
         mTabBottom.setOnNavigationItemSelectedListener(mTabItemListener);
     }
-    BottomNavigationView.OnNavigationItemSelectedListener mTabItemListener =  new BottomNavigationView.OnNavigationItemSelectedListener() {
-        @Override
-        public boolean onNavigationItemSelected( MenuItem item) {
-            Class<?> clazz = null;
-            switch (item.getItemId()){
-                case R.id.item_home:
-                    mToolbar.setTitle(getResources().getString(R.string.main_home));
-                    clazz = HomeFragment.class;
-                    break;
-                case R.id.item_category:
-                    mToolbar.setTitle(getResources().getString(R.string.main_category));
-                    clazz = CategoryFragment.class;
-                    break;
-                case R.id.item_welfare:
-                    mToolbar.setTitle(getResources().getString(R.string.main_welfare));
-                    clazz = WelfareFragment.class;
-                    break;
-                case R.id.item_reading:
-                    mToolbar.setTitle(getResources().getString(R.string.main_reading));
-                    clazz = ReadingFragment.class;
-                    break;
-                default:
-                    break;
-            }
-            if (clazz != null){
-                switchFragment(clazz);
-            }
-            return true;
-        }
-    };
 
     /**
      * 设置nav_view
@@ -156,6 +144,16 @@ public class HomeActivity extends BaseActivity  {
     private void setupNavView(){
         mNavView.setNavigationItemSelectedListener(mNavgationViewItemSelectedListener);//nav 条目点击的监听
         mNavView.getHeaderView(0).findViewById(R.id.img_btn_night).setOnClickListener((view)-> changeNightMode());//切换夜间模式的按钮监听
+        mNavHeaderImg = (ImageView) mNavView.getHeaderView(0).findViewById(R.id.img_nav_header);
+        mNavHeaderImg.setOnClickListener((view)-> changeHeader());//更换头像
+    }
+
+    /**
+     * 初始化用户头像
+     */
+    private void initHeader(){
+        if (!TextUtils.isEmpty((String)SPUtil.get(this,Constant.HEADER_IMG_PATH,"")))
+            Glide.with(this).load(SPUtil.get(this, Constant.HEADER_IMG_PATH, "")).into(mNavHeaderImg);
     }
 
     //切换夜间模式，并发送事件消息通知其他视图
@@ -186,6 +184,55 @@ public class HomeActivity extends BaseActivity  {
             SPUtil.put(HomeActivity.this,Constant.NIGHT_MODE,true);
         }
     }
+
+    //更换头像
+    private void changeHeader(){
+        initGalleryConfig();//初始化图片选择器的配置参数
+        initPermissions();//授权管理
+    }
+
+    private void initGalleryConfig() {
+        mGalleryConfig = new GalleryConfig.Builder()
+                .imageLoader(new MyGlideImageLoader())
+                .iHandlerCallBack(imgTakeListener)
+                .pathList(mNavHeaderImgPaths)
+                .multiSelect(false)//是否多选
+                .crop(true)//开启快捷裁剪功能
+                .isShowCamera(true)//显示相机按钮，默认是false
+                .filePath("/EasyMvp")//图片存放路径
+                .build();
+    }
+
+    //更换头像时的授权管理
+    private void initPermissions() {
+        if (ContextCompat.checkSelfPermission(HomeActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
+            //需要授权
+            if (ActivityCompat.shouldShowRequestPermissionRationale(HomeActivity.this,Manifest.permission.WRITE_EXTERNAL_STORAGE)){
+                //拒绝过了
+                SnackbarUtils.showSimpleSnackbar(mCoordinator,"请在 设置-应用管理 中开启此应用的存储权限");
+            }else {
+                //进行授权
+                ActivityCompat.requestPermissions(HomeActivity.this,new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},8);//这个8做什么的不知道，以后再研究
+            }
+        } else{
+            //不需要授权
+            GalleryPick.getInstance().setGalleryConfig(mGalleryConfig).open(HomeActivity.this);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == 8){
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                //同意授权
+                GalleryPick.getInstance().setGalleryConfig(mGalleryConfig).open(HomeActivity.this);
+            }else {
+                //拒绝授权
+            }
+        }
+    }
+
+    //切换Fragment
     private void switchFragment(Class<?> clazz) {
         if (clazz == null) return;
         BaseFragment fragment = ViewUtils.createFragment(clazz);
@@ -281,7 +328,7 @@ public class HomeActivity extends BaseActivity  {
         }
     }
 
-  //获取一个 View的缓存视图
+  //获取一个 View的缓存视图，用于夜间模式切换时的过渡动画
     private Bitmap getCacheBitmapFromView(View view) {
         final boolean drawingCacheEnabled = true;
         view.setDrawingCacheEnabled(drawingCacheEnabled);
@@ -300,4 +347,58 @@ public class HomeActivity extends BaseActivity  {
     protected void onDestroy() {
         super.onDestroy();
     }
+
+    //BottomNavigationView的监听接口
+    BottomNavigationView.OnNavigationItemSelectedListener mTabItemListener =  new BottomNavigationView.OnNavigationItemSelectedListener() {
+        @Override
+        public boolean onNavigationItemSelected( MenuItem item) {
+            Class<?> clazz = null;
+            switch (item.getItemId()){
+                case R.id.item_home:
+                    mToolbar.setTitle(getResources().getString(R.string.main_home));
+                    clazz = HomeFragment.class;
+                    break;
+                case R.id.item_category:
+                    mToolbar.setTitle(getResources().getString(R.string.main_category));
+                    clazz = CategoryFragment.class;
+                    break;
+                case R.id.item_welfare:
+                    mToolbar.setTitle(getResources().getString(R.string.main_welfare));
+                    clazz = WelfareFragment.class;
+                    break;
+                case R.id.item_reading:
+                    mToolbar.setTitle(getResources().getString(R.string.main_reading));
+                    clazz = ReadingFragment.class;
+                    break;
+                default:
+                    break;
+            }
+            if (clazz != null){
+                switchFragment(clazz);
+            }
+            return true;
+        }
+    };
+    //图片选择器的监听接口
+    IHandlerCallBack imgTakeListener = new IHandlerCallBack() {
+        @Override
+        public void onStart() {
+
+        }
+        @Override
+        public void onSuccess(List<String> photoList) {
+            SPUtil.put(HomeActivity.this,Constant.HEADER_IMG_PATH,photoList.get(0));//记录选择的头像图片的路径
+            Glide.with(HomeActivity.this).load(photoList.get(0)).into(mNavHeaderImg);
+        }
+        @Override
+        public void onCancel() {
+        }
+
+        @Override
+        public void onFinish() {
+        }
+        @Override
+        public void onError() {
+        }
+    };
 }

@@ -13,5 +13,6 @@
     <color name="blue">#39E0FF</color>
     <color name="gray">#edebeb</color>
     <color name="gray_dark">#979696</color>
+    <color name="gallery_blue">#39E0FF</color><!--图片选择器UI-->
 
 </resources>

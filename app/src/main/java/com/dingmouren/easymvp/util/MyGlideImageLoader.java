@@ -1,5 +1,6 @@
 package com.dingmouren.easymvp.util;
 
+import android.app.Activity;
 import android.content.Context;
 import android.widget.ImageView;
 
@@ -9,15 +10,18 @@ import com.bumptech.glide.load.data.DataFetcher;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.model.stream.StreamModelLoader;
 import com.dingmouren.easymvp.R;
+import com.yancy.gallerypick.inter.ImageLoader;
+import com.yancy.gallerypick.widget.GalleryImageView;
 
 import java.io.IOException;
 import java.io.InputStream;
 
 /**
  * Created by dingmouren on 2017/1/4.
+ *
  */
 
-public class MyGlideImageLoader {
+public class MyGlideImageLoader implements ImageLoader{
     private static Context mContext;
     public static void displayImage(String url, ImageView img){
         mContext = img.getContext();
@@ -28,11 +32,9 @@ public class MyGlideImageLoader {
         }
 
     }
-
     private static void loadNormal(String url, ImageView img) {
         Glide.with(mContext).load(url).placeholder(R.mipmap.loading).dontAnimate().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(img);
     }
-
     private static void loadCache(String url, ImageView img) {
         Glide.with(mContext).using(new StreamModelLoader<String>() {
 
@@ -61,6 +63,25 @@ public class MyGlideImageLoader {
                 };
             }
         }).load(url).placeholder(R.mipmap.loading).dontAnimate().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(img);
+
+    }
+
+    /**
+     * 图片选择器的图片加载方法
+     * @param activity
+     * @param context
+     * @param path
+     * @param galleryImageView
+     * @param width
+     * @param height
+     */
+    @Override
+    public void displayImage(Activity activity, Context context, String path, GalleryImageView galleryImageView, int width, int height) {
+        Glide.with(context).load(path).placeholder(android.R.drawable.ic_menu_gallery).centerCrop().into(galleryImageView);
+    }
+
+    @Override
+    public void clearMemoryCache() {
 
     }
 }
