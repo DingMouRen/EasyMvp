@@ -26,7 +26,9 @@ public class ViewPageHomeAdapter extends PagerAdapter {
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
         ImageView imgView = new ImageView(container.getContext());
-        MyGlideImageLoader.displayImage(mListImgUrls.get(position),imgView);
+//        MyGlideImageLoader.displayImage(mListImgUrls.get(position),imgView);
+        Glide.with(container.getContext()).load(mListImgUrls.get(position)).into(imgView);
+        imgView.setOnClickListener((view) ->Glide.with(container.getContext()).load(mListImgUrls.get(position)).into(imgView));
         container.addView(imgView);
         return imgView;
     }
