@@ -81,8 +81,8 @@ dependencies {
     compile 'com.youth.banner:banner:1.4.5'
     /*android的注解库 50k*/
     compile 'org.androidannotations:androidannotations:4.2.0'
-    /*bilibili的多主题框架*/
-    compile 'com.bilibili:magicasakura:0.1.5@aar'
+    /*图片选择*/
+    compile 'com.jph.takephoto:takephoto_library:3.0.4'
 }
 //数据库版本以及Dao的相关设置
 greendao {

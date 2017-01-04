@@ -11,7 +11,7 @@ import com.bumptech.glide.Glide;
 import com.dingmouren.easymvp.R;
 import com.dingmouren.easymvp.bean.GankResultWelfare;
 import com.dingmouren.easymvp.ui.picture.PictureActivity;
-import com.dingmouren.easymvp.util.imageloader.ImageLoader;
+import com.dingmouren.easymvp.util.MyGlideImageLoader;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -34,7 +34,6 @@ public class WelfareImageViewProvider
     @Override
     protected void onBindViewHolder(
             @NonNull ViewHolder holder, @NonNull GankResultWelfare welfareImage) {
-//        ImageLoader.displayImage(holder.img,welfareImage.getUrl());
         Glide.with(holder.img.getContext()).load(welfareImage.getUrl()).centerCrop().placeholder(R.mipmap.loading).into(holder.img);
         holder.img.setOnClickListener((view -> PictureActivity.newInstance(holder.img.getContext(),welfareImage.getUrl(),welfareImage.get_id())));
     }

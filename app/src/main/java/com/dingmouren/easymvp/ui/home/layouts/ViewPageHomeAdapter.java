@@ -7,7 +7,7 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.dingmouren.easymvp.R;
-import com.dingmouren.easymvp.util.imageloader.ImageLoader;
+import com.dingmouren.easymvp.util.MyGlideImageLoader;
 
 import java.util.List;
 
@@ -26,8 +26,7 @@ public class ViewPageHomeAdapter extends PagerAdapter {
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
         ImageView imgView = new ImageView(container.getContext());
-//        Glide.with(container.getContext()).load(mListImgUrls.get(position)).placeholder(R.mipmap.loading).into(imgView);
-        ImageLoader.displayImage(imgView, mListImgUrls.get(position));
+        MyGlideImageLoader.displayImage(mListImgUrls.get(position),imgView);
         container.addView(imgView);
         return imgView;
     }

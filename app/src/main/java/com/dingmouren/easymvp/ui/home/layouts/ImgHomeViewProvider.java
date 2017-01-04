@@ -8,7 +8,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.dingmouren.easymvp.R;
+import com.dingmouren.easymvp.util.MyGlideImageLoader;
 
 import me.drakeet.multitype.ItemViewProvider;
 
@@ -29,7 +31,7 @@ public class ImgHomeViewProvider
     @Override
     protected void onBindViewHolder(
             @NonNull ViewHolder holder, @NonNull ImgHome imgHome) {
-        Glide.with(holder.img.getContext()).load(imgHome.getImgUrl()).into(holder.img);
+        Glide.with(holder.img.getContext()).load(imgHome.getImgUrl()).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(holder.img);
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {

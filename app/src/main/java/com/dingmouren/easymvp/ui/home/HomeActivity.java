@@ -5,6 +5,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.design.widget.BottomNavigationView;
@@ -50,7 +51,7 @@ import me.majiajie.pagerbottomtabstrip.Controller;
 import me.majiajie.pagerbottomtabstrip.PagerBottomTabLayout;
 import me.majiajie.pagerbottomtabstrip.listener.OnTabItemSelectListener;
 
-public class HomeActivity extends BaseActivity {
+public class HomeActivity extends BaseActivity  {
 
     @BindView(R.id.drawer_main)  DrawerLayout mDrawer;
     @BindView(R.id.coordinator)  CoordinatorLayout mCoordinator;
@@ -105,7 +106,6 @@ public class HomeActivity extends BaseActivity {
      */
     public void initToolbar() {
         mToolbar.setTitle(getResources().getString(R.string.main_home));
-        mToolbar.setTitleTextColor(getResources().getColor(android.R.color.white));
         setSupportActionBar(mToolbar);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
