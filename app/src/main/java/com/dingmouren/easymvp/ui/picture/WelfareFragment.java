@@ -10,8 +10,10 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import com.dingmouren.easymvp.Constant;
+import com.dingmouren.easymvp.MyApplication;
 import com.dingmouren.easymvp.R;
 import com.dingmouren.easymvp.base.BaseFragment;
 import com.dingmouren.easymvp.bean.GankResultWelfare;
@@ -40,12 +42,12 @@ public class WelfareFragment extends BaseFragment implements WelfareContract.Vie
     public static final String TAG = WelfareFragment.class.getName();
     @BindView(R.id.swipe_refresh)  SwipeRefreshLayout mSwipeRefresh;
     @BindView(R.id.recycler)  RecyclerView mRecycler;
+    @BindView(R.id.pb_welfare) ProgressBar mProgressBar;
     private List<Object> mItems;
     private MultiTypeAdapter mMultiTypeAdapter;
 
     private GridLayoutManager mGridLayoutManager;
     public WelfarePresenter mWelfarePresenter;
-    public boolean isNullDatabase = true;//设置标记，如果数据库没有数据，设置为true
 
     @Override
     protected int setLayoutResourceID() {
@@ -68,7 +70,7 @@ public class WelfareFragment extends BaseFragment implements WelfareContract.Vie
 //            mSwipeRefresh.setProgressBackgroundColorSchemeResource(android.R.color.holo_blue_bright);//设置进度圈背景颜色
             //这里进行单位换算  第一个参数是单位，第二个参数是单位数值，这里最终返回的是24dp对相应的px值
             mSwipeRefresh.setProgressViewOffset(true,0, (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,24,getResources().getDisplayMetrics()));
-            mSwipeRefresh.setOnRefreshListener(()-> setDataRefresh(false));
+            mSwipeRefresh.setOnRefreshListener(()->mWelfarePresenter.requestData());
         }
         //列表相关
         mGridLayoutManager = new GridLayoutManager(getActivity(),2);
@@ -80,15 +82,14 @@ public class WelfareFragment extends BaseFragment implements WelfareContract.Vie
     @Override
     protected void setUpData() {
         mWelfarePresenter = createPresenter();
-        setDataRefresh(true);
-        if ( !mWelfarePresenter.setDataFormDatabase()){//当从数据库取出的数据为空时，去请求最新一页网络数据
-            JLog.e(TAG,"数据库没取出数据" );
-            mWelfarePresenter.requestData();
+        //首先从数据库拿取数据，数据库没有时再去请求数据
+        if (null != MyApplication.getDaoSession().getGankResultWelfareDao().loadAll() && 0 <MyApplication.getDaoSession().getGankResultWelfareDao().loadAll().size() ){
+            mItems.addAll(MyApplication.getDaoSession().getGankResultWelfareDao().loadAll());
+            notifyDataSetChanged();
         }else {
-            isNullDatabase = false;
-            JLog.e(TAG,"数据库取出数据 ");
+            setDataRefresh(true);
+            mWelfarePresenter.requestData();
         }
-
         mWelfarePresenter.addScrollListener();
     }
 
@@ -127,19 +128,32 @@ public class WelfareFragment extends BaseFragment implements WelfareContract.Vie
 
 
     @Override
-    public boolean getIsNullDatabase() {
-        return isNullDatabase;
-    }
-
-    @Override
     public void notifyDataSetChanged() {
         mMultiTypeAdapter.notifyDataSetChanged();
         setDataRefresh(false);
+        loadMore(false);
     }
 
     @Override
     public List<Object> getItems() {
         return mItems;
+    }
+
+    @Override
+    public boolean isRefreshing() {
+        if (mSwipeRefresh.isRefreshing()){
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public void loadMore(boolean loadMore) {
+        if (loadMore){
+            mProgressBar.setVisibility(View.VISIBLE);
+        }else {
+            mProgressBar.setVisibility(View.GONE);
+        }
     }
 
     @Override

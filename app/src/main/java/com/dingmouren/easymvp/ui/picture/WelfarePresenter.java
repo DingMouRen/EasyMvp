@@ -12,17 +12,13 @@ import com.dingmouren.easymvp.util.SnackbarUtils;
 import com.dingzi.greendao.GankResultWelfareDao;
 import com.jiongbull.jlog.JLog;
 
-import org.greenrobot.greendao.query.QueryBuilder;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
 import rx.schedulers.Schedulers;
 
-import static android.R.id.list;
 
 /**
  * Created by dingmouren on 2016/12/1.
@@ -40,17 +36,12 @@ public class WelfarePresenter implements WelfareContract.Presenter<WelfareContra
     private int mPage = 1;
     private int mLastVisibleItem;
     private boolean isLoadMore = false;//是否加载更多
-    private GankResultWelfareDao mWelFareDao;
-    private boolean isNullDatabase;
-    private static final int countDatabase = 10;
     private List<Object> mItems;
 
     public WelfarePresenter(WelfareContract.View view) {
         this.mView = view;
         mGridLayoutManager = mView.getLayoutManager();
         mRecycler = mView.getRecyclerView();
-        isNullDatabase = mView.getIsNullDatabase();
-        mWelFareDao = MyApplication.getDaoSession().getGankResultWelfareDao();
         mItems = mView.getItems();
     }
 
@@ -58,15 +49,12 @@ public class WelfarePresenter implements WelfareContract.Presenter<WelfareContra
      * 请求数据
      */
     public void requestData() {
-        if (isLoadMore && isNullDatabase) {
+        if (mView.isRefreshing()){
+            mItems.clear();//请求第一页时，将之前列表显示数据清空
+            mPage = 1;
+        }else if (!mView.isRefreshing() && isLoadMore) {
             mPage = mPage + 1;
-            JLog.e(TAG,"加载第"+ mPage+"页");
-        } else if (isLoadMore && !isNullDatabase) {
-            isNullDatabase = true;//设置成true，目的是让此处只执行一次
-            mPage = countDatabase /10 + 1;
-            JLog.e(TAG,"加载第"+ mPage+"页");
         }
-        JLog.e(TAG,"实际加载第"+ mPage+"页");
         ApiManager.getApiInstance().mApiService.getGirlPics(mPage)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -75,8 +63,9 @@ public class WelfarePresenter implements WelfareContract.Presenter<WelfareContra
 
     private void loadError(Throwable throwable) {
         throwable.printStackTrace();
-        mPage = mPage - 1;//不管是不是加载了数据库的数据，都从第一页开始加载
+        mPage = 1;//不管是不是加载了数据库的数据，都从第一页开始加载
         mView.setDataRefresh(false);
+        mView.loadMore(false);
         SnackbarUtils.showSimpleSnackbar(mRecycler, "网络不见了~~");
     }
 
@@ -89,41 +78,15 @@ public class WelfarePresenter implements WelfareContract.Presenter<WelfareContra
         for (int i = 0; i < list.size(); i++) {
             mItems.add(list.get(i));
         }
-        saveWelFares(mList);//插入数据库
         mView.notifyDataSetChanged();
-
+        //将数据插入数据库
+        Observable.from(list).subscribeOn(Schedulers.io()).subscribe(gankResultWelfare -> {
+            //避免插入重复数据的逻辑
+            long count = MyApplication.getDaoSession().getGankResultWelfareDao().queryBuilder().where(GankResultWelfareDao.Properties._id.eq(gankResultWelfare.get_id())).count();
+            if (count == 0) MyApplication.getDaoSession().getGankResultWelfareDao().insertOrReplaceInTx(gankResultWelfare);
+        });
     }
 
-    /**
-     * 将数据插入数据库
-     *
-     * @param list
-     */
-    private void saveWelFares(List<GankResultWelfare> list) {
-
-        for (int i = 0; i < list.size(); i++) {
-            mWelFareDao.insertOrReplace(list.get(i));//插入数据库 存在就覆盖
-            JLog.e(TAG, "插入---" + list.get(i).getDesc());
-        }
-
-    }
-
-    /**
-     * 从数据库取20条数据
-     */
-    public boolean setDataFormDatabase() {
-        List<GankResultWelfare> list = mWelFareDao.queryBuilder().limit(countDatabase).list();
-        JLog.e(TAG, "数据库取出---" + list.size() + "条数据");
-        for (int i = 0; i < list.size(); i++) {
-            mItems.add(list.get(i));
-        }
-        mView.notifyDataSetChanged();
-        if (0 == list.size()) {
-            return false;
-        }else {
-            return true;
-        }
-    }
 
     public void addScrollListener() {
         mRecycler.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -134,7 +97,7 @@ public class WelfarePresenter implements WelfareContract.Presenter<WelfareContra
                     mLastVisibleItem = mGridLayoutManager.findLastVisibleItemPosition();//获取最后一个可见的条目的角标
                     //当上拉到最后一条时，请求下一页数据
                     if (mLastVisibleItem + 1 == mGridLayoutManager.getItemCount()) {
-                        mView.setDataRefresh(true);
+                        mView.loadMore(true);
                         isLoadMore = true;
                         new Handler().postDelayed(() -> requestData(), 1000);
                     }

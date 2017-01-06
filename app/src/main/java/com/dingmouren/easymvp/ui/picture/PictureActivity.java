@@ -14,12 +14,18 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.dingmouren.easymvp.MyApplication;
 import com.dingmouren.easymvp.R;
 import com.dingmouren.easymvp.base.BaseActivity;
+import com.dingmouren.easymvp.bean.GankResultWelfare;
+import com.dingmouren.easymvp.util.NetworkUtil;
 import com.dingmouren.easymvp.util.SnackbarUtils;
+import com.dingzi.greendao.GankResultWelfareDao;
+import com.jiongbull.jlog.JLog;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -39,7 +45,7 @@ import uk.co.senab.photoview.PhotoViewAttacher;
  */
 
 public class PictureActivity extends BaseActivity   {
-
+    private static final String TAG = PictureActivity.class.getName();
     public static final String IMG_URL = "img_url";
     public static final String IMG_ID = "img_Id";
 
@@ -47,6 +53,7 @@ public class PictureActivity extends BaseActivity   {
     private String imgId;
     @BindView(R.id.img_picture)  ImageView img;
     @BindView(R.id.fab_dialog)  FabSpeedDial mFabDialog;
+    @BindView(R.id.tv_no_network) TextView mTvNetNotice;
 
     public static Intent newInstance(Context  context,String imgUrl,String imgId){
         Intent intent = new Intent(context,PictureActivity.class);
@@ -76,7 +83,12 @@ public class PictureActivity extends BaseActivity   {
     @Override
     protected void setUpData() {
         String imgurl = getIntent().getStringExtra(IMG_URL);
-        Glide.with(this).load(imgurl).centerCrop().diskCacheStrategy(DiskCacheStrategy.ALL).into(img);
+        Glide.with(this).load(imgurl).centerCrop().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(img);
+        if (!NetworkUtil.isAvailable(this)){
+            mTvNetNotice.setVisibility(View.VISIBLE);
+        }else {
+            mTvNetNotice.setVisibility(View.GONE);
+        }
         new PhotoViewAttacher(img);
     }
 

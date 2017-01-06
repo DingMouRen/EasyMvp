@@ -30,29 +30,18 @@ public class GankResultWelfare extends BaseEntity {
      */
 //    @Id(autoincrement = true)   //主键，设置自增
 //    private Long idDao;
-    @Property(nameInDb = "_ID")
     private String _id;
-    @Property(nameInDb = "CREATEDAT")
     private String createdAt;
-    @Property(nameInDb = "DESC")
     private String desc;
-    @Property(nameInDb = "PUBLISHEDAT")
     private String publishedAt;
-    @Property(nameInDb = "SOURCE")
     private String source;
-    @Property(nameInDb = "TYPE")
     private String type;
-    @Property(nameInDb = "URL")
     private String url;
-    @Property(nameInDb = "USED")
     private boolean used;
-    @Property(nameInDb = "WHO")
     private String who;
 
-    @Keep
-    public GankResultWelfare(Long idDao, String _id, String createdAt, String desc,
-            String publishedAt, String source, String type, String url,
-            boolean used, String who) {
+    @Generated(hash = 575743611)
+    public GankResultWelfare(String _id, String createdAt, String desc, String publishedAt, String source, String type, String url, boolean used, String who) {
         this._id = _id;
         this.createdAt = createdAt;
         this.desc = desc;
@@ -66,21 +55,6 @@ public class GankResultWelfare extends BaseEntity {
 
     @Generated(hash = 1352012530)
     public GankResultWelfare() {
-    }
-
-    @Generated(hash = 575743611)
-    public GankResultWelfare(String _id, String createdAt, String desc,
-            String publishedAt, String source, String type, String url,
-            boolean used, String who) {
-        this._id = _id;
-        this.createdAt = createdAt;
-        this.desc = desc;
-        this.publishedAt = publishedAt;
-        this.source = source;
-        this.type = type;
-        this.url = url;
-        this.used = used;
-        this.who = who;
     }
 
     public String get_id() {
@@ -154,8 +128,6 @@ public class GankResultWelfare extends BaseEntity {
     public void setWho(String who) {
         this.who = who;
     }
-
-
 
     public boolean getUsed() {
         return this.used;

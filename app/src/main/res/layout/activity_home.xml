@@ -51,11 +51,14 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:background="@android:color/white"
-            app:itemIconTint="@color/main_color"
-            app:itemTextColor="@color/main_color"
             app:menu="@menu/menu_bottom_navigation"
             app:layout_behavior="com.dingmouren.easymvp.behavior.HomeTabBottomBehavior"
             />
+
+        <!--
+         app:itemIconTint="@color/main_color"
+            app:itemTextColor="@color/main_color"
+        -->
     </android.support.design.widget.CoordinatorLayout>
 
     <android.support.design.widget.NavigationView

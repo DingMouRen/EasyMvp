@@ -18,9 +18,10 @@ public interface WelfareContract {
         void setDataRefresh(boolean refresh);
         GridLayoutManager getLayoutManager();
         RecyclerView getRecyclerView();
-        boolean getIsNullDatabase();
         void notifyDataSetChanged();
         List<Object> getItems();
+        boolean isRefreshing();
+        void loadMore(boolean loadMore);
     }
 
     interface Presenter<V extends BaseView> extends BasePresenter<View>{

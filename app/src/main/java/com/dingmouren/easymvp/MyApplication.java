@@ -25,7 +25,7 @@ public class MyApplication extends Application {
 
     private void initGreenDao() {
         //DevOpenHelper每次数据库升级会清空数据，一般用于开发
-        DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(this,"easyMvp-db",null);
+        DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(this,"easyMvp_db",null);
         Database db = helper.getWritableDb();
         mDaoSession = new DaoMaster(db).newSession();
     }

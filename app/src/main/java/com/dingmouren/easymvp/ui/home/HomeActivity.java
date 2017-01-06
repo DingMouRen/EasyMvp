@@ -6,6 +6,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
@@ -22,9 +23,11 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.content.res.AppCompatResources;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -168,6 +171,8 @@ public class HomeActivity extends BaseActivity  {
             mToolbar.getOverflowIcon().setTint(getResources().getColor(android.R.color.darker_gray));
             StatusBarUtil.setStatusBarColor(HomeActivity.this,getResources().getColor(android.R.color.black));
             mTabBottom.setBackgroundColor(getResources().getColor(android.R.color.black));
+            mTabBottom.setItemIconTintList(getResources().getColorStateList(R.color.bottom_nav_view_tinit_night));
+            mTabBottom.setItemTextColor(getResources().getColorStateList(R.color.bottom_nav_view_tinit_night));
             mNavView.getHeaderView(0).findViewById(R.id.nav_header_layout).setBackgroundColor(getResources().getColor(android.R.color.black));
             mNavView.getHeaderView(0).findViewById(R.id.img_btn_night).setBackground(getResources().getDrawable(R.mipmap.night));
             SPUtil.put(HomeActivity.this, Constant.NIGHT_MODE,false);
@@ -179,6 +184,8 @@ public class HomeActivity extends BaseActivity  {
             mToolbar.getOverflowIcon().setTint(getResources().getColor(android.R.color.white));
             StatusBarUtil.setStatusBarColor(HomeActivity.this,getResources().getColor(R.color.colorPrimaryDark));
             mTabBottom.setBackgroundColor(getResources().getColor(android.R.color.white));
+            mTabBottom.setItemIconTintList(getResources().getColorStateList(R.color.bottom_nav_view_tinit));
+            mTabBottom.setItemTextColor(getResources().getColorStateList(R.color.bottom_nav_view_tinit));
             mNavView.getHeaderView(0).findViewById(R.id.nav_header_layout).setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
             mNavView.getHeaderView(0).findViewById(R.id.img_btn_night).setBackground(getResources().getDrawable(R.mipmap.daily));
             SPUtil.put(HomeActivity.this,Constant.NIGHT_MODE,true);
@@ -290,6 +297,8 @@ public class HomeActivity extends BaseActivity  {
             mToolbar.getOverflowIcon().setTint(getResources().getColor(android.R.color.white));
             StatusBarUtil.setStatusBarColor(HomeActivity.this,getResources().getColor(R.color.colorPrimaryDark));
             mTabBottom.setBackgroundColor(getResources().getColor(android.R.color.white));
+            mTabBottom.setItemIconTintList(getResources().getColorStateList(R.color.bottom_nav_view_tinit));
+            mTabBottom.setItemTextColor(getResources().getColorStateList(R.color.bottom_nav_view_tinit));
             mNavView.getHeaderView(0).findViewById(R.id.nav_header_layout).setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
             mNavView.getHeaderView(0).findViewById(R.id.img_btn_night).setBackground(getResources().getDrawable(R.mipmap.daily));
         }else {
@@ -300,6 +309,8 @@ public class HomeActivity extends BaseActivity  {
             mToolbar.getOverflowIcon().setTint(getResources().getColor(android.R.color.darker_gray));
             StatusBarUtil.setStatusBarColor(HomeActivity.this,getResources().getColor(android.R.color.black));
             mTabBottom.setBackgroundColor(getResources().getColor(android.R.color.black));
+            mTabBottom.setItemIconTintList(getResources().getColorStateList(R.color.bottom_nav_view_tinit_night));
+            mTabBottom.setItemTextColor(getResources().getColorStateList(R.color.bottom_nav_view_tinit_night));
             mNavView.getHeaderView(0).findViewById(R.id.nav_header_layout).setBackgroundColor(getResources().getColor(android.R.color.black));
             mNavView.getHeaderView(0).findViewById(R.id.img_btn_night).setBackground(getResources().getDrawable(R.mipmap.night));
         }
@@ -343,6 +354,34 @@ public class HomeActivity extends BaseActivity  {
         }
         return bitmap;
     }
+
+    //动态修改BottomNavigationView的图标和文字的着色方案
+    private static final int[] CHECKED_STATE_SET = {android.R.attr.state_checked};
+    private static final int[] DISABLED_STATE_SET = {-android.R.attr.state_enabled};
+    private ColorStateList createDefaultColorStateList(int baseColorThemeAttr) {
+        final TypedValue value = new TypedValue();
+        if (!this.getTheme().resolveAttribute(baseColorThemeAttr, value, true)) {
+            return null;
+        }
+        ColorStateList baseColor = AppCompatResources.getColorStateList(
+                this, value.resourceId);
+        if (!this.getTheme().resolveAttribute(
+                android.support.v7.appcompat.R.attr.colorPrimary, value, true)) {
+            return null;
+        }
+        int colorPrimary = value.data;
+        int defaultColor = baseColor.getDefaultColor();
+        return new ColorStateList(new int[][]{
+                DISABLED_STATE_SET,
+                CHECKED_STATE_SET,
+                null
+        }, new int[]{
+                baseColor.getColorForState(DISABLED_STATE_SET, defaultColor),
+                colorPrimary,
+                defaultColor
+        });
+    }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
