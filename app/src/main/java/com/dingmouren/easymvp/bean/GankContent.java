@@ -2,14 +2,20 @@ package com.dingmouren.easymvp.bean;
 
 import com.dingmouren.easymvp.base.BaseEntity;
 
+import org.greenrobot.greendao.annotation.Convert;
 import org.greenrobot.greendao.annotation.Entity;
+import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.annotation.Id;
+import org.greenrobot.greendao.annotation.JoinProperty;
+import org.greenrobot.greendao.annotation.ToMany;
+import org.greenrobot.greendao.annotation.ToOne;
 
 import java.util.List;
 
 /**
  * Created by dingmouren on 2016/12/9.
  */
+@Entity
 public class GankContent extends BaseEntity{
     /**
      * _id : 5847f803421aa963eaaee13b
@@ -32,7 +38,25 @@ public class GankContent extends BaseEntity{
     private String url;
     private boolean used;
     private String who;
+    @Convert(converter = GreenConverter.class,columnType = String.class)
     private List<String> images;
+    @Generated(hash = 1679453972)
+    public GankContent(String _id, String createdAt, String desc, String publishedAt, String source, String type, String url, boolean used, String who, List<String> images) {
+        this._id = _id;
+        this.createdAt = createdAt;
+        this.desc = desc;
+        this.publishedAt = publishedAt;
+        this.source = source;
+        this.type = type;
+        this.url = url;
+        this.used = used;
+        this.who = who;
+        this.images = images;
+    }
+
+    @Generated(hash = 1675498735)
+    public GankContent() {
+    }
 
     public String get_id() {
         return _id;
@@ -128,5 +152,9 @@ public class GankContent extends BaseEntity{
                 ", who='" + who + '\'' +
                 ", images=" + images +
                 '}';
+    }
+
+    public boolean getUsed() {
+        return this.used;
     }
 }

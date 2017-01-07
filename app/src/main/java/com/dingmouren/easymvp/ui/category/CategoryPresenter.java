@@ -1,18 +1,25 @@
 package com.dingmouren.easymvp.ui.category;
 
 import android.os.Handler;
+import android.os.SystemClock;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.MotionEvent;
 
+import com.dingmouren.easymvp.MyApplication;
 import com.dingmouren.easymvp.api.ApiManager;
 import com.dingmouren.easymvp.bean.GankContent;
 import com.dingmouren.easymvp.bean.GankResult;
+import com.dingmouren.easymvp.util.NetworkUtil;
 import com.dingmouren.easymvp.util.SnackbarUtils;
+import com.dingzi.greendao.GankContentDao;
+import com.dingzi.greendao.GankResultWelfareDao;
 import com.jiongbull.jlog.JLog;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.schedulers.Schedulers;
@@ -22,7 +29,7 @@ import rx.schedulers.Schedulers;
  */
 
 public class CategoryPresenter implements CategoryContract.Presenter{
-
+    private static final String TAG = CategoryPresenter.class.getName();
     private CategoryContract.View mView;
     private RecyclerView mRecycler;
     private LinearLayoutManager mLinearLayoutManager;
@@ -33,6 +40,7 @@ public class CategoryPresenter implements CategoryContract.Presenter{
     private int mLastVisibleItem;
     private boolean isLoadMore = false;
     private List<Object> mItems;
+    private long count;//用来记录从数据库取出指定项的数量
 
     public CategoryPresenter(CategoryContract.View view) {
         this.mView = view;
@@ -43,8 +51,12 @@ public class CategoryPresenter implements CategoryContract.Presenter{
     }
 
     public void requestData(){
-        mView.setRefresh(true);
-        if (isLoadMore) pageIndex++;
+        if (mView.isRefreshing() && !isLoadMore && NetworkUtil.isAvailable(mRecycler.getContext())){//这里加了一个对网络状态的判断，防止了一个bug的发生，情景是下拉刷新时滑动recyclerview崩溃的异常，
+            mItems.clear();//请求第一页时，将之前列表显示数据清空
+            pageIndex = 1;
+        }else if (!mView.isRefreshing() && isLoadMore){
+            pageIndex++;
+        }
         ApiManager.getApiInstance().mApiService.getCategoryGankContent(mStype,pageIndex)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -67,6 +79,11 @@ public class CategoryPresenter implements CategoryContract.Presenter{
             mItems.add(list.get(i));
         }
         mView.setData();
+        //插入不重复的数据到数据库
+        Observable.from(list).subscribeOn(Schedulers.io()).subscribe(gankContent -> {
+            count = MyApplication.getDaoSession().getGankContentDao().queryBuilder().where(GankContentDao.Properties._id.eq(gankContent.get_id())).count();
+            if (0 == count) MyApplication.getDaoSession().getGankContentDao().insertOrReplace(gankContent);
+        });
     }
 
     /**
@@ -82,7 +99,7 @@ public class CategoryPresenter implements CategoryContract.Presenter{
                     mLastVisibleItem = mLinearLayoutManager.findLastVisibleItemPosition();//获取最后一个可见的条目的角标
                     //当上拉到最后一条时，请求下一页数据
                     if (mLastVisibleItem + 1 == mLinearLayoutManager.getItemCount()){
-                        mView.setRefresh(true);
+                        mView.loadMore(true);
                         isLoadMore = true;
                         new Handler().postDelayed(() -> requestData(),1000);
                     }
@@ -96,25 +113,5 @@ public class CategoryPresenter implements CategoryContract.Presenter{
                 mLastVisibleItem = mLinearLayoutManager.findLastVisibleItemPosition();
             }
         });
-    }
-
-    /**
-     * 下拉刷新时，请求第一页数据
-     */
-    public void requestFirstPage(){
-        mView.setRefresh(true);
-        ApiManager.getApiInstance().mApiService.getCategoryGankContent(mStype,1)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Action1<GankResult<List<GankContent>>>() {
-                    @Override
-                    public void call(GankResult<List<GankContent>> listGankResult) {
-                        mItems.clear();
-                        for (int i = 0; i < listGankResult.results.size(); i++) {
-                            mItems.add(listGankResult.results.get(i));
-                        }
-                        mView.setData();
-                    }
-                });
     }
 }

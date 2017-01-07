@@ -22,6 +22,8 @@ public interface CategoryContract {
         String getType();
         void setData();
         List<Object> getItems();
+        void loadMore(boolean loadMore);
+        boolean isRefreshing();
     }
     interface   Presenter<V extends View > extends BasePresenter{
 

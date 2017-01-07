@@ -8,11 +8,13 @@ import com.dingmouren.easymvp.MyApplication;
 import com.dingmouren.easymvp.api.ApiManager;
 import com.dingmouren.easymvp.bean.GankResult;
 import com.dingmouren.easymvp.bean.GankResultWelfare;
+import com.dingmouren.easymvp.util.NetworkUtil;
 import com.dingmouren.easymvp.util.SnackbarUtils;
 import com.dingzi.greendao.GankResultWelfareDao;
 import com.jiongbull.jlog.JLog;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import rx.Observable;
@@ -37,6 +39,7 @@ public class WelfarePresenter implements WelfareContract.Presenter<WelfareContra
     private int mLastVisibleItem;
     private boolean isLoadMore = false;//是否加载更多
     private List<Object> mItems;
+    private long count;//用来记录从数据库取出指定项的数量
 
     public WelfarePresenter(WelfareContract.View view) {
         this.mView = view;
@@ -49,7 +52,7 @@ public class WelfarePresenter implements WelfareContract.Presenter<WelfareContra
      * 请求数据
      */
     public void requestData() {
-        if (mView.isRefreshing()){
+        if (mView.isRefreshing() && !isLoadMore && NetworkUtil.isAvailable(mRecycler.getContext())){//这里加了一个对网络状态的判断，防止了一个bug的发生，情景是下拉刷新时滑动recyclerview崩溃的异常，
             mItems.clear();//请求第一页时，将之前列表显示数据清空
             mPage = 1;
         }else if (!mView.isRefreshing() && isLoadMore) {
@@ -82,7 +85,7 @@ public class WelfarePresenter implements WelfareContract.Presenter<WelfareContra
         //将数据插入数据库
         Observable.from(list).subscribeOn(Schedulers.io()).subscribe(gankResultWelfare -> {
             //避免插入重复数据的逻辑
-            long count = MyApplication.getDaoSession().getGankResultWelfareDao().queryBuilder().where(GankResultWelfareDao.Properties._id.eq(gankResultWelfare.get_id())).count();
+            count = MyApplication.getDaoSession().getGankResultWelfareDao().queryBuilder().where(GankResultWelfareDao.Properties._id.eq(gankResultWelfare.get_id())).count();
             if (count == 0) MyApplication.getDaoSession().getGankResultWelfareDao().insertOrReplaceInTx(gankResultWelfare);
         });
     }

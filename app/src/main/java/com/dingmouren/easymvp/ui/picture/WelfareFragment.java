@@ -19,6 +19,7 @@ import com.dingmouren.easymvp.base.BaseFragment;
 import com.dingmouren.easymvp.bean.GankResultWelfare;
 import com.dingmouren.easymvp.event.NightModeChangeEvent;
 import com.dingmouren.easymvp.ui.picture.layouts.WelfareImageViewProvider;
+import com.dingmouren.easymvp.util.NetworkUtil;
 import com.dingmouren.easymvp.util.SPUtil;
 import com.dingmouren.easymvp.util.SnackbarUtils;
 import com.jiongbull.jlog.JLog;
@@ -42,7 +43,7 @@ public class WelfareFragment extends BaseFragment implements WelfareContract.Vie
     public static final String TAG = WelfareFragment.class.getName();
     @BindView(R.id.swipe_refresh)  SwipeRefreshLayout mSwipeRefresh;
     @BindView(R.id.recycler)  RecyclerView mRecycler;
-    @BindView(R.id.pb_welfare) ProgressBar mProgressBar;
+    @BindView(R.id.pb_welfare) ProgressBar mPbLoadMore;
     private List<Object> mItems;
     private MultiTypeAdapter mMultiTypeAdapter;
 
@@ -82,8 +83,11 @@ public class WelfareFragment extends BaseFragment implements WelfareContract.Vie
     @Override
     protected void setUpData() {
         mWelfarePresenter = createPresenter();
-        //首先从数据库拿取数据，数据库没有时再去请求数据
-        if (null != MyApplication.getDaoSession().getGankResultWelfareDao().loadAll() && 0 <MyApplication.getDaoSession().getGankResultWelfareDao().loadAll().size() ){
+        //数据库不为空并且在没网的情况下，获取数据库的数据
+        if (null != MyApplication.getDaoSession().getGankResultWelfareDao().loadAll()
+                && 0 <MyApplication.getDaoSession().getGankResultWelfareDao().loadAll().size()
+                && !NetworkUtil.isAvailable(getActivity())){
+            mItems.clear();//清空集合，为了保险起见
             mItems.addAll(MyApplication.getDaoSession().getGankResultWelfareDao().loadAll());
             notifyDataSetChanged();
         }else {
@@ -150,9 +154,9 @@ public class WelfareFragment extends BaseFragment implements WelfareContract.Vie
     @Override
     public void loadMore(boolean loadMore) {
         if (loadMore){
-            mProgressBar.setVisibility(View.VISIBLE);
+            mPbLoadMore.setVisibility(View.VISIBLE);
         }else {
-            mProgressBar.setVisibility(View.GONE);
+            mPbLoadMore.setVisibility(View.GONE);
         }
     }
 
