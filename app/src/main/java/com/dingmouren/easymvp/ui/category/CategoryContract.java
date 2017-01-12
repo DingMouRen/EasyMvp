@@ -1,12 +1,10 @@
 package com.dingmouren.easymvp.ui.category;
 
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.dingmouren.easymvp.base.BasePresenter;
 import com.dingmouren.easymvp.base.BaseView;
-import com.dingmouren.easymvp.bean.GankContent;
 
 import java.util.List;
 

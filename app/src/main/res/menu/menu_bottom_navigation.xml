@@ -10,6 +10,12 @@
         android:id="@+id/item_category"
         android:icon="@drawable/ic_category_black_24dp"
         android:title="@string/main_category" />
+
+    <item
+        android:id="@+id/item_videos"
+        android:icon="@drawable/videos"
+        android:title="@string/main_videos" />
+
     <item
         android:id="@+id/item_welfare"
         android:icon="@drawable/ic_welfare_black_24dp"

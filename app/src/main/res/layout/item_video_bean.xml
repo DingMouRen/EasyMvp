@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card_view"
+    android:layout_width="match_parent"
+    android:layout_height="350dp"
+    android:layout_margin="@dimen/dp_5"
+    app:cardCornerRadius="@dimen/dp_5">
+
+
+    <com.dingmouren.easymvp.ui.videos.MyVideoPlayer
+        android:id="@+id/videoplayer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <RelativeLayout
+        android:id="@+id/relative_item_video"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+        <!--用户头像和昵称-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="@dimen/activity_horizontal_margin"
+            android:orientation="horizontal">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/img_video_user"
+                android:layout_width="@dimen/video_user_header_size"
+                android:layout_height="@dimen/video_user_header_size"
+                android:src="@mipmap/android" />
+
+            <TextView
+                android:id="@+id/tv_video_user_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:text="高圆圆"
+                android:textColor="@android:color/white" />
+        </LinearLayout>
+        <!--底部内容-->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin">
+
+            <TextView
+                android:id="@+id/tv_video_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="小伙改变《逆流成河》，哈哈哈简直太有才了！"
+                android:maxLines="2"
+                android:textColor="@android:color/white" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_video_title"
+                android:padding="@dimen/dp_5">
+                <!--点赞数量和点踩数量-->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/img_video_likes"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/likes_icon" />
+
+                    <TextView
+                        android:id="@+id/tv_likes_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="4654654"
+                        android:textColor="@android:color/white" />
+
+                    <ImageView
+                        android:id="@+id/img_video_hates"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                        android:src="@mipmap/hates_icon" />
+
+                    <TextView
+                        android:id="@+id/tv_hates_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="4654654"
+                        android:textColor="@android:color/white" />
+                </LinearLayout>
+                <!--时间-->
+                <TextView
+                    android:id="@+id/tv_video_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:text="2017-1-11"
+                    android:textColor="@android:color/white" />
+            </RelativeLayout>
+        </RelativeLayout>
+    </RelativeLayout>
+
+    </com.dingmouren.easymvp.ui.videos.MyVideoPlayer>
+</android.support.v7.widget.CardView>

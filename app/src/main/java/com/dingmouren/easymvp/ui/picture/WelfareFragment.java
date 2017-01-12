@@ -1,28 +1,22 @@
 package com.dingmouren.easymvp.ui.picture;
 
-import android.os.Bundle;
 import android.os.Handler;
-import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
 import com.dingmouren.easymvp.Constant;
 import com.dingmouren.easymvp.MyApplication;
 import com.dingmouren.easymvp.R;
 import com.dingmouren.easymvp.base.BaseFragment;
-import com.dingmouren.easymvp.bean.GankResultWelfare;
+import com.dingmouren.easymvp.bean.gank.GankResultWelfare;
 import com.dingmouren.easymvp.event.NightModeChangeEvent;
 import com.dingmouren.easymvp.ui.picture.layouts.WelfareImageViewProvider;
 import com.dingmouren.easymvp.util.NetworkUtil;
 import com.dingmouren.easymvp.util.SPUtil;
-import com.dingmouren.easymvp.util.SnackbarUtils;
-import com.jiongbull.jlog.JLog;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -32,7 +26,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import me.drakeet.multitype.MultiTypeAdapter;
 
 /**

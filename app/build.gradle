@@ -54,8 +54,8 @@ dependencies {
     compile 'com.jiongbull:jlog:1.0.5'
     /* greendao 数据库*/
     compile 'org.greenrobot:greendao:3.2.0'
-//    compile 'net.zetetic:android-database-sqlcipher:3.5.4' //数据库加密时添加
-//    compile 'com.github.yuweiguocn:GreenDaoUpgradeHelper:v1.2.0' //使用数据库升级辅助GreenDaoUpgradleHepler时添加
+    //    compile 'net.zetetic:android-database-sqlcipher:3.5.4' //数据库加密时添加
+    //    compile 'com.github.yuweiguocn:GreenDaoUpgradeHelper:v1.2.0' //使用数据库升级辅助GreenDaoUpgradleHepler时添加
     /*Glide的transformation库，拥有裁剪，着色，模糊，滤镜等多种转换效果*/
     compile 'jp.wasabeef:glide-transformations:2.0.1'
     compile 'com.android.support:support-annotations:25.0.1'
@@ -66,7 +66,7 @@ dependencies {
     /*fab菜单控件*/
     compile 'io.github.yavski:fab-speed-dial:1.0.6'
     /*基于ijkplayer的视频播放框架*/
-    compile 'com.shuyu:gsyVideoPlayer:1.4.1'
+    compile 'com.github.CarGuo:GSYVideoPlayer:v1.5.5'
     /*html解析器*/
     compile 'org.jsoup:jsoup:1.10.1'
     /*圆形图片*/
@@ -83,6 +83,8 @@ dependencies {
     compile 'org.androidannotations:androidannotations:4.2.0'
     /*图片选择*/
     compile 'com.github.YancyYe:GalleryPick:1.1.4'
+    /*获取网络视频缩略图*/
+    compile 'com.github.wseemann:FFmpegMediaMetadataRetriever:1.0.14'
 }
 //数据库版本以及Dao的相关设置
 greendao {

@@ -1,9 +1,9 @@
 package com.dingmouren.easymvp.api;
 
-import com.dingmouren.easymvp.bean.GankContent;
-import com.dingmouren.easymvp.bean.GankResultCategory;
-import com.dingmouren.easymvp.bean.GankResult;
-import com.dingmouren.easymvp.bean.GankResultWelfare;
+import com.dingmouren.easymvp.bean.gank.GankContent;
+import com.dingmouren.easymvp.bean.gank.GankResultCategory;
+import com.dingmouren.easymvp.bean.gank.GankResult;
+import com.dingmouren.easymvp.bean.gank.GankResultWelfare;
 
 import java.util.List;
 
@@ -15,7 +15,7 @@ import rx.Observable;
  * Created by dingmouren on 2016/11/30.
  */
 
-public interface Api {
+public interface GankApi {
 
 
     //获取发布过的日期

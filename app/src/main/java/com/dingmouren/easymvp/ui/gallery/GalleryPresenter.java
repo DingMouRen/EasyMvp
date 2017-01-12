@@ -5,7 +5,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.dingmouren.easymvp.api.ApiManager;
-import com.dingmouren.easymvp.bean.GankResultWelfare;
+import com.dingmouren.easymvp.bean.gank.GankResultWelfare;
 import com.dingmouren.easymvp.util.SnackbarUtils;
 
 import java.util.ArrayList;
@@ -42,7 +42,7 @@ public class GalleryPresenter implements GalleryContract.Presenter<GalleryContra
     //请求数据
     public void requestData(){
         if (isLoadMore) page = page + 1;
-        ApiManager.getApiInstance().mApiService.getGirlPics(page)
+        ApiManager.getApiInstance().getGankApiService().getGirlPics(page)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(listGankResult -> displayData(listGankResult.results),this :: loadError);

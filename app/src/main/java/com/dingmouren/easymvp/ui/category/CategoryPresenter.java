@@ -1,27 +1,21 @@
 package com.dingmouren.easymvp.ui.category;
 
 import android.os.Handler;
-import android.os.SystemClock;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.MotionEvent;
 
 import com.dingmouren.easymvp.MyApplication;
 import com.dingmouren.easymvp.api.ApiManager;
-import com.dingmouren.easymvp.bean.GankContent;
-import com.dingmouren.easymvp.bean.GankResult;
+import com.dingmouren.easymvp.bean.gank.GankContent;
 import com.dingmouren.easymvp.util.NetworkUtil;
 import com.dingmouren.easymvp.util.SnackbarUtils;
 import com.dingzi.greendao.GankContentDao;
-import com.dingzi.greendao.GankResultWelfareDao;
-import com.jiongbull.jlog.JLog;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
 import rx.schedulers.Schedulers;
 
 /**
@@ -57,7 +51,7 @@ public class CategoryPresenter implements CategoryContract.Presenter{
         }else if (!mView.isRefreshing() && isLoadMore){
             pageIndex++;
         }
-        ApiManager.getApiInstance().mApiService.getCategoryGankContent(mStype,pageIndex)
+        ApiManager.getApiInstance().getGankApiService().getCategoryGankContent(mStype,pageIndex)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(listGankResult -> parseData(listGankResult.results),this::loadError);

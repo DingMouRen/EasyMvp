@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import com.dingmouren.easymvp.Constant;
 import com.dingmouren.easymvp.R;
-import com.dingmouren.easymvp.bean.GankContent;
+import com.dingmouren.easymvp.bean.gank.GankContent;
 import com.dingmouren.easymvp.ui.home.layouts.ViewPageHomeAdapter;
 import com.dingmouren.easymvp.ui.webdetail.WebDetailActivity;
 import com.dingmouren.easymvp.util.DateUtils;

@@ -1,6 +1,6 @@
 package com.dingmouren.easymvp.ui.home.layouts;
 
-import com.dingmouren.easymvp.bean.GankContent;
+import com.dingmouren.easymvp.bean.gank.GankContent;
 
 import java.util.List;
 

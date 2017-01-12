@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.internal.NavigationMenu;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
@@ -27,10 +28,10 @@ import jp.wasabeef.glide.transformations.BlurTransformation;
 
 public class AboutActivity extends BaseActivity {
 
-    @BindView(R.id.content_toolbar)  Toolbar mContentToolbar;
     @BindView(R.id.title_toolbar)  Toolbar mTitleToolbar;
     @BindView(R.id.collapsing)  CollapsingToolbarLayout mCollapsing;
     @BindView(R.id.nestedScrollView)  NestedScrollView mNestedScrollView;
+    @BindView(R.id.fab_about)FloatingActionButton mFab;
 
     public static void newInstance(Context context){
         context.startActivity(new Intent(context,AboutActivity.class));
@@ -48,20 +49,16 @@ public class AboutActivity extends BaseActivity {
 
     @Override
     protected void setUpView() {
-        initCollapsing();
-        initToolbar();
-    }
-
-    private void initToolbar() {
+        mTitleToolbar.setTitle("");
+        mTitleToolbar.setLogo(R.drawable.about_header);
         setSupportActionBar(mTitleToolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        mTitleToolbar.setNavigationIcon(R.mipmap.arrow_back);
-        mTitleToolbar.setNavigationOnClickListener((view)-> finish());
-    }
 
-    private void initCollapsing() {
-        mCollapsing.setTitle("What is 梦想？");
-        mCollapsing.setCollapsedTitleTextColor(getResources().getColor(android.R.color.transparent));
+        mCollapsing.setTitle("钉某人");
+        mCollapsing.setExpandedTitleColor(getResources().getColor(android.R.color.transparent));
+        mCollapsing.setCollapsedTitleTextColor(getResources().getColor(android.R.color.white));
+
+        mFab.setOnClickListener((view) -> finish());
+
     }
 
 
@@ -79,7 +76,6 @@ public class AboutActivity extends BaseActivity {
                 .into(new SimpleTarget<GlideDrawable>() {
                     @Override
                     public void onResourceReady(GlideDrawable resource, GlideAnimation<? super GlideDrawable> glideAnimation) {
-                        mContentToolbar.setBackground(resource);
                     }
                 });
     }

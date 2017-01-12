@@ -22,7 +22,6 @@ public interface GalleryContract {
         RecyclerView getRecyclerView();
         GalleryAdapter getGalleryAdapter();
         LinearLayoutManager getLayoutManager();
-        CardScaleHelper getCardScaleHelper();
     }
 
     interface Presenter<V extends View> extends BasePresenter{

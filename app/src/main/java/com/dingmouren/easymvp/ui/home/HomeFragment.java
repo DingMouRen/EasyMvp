@@ -1,9 +1,7 @@
 package com.dingmouren.easymvp.ui.home;
 
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.TypedValue;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -11,7 +9,7 @@ import android.widget.TextView;
 
 import com.dingmouren.easymvp.R;
 import com.dingmouren.easymvp.base.BaseFragment;
-import com.dingmouren.easymvp.bean.GankContent;
+import com.dingmouren.easymvp.bean.gank.GankContent;
 import com.dingmouren.easymvp.event.NightModeChangeEvent;
 import com.dingmouren.easymvp.ui.home.layouts.GankHomeViewProvider;
 import com.dingmouren.easymvp.ui.home.layouts.ImgHome;
@@ -25,7 +23,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import me.drakeet.multitype.Items;
 import me.drakeet.multitype.MultiTypeAdapter;
 
 /**

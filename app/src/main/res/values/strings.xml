@@ -5,6 +5,7 @@
     <string name="drawer_close">关闭</string>
     <string name="main_home">最新</string>
     <string name="main_category">分类浏览</string>
+    <string name="main_videos">搞笑视频</string>
     <string name="main_reading">闲读</string>
     <string name="main_welfare">福利</string>
     <string name="about">关于</string>
@@ -19,25 +20,6 @@
 			"　　是夕阳中的新娘；\n"
 			"　　波光里的艳影，\n"
 			"　　在我的心头荡漾。\n"
-			"　　软泥上的青荇，\n"
-			"　　油油的在水底招摇；\n"
-			"　　在康河的柔波里，\n"
-			"　　甘心做一条水草！\n"
-			"　　那榆荫下的一潭，\n"
-			"　　不是清泉，是天上虹；\n"
-			"　　揉碎在浮藻间，\n"
-			"　　沉淀着彩虹似的梦。\n"
-			"　　寻梦？撑一支长篙，\n"
-			"　　向青草更青处漫溯；\n"
-			"　　满载一船星辉，\n"
-			"　　在星辉斑斓里放歌。\n"
-			"　　但我不能放歌，\n"
-			"　　悄悄是别离的笙箫；\n"
-			"　　夏虫也为我沉默，\n"
-			"　　沉默是今晚的康桥！\n"
-			"　　悄悄的我走了，\n"
-			"　　正如我悄悄的来；\n"
-			"　　我挥一挥衣袖，\n"
-			"　　不带走一片云彩。"
+
     </string>
 </resources>

@@ -28,6 +28,8 @@
     <dimen name="category_item_subtitle_12sp">12sp</dimen>
 
     <dimen name="image_final_width">32dp</dimen>
+    <dimen name="titlebar_size">20sp</dimen>
+    <dimen name="video_user_header_size">40dp</dimen>
 
 
 </resources>

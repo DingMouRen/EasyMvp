@@ -9,9 +9,8 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.dingmouren.easymvp.R;
-import com.dingmouren.easymvp.bean.GankResultWelfare;
+import com.dingmouren.easymvp.bean.gank.GankResultWelfare;
 import com.dingmouren.easymvp.ui.picture.PictureActivity;
-import com.dingmouren.easymvp.util.MyGlideImageLoader;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

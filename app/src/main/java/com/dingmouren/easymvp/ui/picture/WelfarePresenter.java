@@ -6,15 +6,12 @@ import android.support.v7.widget.RecyclerView;
 
 import com.dingmouren.easymvp.MyApplication;
 import com.dingmouren.easymvp.api.ApiManager;
-import com.dingmouren.easymvp.bean.GankResult;
-import com.dingmouren.easymvp.bean.GankResultWelfare;
+import com.dingmouren.easymvp.bean.gank.GankResultWelfare;
 import com.dingmouren.easymvp.util.NetworkUtil;
 import com.dingmouren.easymvp.util.SnackbarUtils;
 import com.dingzi.greendao.GankResultWelfareDao;
-import com.jiongbull.jlog.JLog;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import rx.Observable;
@@ -58,7 +55,7 @@ public class WelfarePresenter implements WelfareContract.Presenter<WelfareContra
         }else if (!mView.isRefreshing() && isLoadMore) {
             mPage = mPage + 1;
         }
-        ApiManager.getApiInstance().mApiService.getGirlPics(mPage)
+        ApiManager.getApiInstance().getGankApiService().getGirlPics(mPage)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(listGankResult -> displayData(listGankResult.results), this::loadError);

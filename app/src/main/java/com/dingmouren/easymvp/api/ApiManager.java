@@ -1,5 +1,6 @@
 package com.dingmouren.easymvp.api;
 
+import com.dingmouren.easymvp.Constant;
 import com.jiongbull.jlog.JLog;
 
 import java.util.concurrent.TimeUnit;
@@ -16,14 +17,11 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiManager {
 
-    private static final String GANK_BASE_URL = "http://gank.io/api/";
     private static final int READ_TIME_OUT = 3;
     private static final int CONNECT_TIME_OUT = 3;
-    protected static final Object monitor = new Object();
 
-    public Retrofit mRetrofit;
-    public Api mApiService  ;
-
+    private GankApi mGankApiService;
+    private VideoApi mVideoApiService;
     //构造方法私有化，目的是为了只创建一个实例，并且在这里设置打印log和
     private ApiManager(){
         HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor(message -> showRetrofitLog(message)).setLevel(HttpLoggingInterceptor.Level.BODY);//打印retrofit日志
@@ -32,13 +30,21 @@ public class ApiManager {
                 .connectTimeout(CONNECT_TIME_OUT,TimeUnit.SECONDS)
                 .addInterceptor(loggingInterceptor)
                 .build();
-        mRetrofit = new Retrofit.Builder()
+        Retrofit retrofit1 = new Retrofit.Builder()
                 .client(okHttpClient)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                .baseUrl(GANK_BASE_URL)
+                .baseUrl(Constant.GANK_BASE_URL)
                 .build();
-        mApiService =  mRetrofit.create(Api.class);
+        mGankApiService =  retrofit1.create(GankApi.class);
+
+        Retrofit retrofit2 = new Retrofit.Builder()
+                .client(okHttpClient)
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .baseUrl(Constant.VIDEO_BASE_URL)
+                .build();
+        mVideoApiService =  retrofit2.create(VideoApi.class);
 
     }
 
@@ -57,10 +63,6 @@ public class ApiManager {
          return SingletonHolder.INSTANCE;
      }
 
-
-
-
-
     /**
      * 打印日志
      * 返回的是json，就打印格式化好了的json，不是json就原样打印
@@ -74,4 +76,11 @@ public class ApiManager {
         }
     }
 
+    public GankApi getGankApiService() {
+        return mGankApiService;
+    }
+
+    public VideoApi getVideoApiService() {
+        return mVideoApiService;
+    }
 }

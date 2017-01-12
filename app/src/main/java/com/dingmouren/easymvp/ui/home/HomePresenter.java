@@ -1,6 +1,5 @@
 package com.dingmouren.easymvp.ui.home;
 
-import android.os.Build;
 import android.os.Handler;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -9,12 +8,10 @@ import android.widget.TextView;
 
 import com.dingmouren.easymvp.R;
 import com.dingmouren.easymvp.api.ApiManager;
-import com.dingmouren.easymvp.bean.GankContent;
-import com.dingmouren.easymvp.bean.GankResultCategory;
+import com.dingmouren.easymvp.bean.gank.GankResultCategory;
 import com.dingmouren.easymvp.ui.home.layouts.ImgHome;
 import com.jiongbull.jlog.JLog;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import rx.android.schedulers.AndroidSchedulers;
@@ -56,7 +53,7 @@ public class HomePresenter implements HomeContract.Presenter {
     @Override
     public void requestData() {
         mView.setDataRefresh(true);
-        ApiManager.getApiInstance().mApiService.getGankDatePushed()
+        ApiManager.getApiInstance().getGankApiService().getGankDatePushed()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(listGankResult -> getData(listGankResult.results.get(0)), this::loadError);
@@ -88,7 +85,7 @@ public class HomePresenter implements HomeContract.Presenter {
         mDate = date.replace('-', '/');
         JLog.e("mDate------", mDate);
         if (mDate != null) {
-            ApiManager.getApiInstance().mApiService.getGankDay(mDate)
+            ApiManager.getApiInstance().getGankApiService().getGankDay(mDate)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(gankResultCategoryGankResult -> parseData(gankResultCategoryGankResult.results), this::loadError);

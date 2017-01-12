@@ -8,13 +8,11 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
-import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -24,7 +22,6 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.content.res.AppCompatResources;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.TypedValue;
@@ -45,14 +42,12 @@ import com.dingmouren.easymvp.ui.category.CategoryFragment;
 import com.dingmouren.easymvp.ui.gallery.GalleryActivity;
 import com.dingmouren.easymvp.ui.picture.WelfareFragment;
 import com.dingmouren.easymvp.ui.reading.ReadingFragment;
-import com.dingmouren.easymvp.ui.video.VideoActivity;
-import com.dingmouren.easymvp.util.FragmentHelpr;
+import com.dingmouren.easymvp.ui.videos.VideosFragment;
 import com.dingmouren.easymvp.util.MyGlideImageLoader;
 import com.dingmouren.easymvp.util.SPUtil;
 import com.dingmouren.easymvp.util.SnackbarUtils;
 import com.dingmouren.easymvp.util.StatusBarUtil;
 import com.dingmouren.easymvp.util.ViewUtils;
-import com.jiongbull.jlog.JLog;
 import com.yancy.gallerypick.config.GalleryConfig;
 import com.yancy.gallerypick.config.GalleryPick;
 import com.yancy.gallerypick.inter.IHandlerCallBack;
@@ -63,10 +58,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import me.majiajie.pagerbottomtabstrip.Controller;
-import me.majiajie.pagerbottomtabstrip.PagerBottomTabLayout;
-import me.majiajie.pagerbottomtabstrip.listener.OnTabItemSelectListener;
 
 public class HomeActivity extends BaseActivity  {
     private static final String TAG = HomeActivity.class.getName();
@@ -276,7 +267,6 @@ public class HomeActivity extends BaseActivity  {
                     startActivity(new Intent(HomeActivity.this, GalleryActivity.class));
                     break;
                 case R.id.item2:
-                    startActivity(new Intent(HomeActivity.this, VideoActivity.class));
                     break;
                 case R.id.item3:
                     break;
@@ -401,6 +391,11 @@ public class HomeActivity extends BaseActivity  {
                     mToolbar.setTitle(getResources().getString(R.string.main_category));
                     clazz = CategoryFragment.class;
                     break;
+                   case R.id.item_videos:
+                    mToolbar.setTitle(getResources().getString(R.string.main_videos));
+                    clazz = VideosFragment.class;
+                    break;
+
                 case R.id.item_welfare:
                     mToolbar.setTitle(getResources().getString(R.string.main_welfare));
                     clazz = WelfareFragment.class;

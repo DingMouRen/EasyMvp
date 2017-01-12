@@ -92,9 +92,5 @@ public class GalleryFragment extends BaseFragment implements GalleryContract.Vie
         return mLinearLayoutManager ==  null ? new LinearLayoutManager(getActivity(), OrientationHelper.HORIZONTAL,false) : mLinearLayoutManager ;
     }
 
-    @Override
-    public CardScaleHelper getCardScaleHelper() {
-        return mCardScaleHepler;
-    }
 
 }

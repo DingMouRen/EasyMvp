@@ -11,7 +11,7 @@ import android.widget.ProgressBar;
 import com.dingmouren.easymvp.MyApplication;
 import com.dingmouren.easymvp.R;
 import com.dingmouren.easymvp.base.BaseFragment;
-import com.dingmouren.easymvp.bean.GankContent;
+import com.dingmouren.easymvp.bean.gank.GankContent;
 import com.dingmouren.easymvp.event.NightModeChangeEvent;
 import com.dingmouren.easymvp.ui.category.layouts.CategoryItemViewProvider;
 import com.dingmouren.easymvp.util.NetworkUtil;

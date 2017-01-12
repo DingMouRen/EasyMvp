@@ -50,12 +50,6 @@
             android:theme="@style/SplashTheme"
             android:launchMode="singleTask"
             />
-        <!--视频-->
-        <activity android:name=".ui.video.VideoActivity"
-            android:theme="@style/HomeActivityTheme"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="portrait"
-             />
         <!--WebView展示界面-->
         <activity android:name=".ui.webdetail.WebDetailActivity"
             android:launchMode="singleTask"/>

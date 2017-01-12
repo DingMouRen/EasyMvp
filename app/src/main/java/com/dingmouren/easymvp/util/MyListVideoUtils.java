@@ -1,4 +1,4 @@
-package com.dingmouren.easymvp.util.video_helper;
+package com.dingmouren.easymvp.util;
 
 import android.app.Activity;
 import android.content.Context;
@@ -10,13 +10,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
+import com.dingmouren.easymvp.ui.videos.MyVideoPlayer;
 import com.shuyu.gsyvideoplayer.GSYVideoPlayer;
 import com.shuyu.gsyvideoplayer.listener.StandardVideoAllCallBack;
 import com.shuyu.gsyvideoplayer.utils.CommonUtil;
 import com.shuyu.gsyvideoplayer.utils.Debuger;
 import com.shuyu.gsyvideoplayer.utils.OrientationUtils;
 import com.shuyu.gsyvideoplayer.video.GSYBaseVideoPlayer;
-
+import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer;
 import com.transitionseverywhere.TransitionManager;
 
 import java.io.File;
@@ -28,12 +29,12 @@ import static com.shuyu.gsyvideoplayer.utils.CommonUtil.hideNavKey;
 import static com.shuyu.gsyvideoplayer.utils.CommonUtil.showNavKey;
 
 /**
- * Created by dingmouren on 2016/12/8.
+ * Created by dingmouren on 2017/1/12.
  */
 
-public class CustomListVideoUtil {
+public class MyListVideoUtils {
     private String TAG = "NULL"; //播放的标志
-    private CustomStandardGSYVideoPlayer gsyVideoPlayer;
+    private MyVideoPlayer gsyVideoPlayer;
     private ViewGroup fullViewContainer;
     private ViewGroup listParent;//记录列表中item的父布局
     private ViewGroup.LayoutParams listParams;
@@ -57,6 +58,7 @@ public class CustomListVideoUtil {
     private boolean isLoop;//循环
     private boolean hideKey = true;//隐藏按键
     private boolean needLockFull = true;//隐藏按键
+    protected boolean needShowWifiTip = true; //是否需要显示流量提示
 
 
     private int[] listItemRect;//当前item框的屏幕位置
@@ -70,8 +72,8 @@ public class CustomListVideoUtil {
     private Handler handler = new Handler();
 
 
-    public CustomListVideoUtil(Context context) {
-        gsyVideoPlayer = new CustomStandardGSYVideoPlayer(context);
+    public MyListVideoUtils(Context context) {
+        gsyVideoPlayer = new MyVideoPlayer(context);
         this.context = context;
     }
 
@@ -86,8 +88,9 @@ public class CustomListVideoUtil {
      */
     public void addVideoPlayer(final int position, View imgView, String tag,
                                ViewGroup container, View playBtn) {
-        container.removeAllViews();
-        if (isCurrentViewPlaying(position, tag)) {
+//        container.removeAllViews();
+        container.addView(gsyVideoPlayer);
+        /*if (isCurrentViewPlaying(position, tag)) {
             if (!isFull) {
                 ViewGroup viewGroup = (ViewGroup) gsyVideoPlayer.getParent();
                 if (viewGroup != null)
@@ -99,7 +102,7 @@ public class CustomListVideoUtil {
             playBtn.setVisibility(View.VISIBLE);
             container.removeAllViews();   //增加封面
             container.addView(imgView);
-        }
+        }*/
     }
 
     /**
@@ -131,6 +134,8 @@ public class CustomListVideoUtil {
         gsyVideoPlayer.setLooping(isLoop);
 
         gsyVideoPlayer.setSpeed(speed);
+
+        gsyVideoPlayer.setNeedShowWifiTip(needShowWifiTip);
 
         gsyVideoPlayer.setNeedLockFull(needLockFull);
 
@@ -591,7 +596,7 @@ public class CustomListVideoUtil {
     /**
      * 获取播放器,直接拿播放器，根据需要自定义配置
      */
-    public CustomStandardGSYVideoPlayer getGsyVideoPlayer() {
+    public StandardGSYVideoPlayer getGsyVideoPlayer() {
         return gsyVideoPlayer;
     }
 
@@ -617,4 +622,14 @@ public class CustomListVideoUtil {
         this.needLockFull = needLoadFull;
     }
 
+    public boolean isNeedShowWifiTip() {
+        return needShowWifiTip;
+    }
+
+    /**
+     * 是否需要显示流量提示,默认true
+     */
+    public void setNeedShowWifiTip(boolean needShowWifiTip) {
+        this.needShowWifiTip = needShowWifiTip;
+    }
 }

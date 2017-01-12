@@ -22,8 +22,8 @@
             app:contentScrim="@android:color/transparent"
             app:expandedTitleMarginStart="0dp"
             app:expandedTitleMarginEnd="0dp"
-            app:collapsedTitleGravity="center"
-            app:expandedTitleGravity="center"
+            app:collapsedTitleGravity="left"
+            app:expandedTitleGravity="left"
             >
             <ImageView
                 android:id="@+id/img_about"
@@ -42,66 +42,21 @@
                 app:layout_collapseMode="pin"
                 />
         </android.support.design.widget.CollapsingToolbarLayout>
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/img_about_header"
-            android:layout_width="96dp"
-            android:layout_height="96dp"
-            android:layout_marginTop="-48dp"
-            android:layout_gravity="center_horizontal"
-            android:src="@mipmap/icon_header"
-            android:elevation="8dp"
-            app:border_width="2dp"
-            app:border_color="#ffffff"
-            app:layout_scrollFlags="scroll"
-            />
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/content_toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="135dp"
-            android:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-            android:layout_marginTop="-48dp"
-            android:background="@color/blue"
-            app:theme="@style/ThemeOverlay.AppCompat.Light"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            app:layout_collapseMode="pin"
-            >
-        <LinearLayout
-            android:id="@+id/linear_about_info"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:orientation="vertical"
-            >
-            <TextView
-                android:id="@+id/tv_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
-                android:text="DingMouRen"
-                android:textColor="#ffffff"
-                />
-            <TextView
-                android:id="@+id/tv_github"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Subtitle"
-                android:textColor="#ffffff"
-                android:text="https://github.com/DingMouRen"
-                />
-        </LinearLayout>
-
-        </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.widget.NestedScrollView
         android:id="@+id/nestedScrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:behavior_overlapTop="39dp"
         android:elevation="@dimen/dp_5"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
         <android.support.v7.widget.CardView
             android:id="@+id/card_view"
             android:layout_width="match_parent"
@@ -111,6 +66,7 @@
             app:cardCornerRadius="@dimen/dp_5"
             app:cardElevation="@dimen/dp_5"
             app:contentPadding="@dimen/dp_5"
+            android:layout_margin="@dimen/dp_5"
             >
         <TextView
             android:layout_width="match_parent"
@@ -121,7 +77,77 @@
             android:text="@string/Goodbye_Again_Cambridge"
             />
         </android.support.v7.widget.CardView>
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            app:cardCornerRadius="@dimen/dp_5"
+            app:cardElevation="@dimen/dp_5"
+            app:contentPadding="@dimen/dp_5"
+            android:layout_margin="@dimen/dp_5"
+            >
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:lineSpacingExtra="@dimen/keyline_1_minus_8dp"
+                android:padding="@dimen/activity_horizontal_margin"
+                android:text="@string/Goodbye_Again_Cambridge"
+                />
+        </android.support.v7.widget.CardView>
+         <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            app:cardCornerRadius="@dimen/dp_5"
+            app:cardElevation="@dimen/dp_5"
+            app:contentPadding="@dimen/dp_5"
+            android:layout_margin="@dimen/dp_5"
+            >
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:lineSpacingExtra="@dimen/keyline_1_minus_8dp"
+                android:padding="@dimen/activity_horizontal_margin"
+                android:text="@string/Goodbye_Again_Cambridge"
+                />
+        </android.support.v7.widget.CardView>
+         <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            app:cardCornerRadius="@dimen/dp_5"
+            app:cardElevation="@dimen/dp_5"
+            app:contentPadding="@dimen/dp_5"
+            android:layout_margin="@dimen/dp_5"
+            >
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:lineSpacingExtra="@dimen/keyline_1_minus_8dp"
+                android:padding="@dimen/activity_horizontal_margin"
+                android:text="@string/Goodbye_Again_Cambridge"
+                />
+        </android.support.v7.widget.CardView>
+
+        </LinearLayout>
+
     </android.support.v4.widget.NestedScrollView>
 
-
+    <!--fab从colorAccent取色-->
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_about"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/arrow_back"
+        app:layout_anchor="@id/nestedScrollView"
+        app:layout_anchorGravity="bottom|right"
+        android:layout_marginBottom="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        />
 </android.support.design.widget.CoordinatorLayout>

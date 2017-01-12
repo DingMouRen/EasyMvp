@@ -1,4 +1,4 @@
-package com.dingmouren.easymvp.bean;
+package com.dingmouren.easymvp.bean.gank;
 
 /**
  * Created by dingmouren on 2016/12/9.

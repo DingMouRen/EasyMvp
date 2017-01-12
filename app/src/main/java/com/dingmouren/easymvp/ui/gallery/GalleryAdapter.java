@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.dingmouren.easymvp.R;
-import com.dingmouren.easymvp.bean.GankResultWelfare;
+import com.dingmouren.easymvp.bean.gank.GankResultWelfare;
 import com.dingmouren.easymvp.helper.CardAdapterHelper;
 import com.dingmouren.easymvp.ui.picture.PictureActivity;
 

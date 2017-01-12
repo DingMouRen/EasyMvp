@@ -1,4 +1,4 @@
-package com.dingmouren.easymvp.bean;
+package com.dingmouren.easymvp.bean.gank;
 
 import com.dingmouren.easymvp.base.BaseEntity;
 

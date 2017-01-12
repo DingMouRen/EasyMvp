@@ -1,4 +1,4 @@
-package com.dingmouren.easymvp.bean;
+package com.dingmouren.easymvp.util;
 
 import org.greenrobot.greendao.converter.PropertyConverter;
 
@@ -7,6 +7,7 @@ import java.util.List;
 
 /**
  * Created by dingmouren on 2017/1/7.
+ * greendao保存数据时，出现的List<String> 这种类型的转换，使用之后就可以保存到greendao的数据库了
  */
 
 public class GreenConverter implements PropertyConverter<List,String>{
