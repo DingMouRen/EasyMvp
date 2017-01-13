@@ -46,8 +46,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:layout_marginRight="@dimen/activity_horizontal_margin">
-
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            >
             <TextView
                 android:id="@+id/tv_video_title"
                 android:layout_width="wrap_content"

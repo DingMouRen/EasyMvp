@@ -1,5 +1,6 @@
 package com.dingmouren.easymvp.ui.videos;
 
+import android.graphics.Bitmap;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
@@ -31,7 +32,6 @@ public class VideosFragment extends BaseFragment implements VideoContract.View{
     protected void setUpView() {
         mAdapter = new VideoAdapter(getContext());
         mList = mAdapter.getmList();
-
         //RecyclerView相关
         mLinearLayoutManager = new LinearLayoutManager(mRecycler.getContext());
         mRecycler.setHasFixedSize(true);
@@ -55,6 +55,7 @@ public class VideosFragment extends BaseFragment implements VideoContract.View{
     public List<VideoBean> getVideoAdapterList() {
         return mList;
     }
+
 
     @Override
     public void onDestroyView() {

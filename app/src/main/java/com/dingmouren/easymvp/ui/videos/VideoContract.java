@@ -1,5 +1,7 @@
 package com.dingmouren.easymvp.ui.videos;
 
+import android.graphics.Bitmap;
+
 import com.dingmouren.easymvp.base.BasePresenter;
 import com.dingmouren.easymvp.base.BaseView;
 import com.dingmouren.easymvp.bean.video.VideoBean;
