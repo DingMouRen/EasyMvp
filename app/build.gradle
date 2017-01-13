@@ -85,8 +85,10 @@ dependencies {
     compile 'org.androidannotations:androidannotations:4.2.0'
     /*图片选择*/
     compile 'com.github.YancyYe:GalleryPick:1.1.4'
-    /*获取网络视频缩略图*/
+    /*获取网络视频缩略图,在项目中没有用到，用的是android原生的api*/
     compile 'com.github.wseemann:FFmpegMediaMetadataRetriever:1.0.14'
+    /*上拉加载下拉刷新控件*/
+    compile 'com.lcodecorex:tkrefreshlayout:1.0.5'
 }
 //数据库版本以及Dao的相关设置
 greendao {

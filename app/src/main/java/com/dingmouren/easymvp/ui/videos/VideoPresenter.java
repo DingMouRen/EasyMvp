@@ -80,7 +80,7 @@ public class VideoPresenter implements VideoContract.Presenter {
                             mRetriever.setDataSource(url);
                         }
                     }
-                    bitmap = mRetriever.getFrameAtTime(500, MediaMetadataRetriever.OPTION_CLOSEST_SYNC);
+                    bitmap = mRetriever.getFrameAtTime(1000, MediaMetadataRetriever.OPTION_CLOSEST_SYNC);
                     ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
                     bitmap.compress(Bitmap.CompressFormat.PNG,100,byteArrayOutputStream);
                     bytes = byteArrayOutputStream.toByteArray();

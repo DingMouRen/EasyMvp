@@ -6,13 +6,13 @@
         <item name="colorPrimary">@color/main_color</item>
         <item name="colorPrimaryDark">@color/main_color</item>
         <item name="colorAccent">@color/main_color</item>
+        <item name="android:windowBackground">@android:color/white</item>
     </style>
 
     <!--欢迎界面theme-->
     <style name="SplashTheme" parent="AppTheme" >
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowNoTitle">true</item>
-        <item name="android:windowBackground">@android:color/transparent</item>
     </style>
     <!--HomeActivity的theme-->
     <style name="HomeActivityTheme" parent="AppTheme">
