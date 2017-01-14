@@ -1,46 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/coordinator"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:fitsSystemWindows="true"
-    >
+    android:fitsSystemWindows="true">
+
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         android:fitsSystemWindows="true"
-        >
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
         <android.support.design.widget.CollapsingToolbarLayout
             android:id="@+id/collapsing"
             android:layout_width="match_parent"
             android:layout_height="300dp"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed"
             android:fitsSystemWindows="true"
-            app:contentScrim="@android:color/transparent"
-            app:expandedTitleMarginStart="0dp"
-            app:expandedTitleMarginEnd="0dp"
             app:collapsedTitleGravity="left"
+            app:contentScrim="@android:color/transparent"
             app:expandedTitleGravity="left"
-            >
+            app:expandedTitleMarginEnd="0dp"
+            app:expandedTitleMarginStart="0dp"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
             <ImageView
                 android:id="@+id/img_about"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:scaleType="centerCrop"
                 android:fitsSystemWindows="true"
+                android:scaleType="centerCrop"
                 android:src="@mipmap/about"
-                app:layout_collapseMode="parallax"
-                />
+                app:layout_collapseMode="parallax" />
+
             <android.support.v7.widget.Toolbar
                 android:id="@+id/title_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                app:layout_scrollFlags="scroll|exitUntilCollapsed"
                 app:layout_collapseMode="pin"
-                />
+                app:layout_scrollFlags="scroll|exitUntilCollapsed" />
         </android.support.design.widget.CollapsingToolbarLayout>
 
     </android.support.design.widget.AppBarLayout>
@@ -50,90 +49,246 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:elevation="@dimen/dp_5"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        >
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            >
-        <android.support.v7.widget.CardView
-            android:id="@+id/card_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:layout_marginRight="@dimen/activity_horizontal_margin"
-            app:cardCornerRadius="@dimen/dp_5"
-            app:cardElevation="@dimen/dp_5"
-            app:contentPadding="@dimen/dp_5"
-            android:layout_margin="@dimen/dp_5"
-            >
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:lineSpacingExtra="@dimen/keyline_1_minus_8dp"
-            android:padding="@dimen/activity_horizontal_margin"
-            android:text="@string/Goodbye_Again_Cambridge"
-            />
-        </android.support.v7.widget.CardView>
-        <android.support.v7.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:layout_marginRight="@dimen/activity_horizontal_margin"
-            app:cardCornerRadius="@dimen/dp_5"
-            app:cardElevation="@dimen/dp_5"
-            app:contentPadding="@dimen/dp_5"
-            android:layout_margin="@dimen/dp_5"
-            >
-            <TextView
+            android:orientation="vertical">
+            <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="16sp"
-                android:lineSpacingExtra="@dimen/keyline_1_minus_8dp"
-                android:padding="@dimen/activity_horizontal_margin"
-                android:text="@string/Goodbye_Again_Cambridge"
-                />
-        </android.support.v7.widget.CardView>
-         <android.support.v7.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:layout_marginRight="@dimen/activity_horizontal_margin"
-            app:cardCornerRadius="@dimen/dp_5"
-            app:cardElevation="@dimen/dp_5"
-            app:contentPadding="@dimen/dp_5"
-            android:layout_margin="@dimen/dp_5"
-            >
-            <TextView
+                android:layout_margin="@dimen/dp_5"
+                android:layout_marginLeft="32dp"
+                android:layout_marginRight="32dp"
+                app:cardCornerRadius="@dimen/dp_5"
+                app:cardElevation="10dp"
+                app:contentPadding="@dimen/dp_5">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:gravity="center_vertical"
+                    android:drawableRight="@mipmap/myheader"
+                    android:text="android开发爱好者  独立思考的行者"
+                    android:padding="10dp"
+                    android:textSize="16sp" />
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/card_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="16sp"
-                android:lineSpacingExtra="@dimen/keyline_1_minus_8dp"
-                android:padding="@dimen/activity_horizontal_margin"
-                android:text="@string/Goodbye_Again_Cambridge"
-                />
-        </android.support.v7.widget.CardView>
-         <android.support.v7.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:layout_marginRight="@dimen/activity_horizontal_margin"
-            app:cardCornerRadius="@dimen/dp_5"
-            app:cardElevation="@dimen/dp_5"
-            app:contentPadding="@dimen/dp_5"
-            android:layout_margin="@dimen/dp_5"
-            >
-            <TextView
+                android:layout_margin="@dimen/dp_5"
+                android:layout_marginLeft="32dp"
+                android:layout_marginRight="32dp"
+                app:cardCornerRadius="@dimen/dp_5"
+                app:cardElevation="10dp"
+                app:contentPadding="@dimen/dp_5">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:lineSpacingExtra="@dimen/keyline_1_minus_8dp"
+                    android:padding="@dimen/activity_horizontal_margin"
+                    android:text="@string/Goodbye_Again_Cambridge"
+                    android:textSize="16sp" />
+            </android.support.v7.widget.CardView>
+
+
+            <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="16sp"
-                android:lineSpacingExtra="@dimen/keyline_1_minus_8dp"
-                android:padding="@dimen/activity_horizontal_margin"
-                android:text="@string/Goodbye_Again_Cambridge"
-                />
-        </android.support.v7.widget.CardView>
+                android:layout_margin="@dimen/dp_5"
+                android:layout_marginLeft="32dp"
+                android:layout_marginRight="32dp"
+                app:cardCornerRadius="@dimen/dp_5"
+                app:cardElevation="10dp"
+                app:contentPadding="@dimen/dp_5">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="项目中使用到的库："
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:drawableLeft="@mipmap/dian"
+                            android:drawableTint="@color/colorPrimary"
+                            android:gravity="center_vertical"
+                            android:text="RxJava"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:drawableLeft="@mipmap/dian"
+                            android:drawableTint="@color/colorPrimary"
+                            android:gravity="center_vertical"
+                            android:text="Retrofit2"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:drawableLeft="@mipmap/dian"
+                            android:drawableTint="@color/colorPrimary"
+                            android:gravity="center_vertical"
+                            android:text="Glide"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:drawableLeft="@mipmap/dian"
+                            android:drawableTint="@color/colorPrimary"
+                            android:gravity="center_vertical"
+                            android:text="Photoview"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:drawableLeft="@mipmap/dian"
+                            android:drawableTint="@color/colorPrimary"
+                            android:gravity="center_vertical"
+                            android:text="ButterKnife"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:drawableLeft="@mipmap/dian"
+                            android:drawableTint="@color/colorPrimary"
+                            android:gravity="center_vertical"
+                            android:text="JLog"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:drawableLeft="@mipmap/dian"
+                            android:drawableTint="@color/colorPrimary"
+                            android:gravity="center_vertical"
+                            android:text="GreenDao 3.0"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:drawableLeft="@mipmap/dian"
+                            android:drawableTint="@color/colorPrimary"
+                            android:gravity="center_vertical"
+                            android:text="Retrofit2"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:drawableLeft="@mipmap/dian"
+                            android:drawableTint="@color/colorPrimary"
+                            android:gravity="center_vertical"
+                            android:text="Fab-speed-dial"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:drawableLeft="@mipmap/dian"
+                            android:drawableTint="@color/colorPrimary"
+                            android:gravity="center_vertical"
+                            android:text="GSYVideoPlayer"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:drawableLeft="@mipmap/dian"
+                            android:drawableTint="@color/colorPrimary"
+                            android:gravity="center_vertical"
+                            android:text="CircleView"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:drawableLeft="@mipmap/dian"
+                            android:drawableTint="@color/colorPrimary"
+                            android:gravity="center_vertical"
+                            android:text="Multitype"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:drawableLeft="@mipmap/dian"
+                            android:drawableTint="@color/colorPrimary"
+                            android:gravity="center_vertical"
+                            android:text="EventBus"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:drawableLeft="@mipmap/dian"
+                            android:drawableTint="@color/colorPrimary"
+                            android:gravity="center_vertical"
+                            android:text="Banner"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:drawableLeft="@mipmap/dian"
+                            android:drawableTint="@color/colorPrimary"
+                            android:gravity="center_vertical"
+                            android:text="GalleryPick"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:drawableLeft="@mipmap/dian"
+                            android:drawableTint="@color/colorPrimary"
+                            android:gravity="center_vertical"
+                            android:text="Lambda表达式的使用"
+                            android:textSize="16sp" />
+
+                    </LinearLayout>
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dp_5"
+                android:layout_marginLeft="32dp"
+                android:layout_marginRight="32dp"
+                app:cardCornerRadius="@dimen/dp_5"
+                app:cardElevation="10dp"
+                app:contentPadding="@dimen/dp_5">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:lineSpacingExtra="@dimen/keyline_1_minus_8dp"
+                    android:padding="@dimen/activity_horizontal_margin"
+                    android:text="最后感谢这些优秀开源库的开发者们"
+                    android:textSize="16sp" />
+            </android.support.v7.widget.CardView>
 
         </LinearLayout>
 
@@ -144,10 +299,9 @@
         android:id="@+id/fab_about"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@mipmap/arrow_back"
-        app:layout_anchor="@id/nestedScrollView"
-        app:layout_anchorGravity="bottom|right"
         android:layout_marginBottom="@dimen/activity_horizontal_margin"
         android:layout_marginRight="@dimen/activity_horizontal_margin"
-        />
+        android:src="@mipmap/arrow_back"
+        app:layout_anchor="@id/nestedScrollView"
+        app:layout_anchorGravity="bottom|right" />
 </android.support.design.widget.CoordinatorLayout>

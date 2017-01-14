@@ -50,10 +50,9 @@ public class AboutActivity extends BaseActivity {
     @Override
     protected void setUpView() {
         mTitleToolbar.setTitle("");
-        mTitleToolbar.setLogo(R.mipmap.android);
         setSupportActionBar(mTitleToolbar);
 
-        mCollapsing.setTitle("钉某人");
+        mCollapsing.setTitle("");
         mCollapsing.setExpandedTitleColor(getResources().getColor(android.R.color.transparent));
         mCollapsing.setCollapsedTitleTextColor(getResources().getColor(android.R.color.white));
 
