@@ -18,6 +18,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ApiManager {
 
     private static final int READ_TIME_OUT = 3;
+
     private static final int CONNECT_TIME_OUT = 3;
 
     private GankApi mGankApiService;
