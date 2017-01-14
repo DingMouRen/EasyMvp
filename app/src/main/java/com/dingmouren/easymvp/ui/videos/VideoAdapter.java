@@ -13,12 +13,16 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.dingmouren.easymvp.MyApplication;
 import com.dingmouren.easymvp.R;
 import com.dingmouren.easymvp.bean.video.VideoBean;
 import com.dingmouren.easymvp.bean.video.VideoCoverBean;
 import com.dingmouren.easymvp.util.MyGlideImageLoader;
 import com.dingzi.greendao.VideoCoverBeanDao;
+import com.shuyu.gsyvideoplayer.GSYPreViewManager;
+
+import org.greenrobot.greendao.query.QueryBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +30,10 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
+import rx.Observable;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Func1;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by dingmouren on 2017/1/12.
@@ -81,8 +89,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ViewHolder> 
         TextView hatesCount;
         @BindView(R.id.tv_video_time)
         TextView time;
-        Bitmap bitmap;
-        ImageView img;
+        private String video_uri;
         public ViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
@@ -91,7 +98,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ViewHolder> 
         public void bindData(VideoBean bean, int position) {
             mVideoPlayer.hidden();
             mVideoPlayer.setUp(bean.getVideo_uri(), false, "");
-
+            video_uri = bean.getVideo_uri();
             if (null != bean) {
                 MyGlideImageLoader.displayImage(bean.getProfile_image(), imgUser);
                 userName.setText(bean.getName());
@@ -100,22 +107,39 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ViewHolder> 
                 hatesCount.setText(bean.getHate());
                 time.setText(bean.getCreate_time());
             }
-//            showCover(bean.getVideo_uri());//显示封面图会使内存暴增 。。。。。。
+            showCover();//显示封面图
+        }
+        private void showCover() {
+
+            Observable.just(MyApplication.getDaoSession().getVideoCoverBeanDao().queryBuilder())
+                     .flatMap(new Func1<QueryBuilder<VideoCoverBean>, Observable<ImageView>>() {
+                         @Override
+                         public Observable<ImageView> call(QueryBuilder<VideoCoverBean> videoCoverBeanQueryBuilder) {
+                             return Observable.just(createImg(videoCoverBeanQueryBuilder));
+                         }
+                     }).subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(imageView -> {
+                        if (null != imageView){
+                            mVideoPlayer.getThumbImageViewLayout().removeAllViews();
+                           mVideoPlayer.setThumbImageView(imageView);
+                        }
+                    });
         }
 
-        private void showCover(String video_uri) {
-            List<VideoCoverBean> listCovers = MyApplication.getDaoSession().getVideoCoverBeanDao().queryBuilder().where(VideoCoverBeanDao.Properties.Url.eq(video_uri)).list();
-            if (null != listCovers && 0 < listCovers.size()) {
-                byte[] bytes = listCovers.get(0).getBytes();
-                if (null != bytes && video_uri.equals(listCovers.get(0).getUrl())) {
-                    bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-                    img = new ImageView(itemView.getContext());
+        private ImageView createImg(QueryBuilder<VideoCoverBean> queryBuilder) {
+            ImageView img = new ImageView(itemView.getContext());
+            List<VideoCoverBean> list = queryBuilder.where(VideoCoverBeanDao.Properties.Url.eq(video_uri)).list();
+            if (null != list && 0 < list.size()){
+                VideoCoverBean videoCoverBean= list.get(0);
+                if (null != videoCoverBean && null != videoCoverBean.getBytes()){
+                    Bitmap bitmap = BitmapFactory.decodeByteArray(videoCoverBean.getBytes(),0,videoCoverBean.getBytes().length);
                     img.setScaleType(ImageView.ScaleType.CENTER_CROP);
                     img.setImageBitmap(bitmap);
-                    mVideoPlayer.setThumbImageView(img);
+                    return img;
                 }
             }
-
+            return null;
         }
     }
 }

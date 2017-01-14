@@ -50,7 +50,7 @@ public class AboutActivity extends BaseActivity {
     @Override
     protected void setUpView() {
         mTitleToolbar.setTitle("");
-        mTitleToolbar.setLogo(R.drawable.about_header);
+        mTitleToolbar.setLogo(R.mipmap.android);
         setSupportActionBar(mTitleToolbar);
 
         mCollapsing.setTitle("钉某人");

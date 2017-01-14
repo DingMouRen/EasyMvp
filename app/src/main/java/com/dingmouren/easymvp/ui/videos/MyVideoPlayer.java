@@ -10,6 +10,8 @@ import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.dingmouren.easymvp.R;
 import com.shuyu.gsyvideoplayer.GSYImageCover;
 import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer;
@@ -39,7 +41,7 @@ public class MyVideoPlayer extends StandardGSYVideoPlayer {
     private ENPlayView start;
     private ImageView small_close;
     private ImageView lock_screen;
-
+    private Context mContext;
     public MyVideoPlayer(Context context, Boolean fullFlag) {
         super(context, fullFlag);
     }
@@ -50,6 +52,7 @@ public class MyVideoPlayer extends StandardGSYVideoPlayer {
 
     public MyVideoPlayer(Context context, AttributeSet attrs) {
         super(context, attrs);
+        this.mContext = context;
         initView();
     }
 

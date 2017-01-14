@@ -11,6 +11,7 @@ import android.widget.AbsListView;
 
 import com.dingmouren.easymvp.Constant;
 import com.dingmouren.easymvp.MyApplication;
+import com.dingmouren.easymvp.R;
 import com.dingmouren.easymvp.api.ApiManager;
 import com.dingmouren.easymvp.bean.video.VideoBean;
 import com.dingmouren.easymvp.bean.video.VideoCoverBean;
@@ -43,6 +44,7 @@ public class VideoPresenter implements VideoContract.Presenter {
     ExecutorService fixedThreadPool = Executors.newFixedThreadPool(6);
     private long count;//用来记录从数据库取出指定项的数量
     private int page = 1;
+
     public VideoPresenter(VideoContract.View view) {
         this.mView = view;
         this.mList = mView.getVideoAdapterList();
@@ -52,10 +54,10 @@ public class VideoPresenter implements VideoContract.Presenter {
 
     @Override
     public void requestData() {
-        if (mView.isRefreshingg() && !isLoadMore && NetworkUtil.isAvailable(mRecycler.getContext())){//这里加了一个对网络状态的判断，防止了一个bug的发生，情景是下拉刷新时滑动recyclerview崩溃的异常，
+        if (mView.isRefreshingg() && !isLoadMore && NetworkUtil.isAvailable(mRecycler.getContext())) {//这里加了一个对网络状态的判断，防止了一个bug的发生，情景是下拉刷新时滑动recyclerview崩溃的异常，
             mList.clear();//请求第一页时，将之前列表显示数据清空
             page = 1;
-        }else if (!mView.isRefreshingg() && isLoadMore) {
+        } else if (!mView.isRefreshingg() && isLoadMore) {
             page = page + 1;
         }
         ApiManager.getApiInstance().getVideoApiService().getVideoList(Constant.SHOW_API_APP_ID, Constant.SHOW_API_SIGN, "41", String.valueOf(page))
@@ -83,7 +85,7 @@ public class VideoPresenter implements VideoContract.Presenter {
     }
 
     /**
-     *  往数据库中存储封面图的字节数组
+     * 往数据库中存储封面图的字节数组
      */
     private void storeCoverData(String url) {
         fixedThreadPool.execute(new Runnable() {
@@ -102,7 +104,7 @@ public class VideoPresenter implements VideoContract.Presenter {
                     }
                     bitmap = mRetriever.getFrameAtTime(1000, MediaMetadataRetriever.OPTION_CLOSEST_SYNC);
                     ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-                    bitmap.compress(Bitmap.CompressFormat.PNG,100,byteArrayOutputStream);
+                    bitmap.compress(Bitmap.CompressFormat.PNG, 10, byteArrayOutputStream);
                     bytes = byteArrayOutputStream.toByteArray();
                     count = MyApplication.getDaoSession().getVideoCoverBeanDao().queryBuilder().where(VideoCoverBeanDao.Properties.Url.eq(url)).count();
                     if (count == 0) {
@@ -115,7 +117,7 @@ public class VideoPresenter implements VideoContract.Presenter {
                 }
             }
         });
-      }
+    }
 
     /**
      * 滑动到底部自动加载下一页
@@ -142,7 +144,10 @@ public class VideoPresenter implements VideoContract.Presenter {
                 mLastVisibleItem = mLinearLayoutManager.findLastVisibleItemPosition();
             }
         });
+
     }
 
-
 }
+
+
+
