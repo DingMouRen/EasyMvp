@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -80,6 +81,8 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ViewHolder> 
         TextView hatesCount;
         @BindView(R.id.tv_video_time)
         TextView time;
+        Bitmap bitmap;
+        ImageView img;
         public ViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
@@ -97,7 +100,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ViewHolder> 
                 hatesCount.setText(bean.getHate());
                 time.setText(bean.getCreate_time());
             }
-            showCover(bean.getVideo_uri());//显示封面图
+//            showCover(bean.getVideo_uri());//显示封面图会使内存暴增 。。。。。。
         }
 
         private void showCover(String video_uri) {
@@ -105,8 +108,8 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ViewHolder> 
             if (null != listCovers && 0 < listCovers.size()) {
                 byte[] bytes = listCovers.get(0).getBytes();
                 if (null != bytes && video_uri.equals(listCovers.get(0).getUrl())) {
-                    Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-                    ImageView img = new ImageView(itemView.getContext());
+                    bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                    img = new ImageView(itemView.getContext());
                     img.setScaleType(ImageView.ScaleType.CENTER_CROP);
                     img.setImageBitmap(bitmap);
                     mVideoPlayer.setThumbImageView(img);

@@ -1,6 +1,8 @@
 package com.dingmouren.easymvp.ui.videos;
 
 import android.graphics.Bitmap;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 
 import com.dingmouren.easymvp.base.BasePresenter;
 import com.dingmouren.easymvp.base.BaseView;
@@ -15,8 +17,13 @@ import java.util.List;
 public interface VideoContract {
 
     interface View extends BaseView{
-        void setData();
+        void notifyDataSetChanged();
         List<VideoBean> getVideoAdapterList();
+        void setRefresh(boolean refresh);
+        void loadMore(boolean loadMore);
+        LinearLayoutManager getLayoutManager();
+        RecyclerView getRecyclerView();
+        boolean isRefreshingg();
     }
 
     interface Presenter<V extends View> extends BasePresenter{

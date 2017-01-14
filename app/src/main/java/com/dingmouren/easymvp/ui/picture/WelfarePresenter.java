@@ -79,6 +79,7 @@ public class WelfarePresenter implements WelfareContract.Presenter<WelfareContra
             mItems.add(list.get(i));
         }
         mView.notifyDataSetChanged();
+        isLoadMore = false;//加载完数据，将上拉加载更多的标记置为false
         //将数据插入数据库
         Observable.from(list).subscribeOn(Schedulers.io()).subscribe(gankResultWelfare -> {
             //避免插入重复数据的逻辑
