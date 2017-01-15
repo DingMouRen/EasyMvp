@@ -5,7 +5,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,14 +12,13 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.dingmouren.easymvp.MyApplication;
 import com.dingmouren.easymvp.R;
 import com.dingmouren.easymvp.bean.video.VideoBean;
 import com.dingmouren.easymvp.bean.video.VideoCoverBean;
+import com.dingmouren.easymvp.util.DateUtils;
 import com.dingmouren.easymvp.util.MyGlideImageLoader;
 import com.dingzi.greendao.VideoCoverBeanDao;
-import com.shuyu.gsyvideoplayer.GSYPreViewManager;
 
 import org.greenrobot.greendao.query.QueryBuilder;
 
@@ -105,7 +103,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ViewHolder> 
                 videoTitle.setText(bean.getText().trim());
                 likesCount.setText(bean.getLove());
                 hatesCount.setText(bean.getHate());
-                time.setText(bean.getCreate_time());
+                time.setText(DateUtils.friendlyTime(bean.getCreate_time()));
             }
             showCover();//显示封面图
         }
