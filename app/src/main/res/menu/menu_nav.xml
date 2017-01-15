@@ -3,17 +3,10 @@
     <item
         android:id="@+id/item1"
         android:title="美女相册"
-        android:icon="@android:drawable/ic_menu_gallery"/>
+        android:icon="@mipmap/gallery_icon"
+        />
     <item
         android:id="@+id/item2"
-        android:title="视频"
-        android:icon="@android:drawable/presence_video_away"/>
-    <item
-        android:id="@+id/item3"
-        android:title="冬天很美"
-        android:icon="@android:drawable/ic_menu_share"/>
-    <item
-        android:id="@+id/item4"
-        android:title="item"
-        android:icon="@android:drawable/ic_menu_share"/>
+        android:title="关于"
+        android:icon="@mipmap/about_icon"/>
 </menu>

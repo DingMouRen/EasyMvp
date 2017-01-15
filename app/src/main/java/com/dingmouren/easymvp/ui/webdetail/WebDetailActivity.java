@@ -21,9 +21,13 @@ import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.dingmouren.easymvp.Constant;
 import com.dingmouren.easymvp.R;
 import com.dingmouren.easymvp.base.BaseActivity;
+import com.dingmouren.easymvp.ui.gallery.GalleryActivity;
 import com.dingmouren.easymvp.util.NetworkUtil;
+import com.dingmouren.easymvp.util.SPUtil;
+import com.dingmouren.easymvp.util.StatusBarUtil;
 import com.jiongbull.jlog.JLog;
 
 import butterknife.BindView;
@@ -70,6 +74,7 @@ public class WebDetailActivity extends BaseActivity {
         setSupportActionBar(mToolbar);
         mToolbar.setNavigationIcon(R.mipmap.arrow_back);
         mToolbar.setNavigationOnClickListener((view) -> finish());
+        initNightMode();//初始化夜间模式
 
     }
 
@@ -189,6 +194,23 @@ public class WebDetailActivity extends BaseActivity {
     private void showError(){
         mProgressBar.setIndeterminateDrawable( getResources().getDrawable(R.mipmap.loading_error));
         mProgressBar.setProgressDrawable(getResources().getDrawable(R.mipmap.loading_error));
+    }
+
+    /**
+     * 初始化夜间模式
+     */
+    private void initNightMode(){
+        if ((Boolean) SPUtil.get(WebDetailActivity.this, Constant.NIGHT_MODE,true)){
+            mToolbar.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+            mToolbar.setTitleTextColor(getResources().getColor(android.R.color.white));
+            mToolbar.setNavigationIcon(R.mipmap.arrow_back);
+            StatusBarUtil.setStatusBarColor(WebDetailActivity.this,getResources().getColor(R.color.colorPrimaryDark));
+        }else {
+            mToolbar.setBackgroundColor(getResources().getColor(android.R.color.black));
+            mToolbar.setTitleTextColor(getResources().getColor(android.R.color.darker_gray));
+            mToolbar.setNavigationIcon(R.mipmap.arrow_back_night);
+            StatusBarUtil.setStatusBarColor(WebDetailActivity.this,getResources().getColor(android.R.color.black));
+        }
     }
 
     /**

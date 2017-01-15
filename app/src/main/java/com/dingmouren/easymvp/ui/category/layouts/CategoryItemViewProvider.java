@@ -67,6 +67,8 @@ public class CategoryItemViewProvider
             } else {
                 carView.setBackgroundColor(mContext.getResources().getColor(android.R.color.black));
                 tvTitle.setTextColor(mContext.getResources().getColor(android.R.color.darker_gray));
+                tvAnthor.setTextColor(mContext.getResources().getColor(android.R.color.darker_gray));
+                tvTime.setTextColor(mContext.getResources().getColor(android.R.color.darker_gray));
             }
 
             tvTitle.setText(gank.getDesc());

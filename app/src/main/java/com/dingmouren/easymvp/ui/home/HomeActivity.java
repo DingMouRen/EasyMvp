@@ -43,6 +43,7 @@ import com.dingmouren.easymvp.ui.gallery.GalleryActivity;
 import com.dingmouren.easymvp.ui.picture.WelfareFragment;
 import com.dingmouren.easymvp.ui.reading.ReadingFragment;
 import com.dingmouren.easymvp.ui.videos.VideosFragment;
+import com.dingmouren.easymvp.ui.webdetail.WebDetailActivity;
 import com.dingmouren.easymvp.util.MyGlideImageLoader;
 import com.dingmouren.easymvp.util.SPUtil;
 import com.dingmouren.easymvp.util.SnackbarUtils;
@@ -140,6 +141,9 @@ public class HomeActivity extends BaseActivity  {
         mNavView.getHeaderView(0).findViewById(R.id.img_btn_night).setOnClickListener((view)-> changeNightMode());//切换夜间模式的按钮监听
         mNavHeaderImg = (ImageView) mNavView.getHeaderView(0).findViewById(R.id.img_nav_header);
         mNavHeaderImg.setOnClickListener((view)-> changeHeader());//更换头像
+        //博客点击跳转
+        mNavView.getHeaderView(0).findViewById(R.id.linear_csdn).setOnClickListener((view)-> WebDetailActivity.newInstance(this,getResources().getString(R.string.csdn_url),"钉某人的CSDN"));
+        mNavView.getHeaderView(0).findViewById(R.id.linear_github).setOnClickListener((view)->WebDetailActivity.newInstance(this,getResources().getString(R.string.github_url),"钉某人的github"));
     }
 
     /**
@@ -242,21 +246,7 @@ public class HomeActivity extends BaseActivity  {
         mCurrentFragment = fragment;
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_home,menu);
-        return true;
-    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
-            case R.id.action_about:
-                AboutActivity.newInstance(this);
-                break;
-        }
-        return super.onOptionsItemSelected(item);
-    }
 
     //侧滑栏选项的监听
     NavigationView.OnNavigationItemSelectedListener mNavgationViewItemSelectedListener = new NavigationView.OnNavigationItemSelectedListener() {
@@ -267,9 +257,9 @@ public class HomeActivity extends BaseActivity  {
                     startActivity(new Intent(HomeActivity.this, GalleryActivity.class));
                     break;
                 case R.id.item2:
+                    AboutActivity.newInstance(HomeActivity.this);
                     break;
-                case R.id.item3:
-                    break;
+
 
             }
             mDrawer.closeDrawers();

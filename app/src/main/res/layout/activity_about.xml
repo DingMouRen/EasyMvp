@@ -297,11 +297,12 @@
     <!--fab从colorAccent取色-->
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab_about"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_marginBottom="@dimen/activity_horizontal_margin"
         android:layout_marginRight="@dimen/activity_horizontal_margin"
         android:src="@mipmap/arrow_back"
+        android:layout_gravity="center"
         app:layout_anchor="@id/nestedScrollView"
         app:layout_anchorGravity="bottom|right" />
 </android.support.design.widget.CoordinatorLayout>

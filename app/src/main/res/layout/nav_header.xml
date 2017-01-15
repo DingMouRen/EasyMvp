@@ -6,16 +6,6 @@
     android:layout_height="200dp"
     android:background="@color/main_color">
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/img_nav_header"
-        android:layout_width="@dimen/img_width_nav_header"
-        android:layout_height="@dimen/img_height_nav_header"
-        android:src="@mipmap/fab"
-        app:border_color="@android:color/white"
-        app:border_width="@dimen/dp_3"
-        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-        android:layout_centerVertical="true"
-          />
     <ImageButton
         android:id="@+id/img_btn_night"
         android:layout_width="45dp"
@@ -25,4 +15,78 @@
         android:layout_marginRight="@dimen/activity_vertical_margin"
         android:layout_marginTop="32dp"
         />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/img_nav_header"
+        android:layout_width="@dimen/img_width_nav_header"
+        android:layout_height="@dimen/img_height_nav_header"
+        android:src="@mipmap/fab"
+        app:border_color="@android:color/white"
+        app:border_width="@dimen/dp_3"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_alignTop="@+id/img_btn_night"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="19dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_below="@+id/img_nav_header"
+        android:layout_alignStart="@+id/img_nav_header"
+        android:layout_marginTop="20dp"
+        >
+        <!--csdn-->
+        <LinearLayout
+            android:id="@+id/linear_csdn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:clickable="true"
+            >
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@mipmap/csdn_icon"
+                android:tint="#D81E06"
+                android:layout_gravity="center_vertical"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/white"
+                android:layout_marginLeft="@dimen/dp_5"
+                android:text="@string/csdn_url"
+                android:layout_gravity="center_vertical"
+                />
+        </LinearLayout>
+         <!--github-->
+        <LinearLayout
+            android:id="@+id/linear_github"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:clickable="true"
+            android:weightSum="1">
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@mipmap/github_icon"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="@dimen/dp_5"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/white"
+                android:layout_marginLeft="@dimen/dp_5"
+                android:layout_marginStart="10dp"
+                android:text="@string/github_url"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="0.24" />
+        </LinearLayout>
+
+    </LinearLayout>
 </RelativeLayout>

@@ -4,7 +4,9 @@
     android:layout_height="@dimen/img_girl_height_256dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_margin="@dimen/dp_3"
-    app:cardCornerRadius="@dimen/dp_3">
+    app:cardCornerRadius="8dp"
+    android:elevation="8dp"
+    >
 
     <com.dingmouren.easymvp.view.AutoScaleHeightImageView
         android:id="@+id/img"

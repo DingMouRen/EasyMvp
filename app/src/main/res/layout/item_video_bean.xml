@@ -5,7 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="350dp"
     android:layout_margin="@dimen/dp_5"
-    app:cardCornerRadius="@dimen/dp_5">
+    app:cardCornerRadius="8dp"
+    android:elevation="8dp"
+    >
 
 
     <com.dingmouren.easymvp.ui.videos.MyVideoPlayer
