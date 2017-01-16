@@ -29,8 +29,6 @@ public class GalleryPresenter implements GalleryContract.Presenter<GalleryContra
     private boolean isLoadMore = false;
     private int mLastVisibleItem;
     public List<GankResultWelfare> mList = new ArrayList<>();
-    private int mLastPos = -1;
-    private Runnable mBlurRunnable;
 
     public GalleryPresenter(GalleryContract.View view){
         this.mGalleryView = view;

@@ -33,7 +33,7 @@ public class MyGlideImageLoader implements ImageLoader{
 
     }
     private static void loadNormal(String url, ImageView img) {
-        Glide.with(mContext).load(url).placeholder(R.mipmap.loading).dontAnimate().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(img);
+        Glide.with(mContext).load(url)/*.placeholder(R.mipmap.loading)*/.dontAnimate().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(img);
     }
     private static void loadCache(String url, ImageView img) {
         Glide.with(mContext).using(new StreamModelLoader<String>() {

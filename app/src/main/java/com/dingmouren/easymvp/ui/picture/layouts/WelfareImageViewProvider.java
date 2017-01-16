@@ -33,7 +33,7 @@ public class WelfareImageViewProvider
     @Override
     protected void onBindViewHolder(
             @NonNull ViewHolder holder, @NonNull GankResultWelfare welfareImage) {
-        Glide.with(holder.img.getContext()).load(welfareImage.getUrl()).centerCrop().placeholder(R.mipmap.loading).into(holder.img);
+        Glide.with(holder.img.getContext()).load(welfareImage.getUrl()).centerCrop().into(holder.img);
         holder.img.setOnClickListener((view -> PictureActivity.newInstance(holder.img.getContext(),welfareImage.getUrl(),welfareImage.get_id())));
     }
 

@@ -54,7 +54,7 @@ public class VideoPresenter implements VideoContract.Presenter {
 
     @Override
     public void requestData() {
-        if (mView.isRefreshingg() && !isLoadMore && NetworkUtil.isAvailable(mRecycler.getContext())) {//这里加了一个对网络状态的判断，防止了一个bug的发生，情景是下拉刷新时滑动recyclerview崩溃的异常，
+        if (mView.isRefreshingg() && NetworkUtil.isAvailable(mRecycler.getContext())) {//这里加了一个对网络状态的判断，防止了一个bug的发生，情景是下拉刷新时滑动recyclerview崩溃的异常，
             mList.clear();//请求第一页时，将之前列表显示数据清空
             page = 1;
         } else if (!mView.isRefreshingg() && isLoadMore) {
@@ -80,7 +80,6 @@ public class VideoPresenter implements VideoContract.Presenter {
             storeCoverData(list.get(i).getVideo_uri());
         }
         mView.notifyDataSetChanged();
-        isLoadMore = false;
 
     }
 
@@ -102,7 +101,7 @@ public class VideoPresenter implements VideoContract.Presenter {
                             mRetriever.setDataSource(url);
                         }
                     }
-                    bitmap = mRetriever.getFrameAtTime(1000, MediaMetadataRetriever.OPTION_CLOSEST_SYNC);
+                    bitmap = mRetriever.getFrameAtTime(2000, MediaMetadataRetriever.OPTION_CLOSEST_SYNC);
                     ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
                     bitmap.compress(Bitmap.CompressFormat.PNG, 10, byteArrayOutputStream);
                     bytes = byteArrayOutputStream.toByteArray();
@@ -110,7 +109,7 @@ public class VideoPresenter implements VideoContract.Presenter {
                     if (count == 0) {
                         MyApplication.getDaoSession().getVideoCoverBeanDao().insertOrReplaceInTx(new VideoCoverBean(url, bytes));
                     }
-                } catch (IllegalArgumentException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 } finally {
                     mRetriever.release();

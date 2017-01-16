@@ -12,6 +12,8 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.dingmouren.easymvp.MyApplication;
 import com.dingmouren.easymvp.R;
 import com.dingmouren.easymvp.bean.video.VideoBean;
@@ -87,7 +89,6 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ViewHolder> 
         TextView hatesCount;
         @BindView(R.id.tv_video_time)
         TextView time;
-        private String video_uri;
         public ViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
@@ -96,36 +97,35 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ViewHolder> 
         public void bindData(VideoBean bean, int position) {
             mVideoPlayer.hidden();
             mVideoPlayer.setUp(bean.getVideo_uri(), false, "");
-            video_uri = bean.getVideo_uri();
             if (null != bean) {
-                MyGlideImageLoader.displayImage(bean.getProfile_image(), imgUser);
+                Glide.with(itemView.getContext()).load(bean.getProfile_image()).placeholder(R.mipmap.fab).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imgUser);
                 userName.setText(bean.getName());
                 videoTitle.setText(bean.getText().trim());
                 likesCount.setText(bean.getLove());
                 hatesCount.setText(bean.getHate());
                 time.setText(DateUtils.friendlyTime(bean.getCreate_time()));
             }
-            showCover();//显示封面图
+            showCover(bean.getVideo_uri());//显示封面图
         }
-        private void showCover() {
+        private void showCover( String video_uri) {
 
             Observable.just(MyApplication.getDaoSession().getVideoCoverBeanDao().queryBuilder())
                      .flatMap(new Func1<QueryBuilder<VideoCoverBean>, Observable<ImageView>>() {
                          @Override
                          public Observable<ImageView> call(QueryBuilder<VideoCoverBean> videoCoverBeanQueryBuilder) {
-                             return Observable.just(createImg(videoCoverBeanQueryBuilder));
+                             return Observable.just(createImg(videoCoverBeanQueryBuilder,video_uri));
                          }
                      }).subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(imageView -> {
-                        if (null != imageView){
-                            mVideoPlayer.getThumbImageViewLayout().removeAllViews();
+                        mVideoPlayer.getThumbImageViewLayout().removeAllViews();
+                        if (null != imageView && video_uri.equals((String) imageView.getTag())){
                            mVideoPlayer.setThumbImageView(imageView);
                         }
                     });
         }
 
-        private ImageView createImg(QueryBuilder<VideoCoverBean> queryBuilder) {
+        private ImageView createImg(QueryBuilder<VideoCoverBean> queryBuilder, String video_uri) {
             ImageView img = new ImageView(itemView.getContext());
             List<VideoCoverBean> list = queryBuilder.where(VideoCoverBeanDao.Properties.Url.eq(video_uri)).list();
             if (null != list && 0 < list.size()){
@@ -133,6 +133,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ViewHolder> 
                 if (null != videoCoverBean && null != videoCoverBean.getBytes()){
                     Bitmap bitmap = BitmapFactory.decodeByteArray(videoCoverBean.getBytes(),0,videoCoverBean.getBytes().length);
                     img.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                    img.setTag(videoCoverBean.getUrl());
                     img.setImageBitmap(bitmap);
                     return img;
                 }

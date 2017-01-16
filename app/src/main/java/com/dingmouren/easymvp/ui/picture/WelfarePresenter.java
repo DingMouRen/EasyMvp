@@ -49,7 +49,7 @@ public class WelfarePresenter implements WelfareContract.Presenter<WelfareContra
      * 请求数据
      */
     public void requestData() {
-        if (mView.isRefreshing() && !isLoadMore && NetworkUtil.isAvailable(mRecycler.getContext())){//这里加了一个对网络状态的判断，防止了一个bug的发生，情景是下拉刷新时滑动recyclerview崩溃的异常，
+        if (mView.isRefreshing() && NetworkUtil.isAvailable(mRecycler.getContext())){//这里加了一个对网络状态的判断，防止了一个bug的发生，情景是下拉刷新时滑动recyclerview崩溃的异常，
             mItems.clear();//请求第一页时，将之前列表显示数据清空
             mPage = 1;
         }else if (!mView.isRefreshing() && isLoadMore) {
@@ -79,7 +79,6 @@ public class WelfarePresenter implements WelfareContract.Presenter<WelfareContra
             mItems.add(list.get(i));
         }
         mView.notifyDataSetChanged();
-        isLoadMore = false;//加载完数据，将上拉加载更多的标记置为false
         //将数据插入数据库
         Observable.from(list).subscribeOn(Schedulers.io()).subscribe(gankResultWelfare -> {
             //避免插入重复数据的逻辑

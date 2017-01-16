@@ -45,7 +45,7 @@ public class CategoryPresenter implements CategoryContract.Presenter{
     }
 
     public void requestData(){
-        if (mView.isRefreshing() && !isLoadMore && NetworkUtil.isAvailable(mRecycler.getContext())){//这里加了一个对网络状态的判断，防止了一个bug的发生，情景是下拉刷新时滑动recyclerview崩溃的异常，
+        if (mView.isRefreshing()  && NetworkUtil.isAvailable(mRecycler.getContext())){//这里加了一个对网络状态的判断，防止了一个bug的发生，情景是下拉刷新时滑动recyclerview崩溃的异常，
             mItems.clear();//请求第一页时，将之前列表显示数据清空
             pageIndex = 1;
         }else if (!mView.isRefreshing() && isLoadMore){
