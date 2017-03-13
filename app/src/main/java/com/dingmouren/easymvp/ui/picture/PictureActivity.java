@@ -3,14 +3,17 @@ package com.dingmouren.easymvp.ui.picture;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.design.internal.NavigationMenu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -118,33 +121,35 @@ public class PictureActivity extends BaseActivity   {
      * 保存图片
      */
     private void saveImage() {
-        SnackbarUtils.showSimpleSnackbar(img,"图片保存在"+ SAVED_PATH);
-        img.buildDrawingCache();
-        Bitmap bitmap = img.getDrawingCache();
-        //将bitmap转换成二进制，写入本地
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG,100,stream);
-        byte[] byteArray = stream.toByteArray();
-        File dir = new File(SAVED_PATH);
-        if (!dir.exists()){
-            dir.mkdir();
+        Bitmap bmp = ((BitmapDrawable)img.getDrawable()).getBitmap();
+        // 首先保存图片
+        File appDir = new File(Environment.getExternalStorageDirectory(), "EasyMvp");
+        if (!appDir.exists()) {
+            appDir.mkdir();
         }
-        File file = new File(dir,"girl_"+imgId + ".png");
-
+        String fileName = System.currentTimeMillis() + ".jpg";
+        File file = new File(appDir, fileName);
         try {
             FileOutputStream fos = new FileOutputStream(file);
-            fos.write(byteArray,0,byteArray.length);
+            bmp.compress(Bitmap.CompressFormat.JPEG, 100, fos);
             fos.flush();
-            //使用广播通知系统相册进行更新相册
-            Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-            Uri uri = Uri.fromFile(file);
-            intent.setData(uri);
-            PictureActivity.this.sendBroadcast(intent);
+            fos.close();
+            Toast.makeText(this,"图片保存在"+appDir.getAbsolutePath(),Toast.LENGTH_SHORT).show();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        // 其次把文件插入到系统图库
+        try {
+            MediaStore.Images.Media.insertImage(this.getContentResolver(),
+                    file.getAbsolutePath(), fileName, null);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        // 最后通知图库更新
+        this.sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse("file://" + appDir.getAbsolutePath())));
     }
 
     @Override
