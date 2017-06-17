@@ -7,26 +7,26 @@
 #### 美女图片
 #### 闲读
 #### 夜间模式
-<br>
-![image](https://github.com/DingMouRen/EasyMvp/raw/master/screenshot/mvp1.png) 
+
+![image](https://github.com/DingMouRen/EasyMvp/raw/master/screenshot/mvp1.png) <br>
 ![image](https://github.com/DingMouRen/EasyMvp/raw/master/screenshot/mvp2.png) 
 
 
 ### **使用到库：**<br>
-#### RxJava
-#### Retrofit2
-#### Glide
-#### Photoview
-#### ButterKnife
-#### JLog
-#### GreenDao 3.0
-#### Fab-speed-dial
-#### GSYVideoPlayer
-#### CircleView
-#### Multitype
-#### EventBus
-#### Banner
-#### GalleryPick
-#### Lambda表达式的使用
+RxJava
+Retrofit2
+Glide
+Photoview
+ButterKnife
+JLog
+GreenDao 3.0
+Fab-speed-dial
+GSYVideoPlayer
+CircleView
+Multitype
+EventBus
+Banner
+GalleryPick
+Lambda表达式的使用
 
 ### API主要来自Gank.io,感谢gank大神的辛苦，也感谢这些优秀库的编写者们
